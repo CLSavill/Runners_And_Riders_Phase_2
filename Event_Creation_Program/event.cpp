@@ -13,7 +13,7 @@ using namespace std;
 
 /* Member function to get the user to input the events name. */
 void Event::set_name() {
-    bool valid_name = false;
+    bool name_chosen = false;
     string name;
     char option;
 
@@ -26,19 +26,19 @@ void Event::set_name() {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
             cin >> option;
 
-            if (option == 'y') valid_name = true;
-            else if (option == 'n') valid_name = false;
+            if (option == 'y') name_chosen = true;
+            else if (option == 'n') name_chosen = false;
             else cout << "Invalid option selected" << endl;
         } while (option != 'y' || option != 'n');
 
-    } while (valid_name == false);
+    } while (name_chosen == false);
 
     this->name = name;
 }
 
 /* Member function to get the user to input the date of the event. */
 void Event::set_date() {
-    bool valid_date = false;
+    bool date_chosen = false;
     string date;
     char option;
 
@@ -51,19 +51,19 @@ void Event::set_date() {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
             cin >> option;
 
-            if (option == 'y') valid_date = true;
-            else if (option == 'n') valid_date = false;
+            if (option == 'y') date_chosen = true;
+            else if (option == 'n') date_chosen = false;
             else cout << "Invalid option selected" << endl;
         } while (option != 'y' || option != 'n');
 
-    } while (valid_date == false);
+    } while (date_chosen == false);
 
     this->date = date;
 }
 
 /* Member function to get the user to input the start time of the event. */
 void Event::set_start_time() {
-    bool valid_start_time = false;
+    bool start_time_chosen = false;
     bool valid_hours = false;
     bool valid_minutes = false;
     int hours;
@@ -100,12 +100,12 @@ void Event::set_start_time() {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
             cin >> option;
 
-            if (option == 'y') valid_start_time = true;
-            else if (option == 'n') valid_start_time = false;
+            if (option == 'y') start_time_chosen = true;
+            else if (option == 'n') start_time_chosen = false;
             else cout << "Invalid option selected" << endl;
         } while (option != 'y' || option != 'n');
 
-    } while (valid_start_time == false);
+    } while (start_time_chosen == false);
 
     start_time = hours + ":" + minutes;
     this->start_time = start_time;
