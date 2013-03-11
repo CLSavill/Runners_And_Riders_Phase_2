@@ -23,8 +23,8 @@ private:
     void export_competitor(); //Member function that will export the competitor's number, name and course letter to a '.txt' file.
     
 public:
-    void Competitor();
-    void ~Competitor();
+    Competitor(int number);
+    ~Competitor();
 };
 
 #endif	/* COMPETITOR_H */

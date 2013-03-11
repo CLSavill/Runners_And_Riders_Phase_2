@@ -7,7 +7,7 @@
  */
 
 #include "event.h"
-
+#include <iostream>
 
 using namespace std;
 
@@ -23,12 +23,12 @@ void Event::set_name() {
         cout << endl << endl << "Are you happy with the name: '" << name << "'?" << endl;
 
         do {
-            cout << "If yes press 'y' then 'Enter'" << endl "If no press 'n' then 'Enter'" << endl;
+            cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
             cin >> option;
 
             if (option == 'y') valid_name = true;
             else if (option == 'n') valid_name = false;
-            else cout "Invalid option selected" << endl;
+            else cout << "Invalid option selected" << endl;
         } while (option != 'y' || option != 'n');
 
     } while (valid_name == false);
@@ -48,12 +48,12 @@ void Event::set_date() {
         cout << endl << endl << "Are you happy with the date: '" << date << "'?" << endl;
 
         do {
-            cout << "If yes press 'y' then 'Enter'" << endl "If no press 'n' then 'Enter'" << endl;
+            cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
             cin >> option;
 
             if (option == 'y') valid_date = true;
             else if (option == 'n') valid_date = false;
-            else cout "Invalid option selected" << endl;
+            else cout << "Invalid option selected" << endl;
         } while (option != 'y' || option != 'n');
 
     } while (valid_date == false);
@@ -97,28 +97,34 @@ void Event::set_start_time() {
         cout << endl << endl << "Are you happy with the start time: '" << hours << ":" << minutes << "'?" << endl;
 
         do {
-            cout << "If yes press 'y' then 'Enter'" << endl "If no press 'n' then 'Enter'" << endl;
+            cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
             cin >> option;
 
             if (option == 'y') valid_start_time = true;
             else if (option == 'n') valid_start_time = false;
-            else cout "Invalid option selected" << endl;
+            else cout << "Invalid option selected" << endl;
         } while (option != 'y' || option != 'n');
 
     } while (valid_start_time == false);
 
-    start_time = hours":"minutes;
+    start_time = hours + ":" + minutes;
     this->start_time = start_time;
 }
 
-/* Member function that will handle adding a competitor to the event. */
-void Event::add_competitor() {
-
+/* Member function that will handle adding a competitor to the event.
+ * @param number The current competitor number.
+ */
+void Event::add_competitor(int number) {
+    Competitor *competitor = new Competitor();
+    competitors->push_back(competitor);
+    cout << "New competitor added to event." << endl << endl;
 }
 
 /* Member function that will handle adding a course to the event. */
 void Event::add_course() {
-
+    Course *course = new Course();
+    courses->push_back(course);
+     cout << "New course added to event." << endl << endl;
 }
 
 /* Member function that will handle exporting the name, date and start_time of the event to a '.txt' file. */
@@ -138,8 +144,8 @@ void Event::export_courses() {
 
 /* Constructor for Event class. */
 Event::Event() {
-    competitors = new vector<Competitor>;
-    courses = new vector<Course>;
+    competitors = new vector<*Competitor>;
+    courses = new vector<*Course>;
     set_name();
     cout << "Event name: " << this->name << endl;
     set_date();
@@ -150,6 +156,6 @@ Event::Event() {
 
 /* Destructor for Event class. */
 Event::~Event() {
-    delete(competitors);
-    delete(courses);
+    //delete(competitors);
+    //delete(courses);
 }

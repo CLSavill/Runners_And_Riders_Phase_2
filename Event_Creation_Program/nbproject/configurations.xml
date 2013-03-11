@@ -4,6 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>competitor.h</itemPath>
+      <itemPath>course.h</itemPath>
+      <itemPath>creator.h</itemPath>
+      <itemPath>event.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,6 +16,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>competitor.cpp</itemPath>
+      <itemPath>course.cpp</itemPath>
+      <itemPath>event.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -25,6 +32,11 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>courses.txt</itemPath>
+    <itemPath>cp_times_1.txt</itemPath>
+    <itemPath>entrants.txt</itemPath>
+    <itemPath>name.txt</itemPath>
+    <itemPath>nodes.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

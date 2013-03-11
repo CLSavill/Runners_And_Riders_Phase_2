@@ -15,7 +15,7 @@ using namespace std;
 /* Main function that just calls a function that takes over. */
 int main(int argc, char** argv) {
     Event *event = new Event();
-    ecp_menu(Event *event);
+    ecp_menu(event);
 
     return 0;
 }
@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
 /* Function that displays the main menu for the event creation program. */
 void ecp_menu(Event *event) {
     int option; //Field to store the user's option input.
+    int number_of_competitors = 0;
 
     do {
         cout << "=======================================================" << endl;
@@ -41,19 +42,20 @@ void ecp_menu(Event *event) {
 
         switch (option) {
             case 1:
-                event->add_competitor();
+                number_of_competitors++;
+                event->add_competitor(number_of_competitors);
                 break;
             case 2:
-                event->add_course();
+                //event->add_course();
                 break;
             case 3:
-                event->export_event();
+                //event->export_event();
                 break;
             case 4:
-                event->export_competitors();
+                //event->export_competitors();
                 break;
             case 5:
-                event->export_courses();
+                //event->export_courses();
                 break;
             case 6:
                 delete(event);
