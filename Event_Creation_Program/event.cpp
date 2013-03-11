@@ -8,6 +8,7 @@
 
 #include "event.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -115,7 +116,7 @@ void Event::set_start_time() {
  * @param number The current competitor number.
  */
 void Event::add_competitor(int number) {
-    Competitor *competitor = new Competitor();
+    Competitor *competitor = new Competitor(number);
     competitors->push_back(competitor);
     cout << "New competitor added to event." << endl << endl;
 }
@@ -124,28 +125,55 @@ void Event::add_competitor(int number) {
 void Event::add_course() {
     Course *course = new Course();
     courses->push_back(course);
-     cout << "New course added to event." << endl << endl;
+    cout << "New course added to event." << endl << endl;
 }
 
 /* Member function that will handle exporting the name, date and start_time of the event to a '.txt' file. */
 void Event::export_event() {
+    ofstream competitors_file;
+    competitors_file.open("name.txt", ios::out);
 
+    if (competitors_file.is_open()) {
+        competitors_file << this->name << "\n" << this->date << "\n" << this->start_time;
+        competitors_file.close();
+    } else cout << "File 'name.txt' could not be written." << endl;
 }
 
 /* Member function that will handle the exporting of the array of competitors to a '.txt' file. */
 void Event::export_competitors() {
+    ofstream competitors_file;
+    competitors_file.open("entrants.txt", ios::out);
 
+    if (competitors_file.is_open()) {
+        for (int counter = 0; counter < this->competitors.size(); counter++) {
+            competitors_file << this->competitors[counter].number << " " << this->competitors[counter].course
+                    << " " << this->competitors[counter].name << "\n";
+        }
+        competitors_file.close();
+    } else cout << "File 'entrants.txt' could not be written." << endl;
 }
 
 /* Member function that will handle the exporting of the array of courses to a '.txt' file. */
 void Event::export_courses() {
+    ofstream courses_file;
+    courses_file.open("courses.txt", ios::out);
 
+    if (courses_file.is_open()) {
+        for (int counter = 0; counter < this->courses.size(); counter++) {
+            courses_file << this->courses[counter].letter << " " << this->courses[counter].number_of_nodes;
+
+            for (int counter2 = 0; counter2 < this->courses[counter].number_of_nodes; counter2++) {
+                courses_file << " " << this->courses[counter]->nodes[counter2] << "\n";
+            }
+        }
+        courses_file.close();
+    } else cout << "File 'courses.txt' could not be written." << endl;
 }
 
 /* Constructor for Event class. */
 Event::Event() {
-    competitors = new vector<*Competitor>;
-    courses = new vector<*Course>;
+    competitors = new vector<Competitor>;
+    courses = new vector<Course>;
     set_name();
     cout << "Event name: " << this->name << endl;
     set_date();

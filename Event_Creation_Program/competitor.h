@@ -20,7 +20,6 @@ private:
     void set_number(int number); //Member function that will set the number of the competitor.
     void set_name(std::string name); //Member function that will set the name of the competitor.
     void set_course(char course); //Member function that will set the course letter for the competitor.
-    void export_competitor(); //Member function that will export the competitor's number, name and course letter to a '.txt' file.
     
 public:
     Competitor(int number);

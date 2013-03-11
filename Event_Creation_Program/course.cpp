@@ -7,7 +7,7 @@
  */
 
 #include "course.h"
-
+#include <iostream>
 
 using namespace std;
 
@@ -73,7 +73,19 @@ void Course::set_number_of_nodes() {
 
 /* Member function that reads in the nodes from the 'nodes.txt' file and adds them to the nodes available array. */
 void Course::read_nodes_available() {
-
+    ifstream nodes_file;
+    int node_number;
+    
+    nodes_file.open("nodes.txt", ios::in);
+    
+    if (nodes_file.is_open()) {
+        while (nodes_file.good()) {
+            nodes_file >> node_number;
+            this->nodes_available.push_back(node_number);
+        }
+        
+        nodes_file.close();
+    } else cout << "File 'nodes.txt' could not be opened. Please check file is in correct directory and permissions." << endl;
 }
 
 /* Member function that adds a new node to the course. */
@@ -104,20 +116,19 @@ void Course::add_node() {
     this->nodes.push_back(number);
 }
 
-/* Member function that checks that the node being added exists in the nodes available array. */
+/* Member function that checks that the node being added exists in the array of node available. */
 bool Course::check_node_exists(int number) {
-
-}
-
-/* Member function that will export the course's letter, number of nodes and list of nodes to a '.txt' file. */
-void Course::export_course() {
-
+    for (int counter = 0; counter < this->nodes_available.size(); counter++) {
+        if (number == this->nodes_available[counter]) return true;
+    }
+    
+    return false;
 }
 
 /* Constructor for Course class. */
 Course::Course() {
-    nodes = new vector<*int>;
-    nodes_available = new vector<*int>;
+    nodes = new vector<int>;
+    nodes_available = new vector<int>;
     read_nodes_available();
     set_letter();
     set_number_of_nodes();

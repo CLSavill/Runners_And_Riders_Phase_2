@@ -48,11 +48,6 @@ void Competitor::set_course() {
     
 }
 
-/* Member function that will export the competitor's number, name and course letter to a '.txt' file. */
-void Competitor::export_competitor() {
-
-}
-
 /* Constructor for Competitor class.
  * @param number The number for the new competitor.
  */
