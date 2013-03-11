@@ -140,5 +140,6 @@ Course::Course() {
 
 /* Destructor for Course class. */
 Course::~Course() {
-
+    delete(nodes);
+    delete(nodes_available);
 }

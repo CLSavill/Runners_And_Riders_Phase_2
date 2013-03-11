@@ -23,7 +23,6 @@ private:
     
 public:
     Competitor(int number);
-    ~Competitor();
 };
 
 #endif	/* COMPETITOR_H */

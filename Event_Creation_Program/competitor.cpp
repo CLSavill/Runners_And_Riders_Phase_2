@@ -45,7 +45,37 @@ void Competitor::set_name() {
 
 /* Member function that will set the course letter for the competitor. */
 void Competitor::set_course() {
-    
+    bool valid_letter = false;
+    bool letter_chosen = false;
+    char letter;
+    char option;
+
+    do {
+        do {
+            cout << "Please enter in the course letter for the course: ";
+            cin >> letter;
+
+            if (isalpha(letter)) valid_letter == true;
+            else {
+                cout << "Please enter in a valid course letter a-z or A-Z." << endl << endl;
+                valid_letter = false;
+            }
+        } while (valid_letter == false);
+
+        cout << endl << "Are you happy with the course letter: '" << letter << "'?" << endl;
+
+        do {
+            cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
+            cin >> option;
+
+            if (option == 'y') letter_chosen = true;
+            else if (option == 'n') letter_chosen = false;
+            else cout << "Invalid option selected" << endl;
+        } while (option != 'y' || option != 'n');
+
+    } while (letter_chosen == false);
+
+    this->course = letter;
 }
 
 /* Constructor for Competitor class.
@@ -58,9 +88,4 @@ Competitor::Competitor(int number) {
     cout << "Competitor name: " << this->name << endl;
     set_course();
     cout << "Competitor course:" << this-> course << endl;
-}
-
-/* Destructor for Competitor class. */
-Competitor::~Competitor() {
-
 }

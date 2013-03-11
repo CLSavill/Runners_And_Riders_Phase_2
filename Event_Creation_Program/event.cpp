@@ -184,6 +184,6 @@ Event::Event() {
 
 /* Destructor for Event class. */
 Event::~Event() {
-    //delete(competitors);
-    //delete(courses);
+    delete(competitors);
+    delete(courses);
 }
