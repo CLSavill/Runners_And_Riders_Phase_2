@@ -21,6 +21,9 @@ private:
     std::vector<Competitor> competitors; //Array of competitors to take part in the event.
     std::vector<Course> courses; //Array of courses that are part of an event.
     
+    void set_name(); //Member function to get the user to input the events name.
+    void set_date(); //Member function to get the user to input the date of the event.
+    void set_start_time(); //Member function to get the user to input the start time of the event.
     void add_competitor(); //Member function that will handle adding a competitor to the event.
     void add_course(); //Member function that will handle adding a course to the event.
     void export_event(); //Member function that will handle exporting the name, date and start_time of the event to a '.txt' file.
@@ -28,8 +31,8 @@ private:
     void export_courses(); //Member function that will handle the exporting of the array of courses to a '.txt' file.
 
 public:
-    void Event();
-    void ~Event();
+    Event();
+    ~Event();
 };
 
 #endif	/* EVENT_H */

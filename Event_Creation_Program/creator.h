@@ -6,10 +6,12 @@
  * Last Modified: 11/03/2013
  */
 
+#include "event.h"
+
 #ifndef CREATOR_H
 #define	CREATOR_H
 
-
+void ecp_menu(Event *event); //Function that launches the event creation program menu.
 
 #endif	/* CREATOR_H */
 
