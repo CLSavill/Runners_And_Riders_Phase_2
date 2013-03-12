@@ -7,6 +7,7 @@
  */
 
 #include "competitor.h"
+#include "creator.h"
 #include <ctype.h>
 #include <iostream>
 #include <limits>

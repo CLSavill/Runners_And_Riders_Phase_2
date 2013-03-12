@@ -7,6 +7,7 @@
  */
 
 #include "course.h"
+#include "creator.h"
 #include <iostream>
 #include <fstream>
 #include <limits>

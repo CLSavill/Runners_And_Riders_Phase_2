@@ -7,6 +7,7 @@
  */
 
 #include "event.h"
+#include "creator.h"
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
@@ -66,8 +67,7 @@ void Event::set_start_time() {
         do {
             cout << "Please enter in the start time for the event with the 24 hour format 'HH:MM', hours first: ";
             cin.clear();
-            cin.getline(input, 2);
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.getline(input, 3);
             cout << endl;
 
             if (isdigit(input[0]) && isdigit(input[1])) {
@@ -83,8 +83,7 @@ void Event::set_start_time() {
         do {
             cout << "Please now enter in the minutes: ";
             cin.clear();
-            cin.getline(input, 2);
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.getline(input, 3);
             cout << endl;
 
             if (isdigit(input[0]) && isdigit(input[1])) {

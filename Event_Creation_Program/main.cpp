@@ -3,12 +3,13 @@
  * File Name: competitor.cpp
  * Description: cpp file that contains function definitions for the start-up of the event creation program.
  * First Created: 11/03/2013
- * Last Modified: 11/03/2013
+ * Last Modified: 12/03/2013
  */
 
 #include "creator.h"
 #include <iostream>
 #include <cstdlib>
+#include <limits>
 
 using namespace std;
 
@@ -23,17 +24,17 @@ int main(int argc, char** argv) {
 /* Function to get the user's input for accepting or rejecting their inputs. */
 bool get_acceptance() {
     char option;
-    
-    do {
-            cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin.clear();
-            option = cin.get();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-            if (option == 'y') return true;
-            else if (option == 'n') return false;
-            else cout << "Invalid option selected" << endl;
-        } while (option != 'y' && option != 'n');
+    do {
+        cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
+        cin.clear();
+        option = cin.get();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (option == 'y') return true;
+        else if (option == 'n') return false;
+        else cout << "Invalid option selected" << endl;
+    } while (option != 'y' && option != 'n');
 }
 
 /* Function that displays the main menu for the event creation program. */
