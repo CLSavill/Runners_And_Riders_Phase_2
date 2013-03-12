@@ -9,6 +9,7 @@
 #include "course.h"
 #include <iostream>
 #include <fstream>
+#include <limits>
 
 using namespace std;
 
@@ -37,7 +38,9 @@ void Course::set_letter() {
     do {
         do {
             cout << "Please enter in the course letter for the course: ";
-            cin >> letter;
+            cin.clear();   
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (isalpha(letter)) valid_letter == true;
             else {
@@ -50,7 +53,9 @@ void Course::set_letter() {
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
+            cin.clear();   
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 'y') letter_chosen = true;
             else if (option == 'n') letter_chosen = false;
@@ -70,12 +75,16 @@ void Course::set_number_of_nodes() {
 
     do {
         cout << "Please enter in the number of nodes for this course: ";
+        cin.clear();
         cin >> number;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << endl << endl << "Are you happy with the number of nodes: '" << number << "'?" << endl;
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
+            cin.clear();   
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 'y') number_chosen = true;
             else if (option == 'n') number_chosen = false;

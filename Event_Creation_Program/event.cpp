@@ -9,6 +9,7 @@
 #include "event.h"
 #include <iostream>
 #include <fstream>
+#include <limits>
 
 using namespace std;
 
@@ -20,16 +21,19 @@ void Event::set_name() {
 
     do {
         do {
-        cout << "Please enter in the name for the event (no more than 79 characters): ";
-        cin >> name;
+            cout << "Please enter in the name for the event (no more than 79 characters): ";
+            cin.clear();
+            getline(cin, name);
         } while (name.length() > MAX_EVENT_NAME_LENGTH);
-        
+
         cout << endl << endl << "Are you happy with the name: '" << name << "'?" << endl;
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
-            
+            cin.clear();
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
             if (option == 'y') name_chosen = true;
             else if (option == 'n') name_chosen = false;
             else cout << "Invalid option selected" << endl;
@@ -48,15 +52,18 @@ void Event::set_date() {
 
     do {
         do {
-        cout << "Please enter in the date for the event (no more than 19 characters: ";
-        cin >> date;
+            cout << "Please enter in the date for the event (no more than 19 characters: ";
+            cin.clear();
+            getline(cin, date);
         } while (date.length() > MAX_DATE_LENGTH);
-        
+
         cout << endl << endl << "Are you happy with the date: '" << date << "'?" << endl;
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
+            cin.clear();
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 'y') date_chosen = true;
             else if (option == 'n') date_chosen = false;
@@ -81,7 +88,9 @@ void Event::set_start_time() {
     do {
         do {
             cout << "Please enter in the start time for the event with the 24 hour format 'HH:MM', hours first: ";
+            cin.clear();
             cin >> hours;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << endl;
 
             if (hours <= 23 && hours >= 00) {
@@ -92,7 +101,9 @@ void Event::set_start_time() {
 
         do {
             cout << "Please now enter in the minutes: ";
+            cin.clear();
             cin >> minutes;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << endl;
 
             if (minutes <= 59 && minutes >= 00) {
@@ -105,7 +116,9 @@ void Event::set_start_time() {
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
+            cin.clear();
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 'y') start_time_chosen = true;
             else if (option == 'n') start_time_chosen = false;
@@ -178,8 +191,8 @@ void Event::export_courses() {
 
 /* Constructor for Event class. */
 Event::Event() {
-    competitors = new vector<Competitor>();
-    courses = new vector<Course>();
+    competitors = new vector<Competitor > ();
+    courses = new vector<Course > ();
     set_name();
     cout << "Event name: " << this->name << endl;
     set_date();

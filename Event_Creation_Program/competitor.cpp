@@ -9,6 +9,7 @@
 #include "competitor.h"
 #include <ctype.h>
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
@@ -43,14 +44,16 @@ void Competitor::set_name() {
     do {
         do {
         cout << "Please enter in the name for the competitor (no more than 50 characters): ";
-        cin >> name;
+        getline(cin, name);
         } while (name.length() > MAX_COMPETITOR_NAME_LENGTH);
         
         cout << endl << endl << "Are you happy with the name: '" << name << "'?" << endl;
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
+            cin.clear();   
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 'y') valid_name = true;
             else if (option == 'n') valid_name = false;
@@ -72,7 +75,9 @@ void Competitor::set_course() {
     do {
         do {
             cout << "Please enter in the course letter for the course: ";
-            cin >> letter;
+            cin.clear();   
+            letter = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (isalpha(letter)) valid_letter == true;
             else {
@@ -85,7 +90,9 @@ void Competitor::set_course() {
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
+            cin.clear();   
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 'y') letter_chosen = true;
             else if (option == 'n') letter_chosen = false;

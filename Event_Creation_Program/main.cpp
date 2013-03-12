@@ -26,19 +26,21 @@ void ecp_menu(Event *event) {
     int number_of_competitors = 0;
 
     do {
-        cout << "=======================================================" << endl;
-        cout << "= Runners and Riders Event Creation Program Main Menu =" << endl;
-        cout << "=======================================================" << endl;
-        cout << "= 1. Add Competitor to Event                          =" << endl;
-        cout << "= 2. Add Course to Event                              =" << endl;
-        cout << "= 3. Export Event to File                             =" << endl;
-        cout << "= 4. Export Competitors to File                       =" << endl;
-        cout << "= 5. Export Courses to File                           =" << endl;
-        cout << "= 6. Exit Event Creation Program                      =" << endl;
-        cout << "=======================================================" << endl << endl;
+        cout << "*********************************************************" << endl;
+        cout << "*  Runners and Riders Event Creation Program Main Menu  *" << endl;
+        cout << "*********************************************************" << endl;
+        cout << "*              1. Add Competitor to Event               *" << endl;
+        cout << "*              2. Add Course to Event                   *" << endl;
+        cout << "*              3. Export Event to File                  *" << endl;
+        cout << "*              4. Export Competitors to File            *" << endl;
+        cout << "*              5. Export Courses to File                *" << endl;
+        cout << "*              6. Exit Event Creation Program           *" << endl;
+        cout << "*********************************************************" << endl << endl;
 
         cout << "Please enter in an option from the above an press 'Enter': ";
+        cin.clear();
         cin >> option;
+        cin.ignore();
 
         switch (option) {
             case 1:
