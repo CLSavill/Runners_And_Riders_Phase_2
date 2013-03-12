@@ -11,6 +11,7 @@
 #ifndef CREATOR_H
 #define	CREATOR_H
 
+bool get_acceptance(); //Function to get the user's input for accepting or rejecting their inputs.
 void ecp_menu(Event *event); //Function that launches the event creation program menu.
 
 #endif	/* CREATOR_H */

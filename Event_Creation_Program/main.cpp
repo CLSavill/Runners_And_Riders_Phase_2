@@ -20,6 +20,22 @@ int main(int argc, char** argv) {
     return 0;
 }
 
+/* Function to get the user's input for accepting or rejecting their inputs. */
+bool get_acceptance() {
+    char option;
+    
+    do {
+            cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
+            cin.clear();
+            option = cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (option == 'y') return true;
+            else if (option == 'n') return false;
+            else cout << "Invalid option selected" << endl;
+        } while (option != 'y' && option != 'n');
+}
+
 /* Function that displays the main menu for the event creation program. */
 void ecp_menu(Event *event) {
     int option; //Field to store the user's option input.
