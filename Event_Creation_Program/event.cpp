@@ -3,7 +3,7 @@
  * File Name: event.cpp
  * Description: cpp file that contains member function definitions for the event class.
  * First Created: 11/03/2013
- * Last Modified: 11/03/2013
+ * Last Modified: 12/03/2013
  */
 
 #include "event.h"
@@ -19,18 +19,21 @@ void Event::set_name() {
     char option;
 
     do {
-        cout << "Please enter in the name for the event: ";
+        do {
+        cout << "Please enter in the name for the event (no more than 79 characters): ";
         cin >> name;
+        } while (name.length() > MAX_EVENT_NAME_LENGTH);
+        
         cout << endl << endl << "Are you happy with the name: '" << name << "'?" << endl;
 
         do {
             cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
             cin >> option;
-
+            
             if (option == 'y') name_chosen = true;
             else if (option == 'n') name_chosen = false;
             else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
+        } while (option != 'y' && option != 'n');
 
     } while (name_chosen == false);
 
@@ -44,8 +47,11 @@ void Event::set_date() {
     char option;
 
     do {
-        cout << "Please enter in the date for the event: ";
+        do {
+        cout << "Please enter in the date for the event (no more than 19 characters: ";
         cin >> date;
+        } while (date.length() > MAX_DATE_LENGTH);
+        
         cout << endl << endl << "Are you happy with the date: '" << date << "'?" << endl;
 
         do {
@@ -55,7 +61,7 @@ void Event::set_date() {
             if (option == 'y') date_chosen = true;
             else if (option == 'n') date_chosen = false;
             else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
+        } while (option != 'y' && option != 'n');
 
     } while (date_chosen == false);
 
@@ -104,7 +110,7 @@ void Event::set_start_time() {
             if (option == 'y') start_time_chosen = true;
             else if (option == 'n') start_time_chosen = false;
             else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
+        } while (option != 'y' && option != 'n');
 
     } while (start_time_chosen == false);
 
@@ -117,14 +123,14 @@ void Event::set_start_time() {
  */
 void Event::add_competitor(int number) {
     Competitor *competitor = new Competitor(number);
-    competitors->push_back(competitor);
+    competitors->push_back(*competitor);
     cout << "New competitor added to event." << endl << endl;
 }
 
 /* Member function that will handle adding a course to the event. */
 void Event::add_course() {
     Course *course = new Course();
-    courses->push_back(course);
+    courses->push_back(*course);
     cout << "New course added to event." << endl << endl;
 }
 
@@ -145,9 +151,9 @@ void Event::export_competitors() {
     competitors_file.open("entrants.txt", ios::out);
 
     if (competitors_file.is_open()) {
-        for (int counter = 0; counter < this->competitors.size(); counter++) {
-            competitors_file << this->competitors[counter].number << " " << this->competitors[counter].course
-                    << " " << this->competitors[counter].name << "\n";
+        for (int counter = 0; counter < this->competitors->size(); counter++) {
+            competitors_file << this->competitors->at(counter).get_number() << " " << this->competitors->at(counter).get_course()
+                    << " " << this->competitors->at(counter).get_name() << "\n";
         }
         competitors_file.close();
     } else cout << "File 'entrants.txt' could not be written." << endl;
@@ -159,11 +165,11 @@ void Event::export_courses() {
     courses_file.open("courses.txt", ios::out);
 
     if (courses_file.is_open()) {
-        for (int counter = 0; counter < this->courses.size(); counter++) {
-            courses_file << this->courses[counter].letter << " " << this->courses[counter].number_of_nodes;
+        for (int counter = 0; counter < this->courses->size(); counter++) {
+            courses_file << this->courses->at(counter).get_letter() << " " << this->courses->at(counter).get_number_of_nodes();
 
-            for (int counter2 = 0; counter2 < this->courses[counter].number_of_nodes; counter2++) {
-                courses_file << " " << this->courses[counter]->nodes[counter2] << "\n";
+            for (int counter2 = 0; counter2 < this->courses->at(counter).get_number_of_nodes(); counter2++) {
+                courses_file << " " << this->courses->at(counter).get_node(counter2) << "\n";
             }
         }
         courses_file.close();
@@ -172,8 +178,8 @@ void Event::export_courses() {
 
 /* Constructor for Event class. */
 Event::Event() {
-    competitors = new vector<Competitor>;
-    courses = new vector<Course>;
+    competitors = new vector<Competitor>();
+    courses = new vector<Course>();
     set_name();
     cout << "Event name: " << this->name << endl;
     set_date();

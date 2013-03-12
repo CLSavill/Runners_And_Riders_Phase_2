@@ -3,13 +3,14 @@
  * File Name: competitor.h
  * Description: Header file for the Competitor class.
  * First Created: 11/03/2013
- * Last Modified: 11/03/2013
+ * Last Modified: 12/03/2013
  */
 
 #include <string>
 
 #ifndef COMPETITOR_H
 #define	COMPETITOR_H
+#define MAX_COMPETITOR_NAME_LENGTH 51 //Includes null terminator \0.
 
 class Competitor {
 private:
@@ -18,10 +19,13 @@ private:
     char course; //The course letter the competitor is entering in for.
     
     void set_number(int number); //Member function that will set the number of the competitor.
-    void set_name(std::string name); //Member function that will set the name of the competitor.
-    void set_course(char course); //Member function that will set the course letter for the competitor.
+    void set_name(); //Member function that will set the name of the competitor.
+    void set_course(); //Member function that will set the course letter for the competitor.
     
 public:
+    int get_number(); //Member function to return a competitor's number.
+    std::string get_name(); //Member function to return a competitor's name.
+    char get_course(); //Member function to return a competitor's course.
     Competitor(int number);
 };
 

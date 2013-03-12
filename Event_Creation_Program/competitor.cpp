@@ -3,14 +3,30 @@
  * File Name: competitor.cpp
  * Description: cpp file that contains member function definitions for the competitor class.
  * First Created: 11/03/2013
- * Last Modified: 11/03/2013
+ * Last Modified: 12/03/2013
  */
 
 #include "competitor.h"
 #include <ctype.h>
+#include <iostream>
 
 using namespace std;
 
+/* Member function to return a competitor's number. */
+int Competitor::get_number() {
+    return this->number;
+}
+
+/* Member function to return a competitor's name. */
+string Competitor::get_name() {
+    return this->name;
+}
+
+/* Member function to return a competitor's course. */
+char Competitor::get_course() {
+    return this->course;
+}
+    
 /* Member function that will set the number of the competitor.
  * @param number The number for the competitor.
  */
@@ -25,8 +41,11 @@ void Competitor::set_name() {
     char option;
 
     do {
-        cout << "Please enter in the name for the competitor: ";
+        do {
+        cout << "Please enter in the name for the competitor (no more than 50 characters): ";
         cin >> name;
+        } while (name.length() > MAX_COMPETITOR_NAME_LENGTH);
+        
         cout << endl << endl << "Are you happy with the name: '" << name << "'?" << endl;
 
         do {
@@ -36,7 +55,7 @@ void Competitor::set_name() {
             if (option == 'y') valid_name = true;
             else if (option == 'n') valid_name = false;
             else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
+        } while (option != 'y' && option != 'n');
 
     } while (valid_name == false);
 
@@ -71,7 +90,7 @@ void Competitor::set_course() {
             if (option == 'y') letter_chosen = true;
             else if (option == 'n') letter_chosen = false;
             else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
+        } while (option != 'y' && option != 'n');
 
     } while (letter_chosen == false);
 

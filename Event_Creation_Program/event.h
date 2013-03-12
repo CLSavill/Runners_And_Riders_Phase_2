@@ -3,7 +3,7 @@
  * File Name: event.h
  * Description: Header file for the Event class.
  * First Created: 11/03/2013
- * Last Modified: 11/03/2013
+ * Last Modified: 12/03/2013
  */
 
 #include <vector>
@@ -12,14 +12,16 @@
 
 #ifndef EVENT_H
 #define	EVENT_H
+#define MAX_EVENT_NAME_LENGTH 79
+#define MAX_DATE_LENGTH 19
 
 class Event {
 private:
     std::string name; //Name of the event.
     std::string date; //Date of the event.
     std::string start_time; //Start time of the event.
-    std::vector<Competitor> competitors; //Array of competitors to take part in the event.
-    std::vector<Course> courses; //Array of courses that are part of an event.
+    std::vector<Competitor> *competitors; //Array of competitors to take part in the event.
+    std::vector<Course> *courses; //Array of courses that are part of an event.
 
     void set_name(); //Member function to get the user to input the events name.
     void set_date(); //Member function to get the user to input the date of the event.

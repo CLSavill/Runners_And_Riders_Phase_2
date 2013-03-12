@@ -3,13 +3,29 @@
  * File Name: course.cpp
  * Description: cpp file that contains member function definitions for the course class.
  * First Created: 11/03/2013
- * Last Modified: 11/03/2013
+ * Last Modified: 12/03/2013
  */
 
 #include "course.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
+
+/* Member function to return a course's letter. */
+char Course::get_letter() {
+    return this->letter;
+}
+
+/* Member function to return a course's number of nodes. */
+int Course::get_number_of_nodes() {
+    return this->number_of_nodes;
+}
+
+/* Member function to return a node from the course's vector of nodes. */
+int Course::get_node(int index) {
+    return this->nodes->at(index);
+}
 
 /* Member function that will set the letter of the course. */
 void Course::set_letter() {
@@ -39,7 +55,7 @@ void Course::set_letter() {
             if (option == 'y') letter_chosen = true;
             else if (option == 'n') letter_chosen = false;
             else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
+        } while (option != 'y' && option != 'n');
 
     } while (letter_chosen == false);
 
@@ -64,7 +80,7 @@ void Course::set_number_of_nodes() {
             if (option == 'y') number_chosen = true;
             else if (option == 'n') number_chosen = false;
             else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
+        } while (option != 'y' && option != 'n');
 
     } while (number_chosen == false && number > 0);
 
@@ -75,15 +91,15 @@ void Course::set_number_of_nodes() {
 void Course::read_nodes_available() {
     ifstream nodes_file;
     int node_number;
-    
+
     nodes_file.open("nodes.txt", ios::in);
-    
+
     if (nodes_file.is_open()) {
         while (nodes_file.good()) {
             nodes_file >> node_number;
-            this->nodes_available.push_back(node_number);
+            this->nodes_available->push_back(node_number);
         }
-        
+
         nodes_file.close();
     } else cout << "File 'nodes.txt' could not be opened. Please check file is in correct directory and permissions." << endl;
 }
@@ -113,22 +129,22 @@ void Course::add_node() {
 
     } while (number_chosen == false);
 
-    this->nodes.push_back(number);
+    this->nodes->push_back(number);
 }
 
 /* Member function that checks that the node being added exists in the array of node available. */
 bool Course::check_node_exists(int number) {
-    for (int counter = 0; counter < this->nodes_available.size(); counter++) {
-        if (number == this->nodes_available[counter]) return true;
+    for (int counter = 0; counter < this->nodes_available->size(); counter++) {
+        if (number == this->nodes_available->at(counter)) return true;
     }
-    
+
     return false;
 }
 
 /* Constructor for Course class. */
 Course::Course() {
-    nodes = new vector<int>;
-    nodes_available = new vector<int>;
+    nodes = new vector<int>();
+    nodes_available = new vector<int>();
     read_nodes_available();
     set_letter();
     set_number_of_nodes();
