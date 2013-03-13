@@ -10,6 +10,7 @@
 #include "creator.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <limits>
 
 using namespace std;
@@ -37,12 +38,12 @@ void Course::set_letter() {
 
     do {
         do {
-            cout << "Please enter in the course letter for the course: ";
+            cout << endl << endl << "Please enter in the course letter for the course: ";
             cin.clear();
             letter = cin.get();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-            if (isalpha(letter)) valid_letter == true;
+            if (isalpha(letter)) valid_letter = true;
             else {
                 cout << "Please enter in a valid course letter a-z or A-Z." << endl << endl;
                 valid_letter = false;
@@ -62,7 +63,7 @@ void Course::set_number_of_nodes() {
     int number;
 
     do {
-        cout << "Please enter in the number of nodes for this course: ";
+        cout << endl << endl << "Please enter in the number of nodes for this course: ";
         cin.clear();
         cin >> number;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -75,48 +76,59 @@ void Course::set_number_of_nodes() {
 }
 
 /* Member function that reads in the nodes from the 'nodes.txt' file and adds them to the nodes available array. */
-void Course::read_nodes_available() {
+bool Course::read_nodes_available() {
     ifstream nodes_file;
+    string input;
     int node_number;
 
     nodes_file.open("nodes.txt", ios::in);
 
     if (nodes_file.is_open()) {
-        while (nodes_file.good()) {
-            nodes_file >> node_number;
+        while (getline(nodes_file, input)) {
+            stringstream int_retreiver(input);
+            int_retreiver >> node_number;
             this->nodes_available->push_back(node_number);
         }
 
         nodes_file.close();
+        cout << "Nodes from 'nodes.txt' read in successfully." << endl;
+        cout << "Nodes read in: " << nodes_available->at(0);
+        for (int counter = 1; counter < nodes_available->size(); counter++) cout << ", " << nodes_available->at(counter);
+        cout << endl << endl;
     } else cout << "File 'nodes.txt' could not be opened. Please check file is in correct directory and permissions." << endl;
 }
 
 /* Member function that adds a new node to the course. */
 void Course::add_node() {
     bool number_chosen = false;
-    int number;
-    char option;
+    string input;
+    int number = 0;
 
     do {
         do {
-            cout << "Please enter in the number of the node you wish to add to the course: ";
-            cin >> number;
-        } while (!check_node_exists(number));
+            cout << "Please enter in the node number you wish to add to the course: ";
+            getline(cin, input);
+            stringstream int_retreiver(input);
+            int_retreiver >> number;
+        } while (duplicated_last_node(number) || !check_node_exists(number));
 
         cout << endl << endl << "Are you happy with the node number: '" << number << "'?" << endl;
-
-        do {
-            cout << "If yes press 'y' then 'Enter'" << endl << "If no press 'n' then 'Enter'" << endl;
-            cin >> option;
-
-            if (option == 'y') number_chosen = true;
-            else if (option == 'n') number_chosen = false;
-            else cout << "Invalid option selected" << endl;
-        } while (option != 'y' || option != 'n');
-
+        number_chosen = get_acceptance();
     } while (number_chosen == false);
 
     this->nodes->push_back(number);
+}
+
+/* Member function to check if the new node being selected matches the last node added. */
+bool Course::duplicated_last_node(int number) {
+    if (!nodes->empty()) {
+        if (number == nodes->back()) {
+            cout << "Node matches last node. Please choose a different node number to add." << endl;
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /* Member function that checks that the node being added exists in the array of node available. */
@@ -125,20 +137,25 @@ bool Course::check_node_exists(int number) {
         if (number == this->nodes_available->at(counter)) return true;
     }
 
+    cout << "Node does not exist, please choose a different node number to add." << endl;
     return false;
 }
 
 /* Constructor for Course class. */
 Course::Course() {
-    nodes = new vector<int>();
-    nodes_available = new vector<int>();
-    read_nodes_available();
-    set_letter();
-    set_number_of_nodes();
+    this->nodes = new vector<int>();
+    this->nodes_available = new vector<int>();
 
-    for (int counter = 0; counter < number_of_nodes; counter++) {
-        add_node();
-    }
+    if (read_nodes_available()) {
+        set_letter();
+        set_number_of_nodes();
+
+        for (int counter = 0; counter < number_of_nodes - 1; counter++) {
+            add_node();
+        }
+
+        nodes->push_back(nodes->front()); //Adds the last node, matching the first node to the course.
+    } else cout << "Nodes could not be read in from 'nodes.txt' file. Course creation cancelled." << endl << endl;
 }
 
 /* Destructor for Course class. */

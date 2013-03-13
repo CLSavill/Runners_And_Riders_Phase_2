@@ -20,8 +20,9 @@ private:
     
     void set_letter(); //Member function that will set the letter of the course.
     void set_number_of_nodes(); //Member function that will set the number of nodes of the course.
-    void read_nodes_available(); //Member function that reads in the nodes from the 'nodes.txt' file and adds them to the nodes available array.
+    bool read_nodes_available(); //Member function that reads in the nodes from the 'nodes.txt' file and adds them to the nodes available array.
     void add_node(); //Member function that adds a new node to the course.
+    bool duplicated_last_node(int number); //Member function to check if the new node being selected matches the last node added.
     bool check_node_exists(int number); //Member function that checks that the node being added exists in the array of nodes available.
 
 public:

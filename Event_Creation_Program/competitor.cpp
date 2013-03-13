@@ -43,7 +43,7 @@ void Competitor::set_name() {
 
     do {
         do {
-        cout << "Please enter in the name for the competitor (no more than 50 characters): ";
+        cout << endl << endl << "Please enter in the name for the competitor (no more than 50 characters): ";
         getline(cin, name);
         } while (name.length() > MAX_COMPETITOR_NAME_LENGTH);
         
@@ -64,12 +64,12 @@ void Competitor::set_course() {
 
     do {
         do {
-            cout << "Please enter in the course letter for the course: ";
+            cout << endl << endl << "Please enter in the course letter for the course: ";
             cin.clear();   
             letter = cin.get();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-            if (isalpha(letter)) valid_letter == true;
+            if (isalpha(letter)) valid_letter = true;
             else {
                 cout << "Please enter in a valid course letter a-z or A-Z." << endl << endl;
                 valid_letter = false;

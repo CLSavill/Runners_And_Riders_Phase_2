@@ -65,16 +65,16 @@ void ecp_menu(Event *event) {
                 event->add_competitor(number_of_competitors);
                 break;
             case 2:
-                //event->add_course();
+                event->add_course();
                 break;
             case 3:
-                //event->export_event();
+                event->export_event();
                 break;
             case 4:
-                //event->export_competitors();
+                event->export_competitors();
                 break;
             case 5:
-                //event->export_courses();
+                event->export_courses();
                 break;
             case 6:
                 delete(event);
