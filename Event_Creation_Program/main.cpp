@@ -40,7 +40,6 @@ bool get_acceptance() {
 /* Function that displays the main menu for the event creation program. */
 void ecp_menu(Event *event) {
     int option; //Field to store the user's option input.
-    int number_of_competitors = 0;
 
     do {
         cout << "*********************************************************" << endl;
@@ -61,8 +60,7 @@ void ecp_menu(Event *event) {
 
         switch (option) {
             case 1:
-                number_of_competitors++;
-                event->add_competitor(number_of_competitors);
+                event->add_competitor();
                 break;
             case 2:
                 event->add_course();

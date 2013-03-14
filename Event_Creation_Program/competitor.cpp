@@ -28,7 +28,7 @@ string Competitor::get_name() {
 char Competitor::get_course() {
     return this->course;
 }
-    
+
 /* Member function that will set the number of the competitor.
  * @param number The number for the competitor.
  */
@@ -43,10 +43,10 @@ void Competitor::set_name() {
 
     do {
         do {
-        cout << endl << endl << "Please enter in the name for the competitor (no more than 50 characters): ";
-        getline(cin, name);
+            cout << endl << endl << "Please enter in the name for the competitor (no more than 50 characters): ";
+            getline(cin, name);
         } while (name.length() > MAX_COMPETITOR_NAME_LENGTH);
-        
+
         cout << endl << endl << "Are you happy with the name: '" << name << "'?" << endl;
 
         name_chosen = get_acceptance();
@@ -57,21 +57,28 @@ void Competitor::set_name() {
 }
 
 /* Member function that will set the course letter for the competitor. */
-void Competitor::set_course() {
+void Competitor::set_course(Event *event) {
     bool valid_letter = false;
     bool letter_chosen = false;
     char letter;
 
     do {
         do {
-            cout << endl << endl << "Please enter in the course letter for the course: ";
-            cin.clear();   
+            cout << endl << endl << "List of courses available for the competitor to enter on: " << event->getCourses()->front()->get_letter();
+
+            if (event->getCourses()->size() > 1) {
+                for (int counter = 1; counter < event->getCourses()->size(); counter++)
+                    cout << ", " << event->getCourses()->at(counter)->get_letter();
+            }
+
+            cout << endl << endl << "Please enter in the letter of the course that the competitor is entering: ";
+            cin.clear();
             letter = cin.get();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-            if (isalpha(letter)) valid_letter = true;
+            if (isalpha(letter) && checkCourseExists(letter, event)) valid_letter = true;
             else {
-                cout << "Please enter in a valid course letter a-z or A-Z." << endl << endl;
+                cout << "Please enter in a valid course letter." << endl << endl;
                 valid_letter = false;
             }
         } while (valid_letter == false);
@@ -86,11 +93,11 @@ void Competitor::set_course() {
 /* Constructor for Competitor class.
  * @param number The number for the new competitor.
  */
-Competitor::Competitor(int number) {
+Competitor::Competitor(int number, Event *event) {
     set_number(number);
     cout << "Competitor number: " << this->number << endl;
     set_name();
     cout << "Competitor name: " << this->name << endl;
-    set_course();
+    set_course(event);
     cout << "Competitor course:" << this-> course << endl;
 }

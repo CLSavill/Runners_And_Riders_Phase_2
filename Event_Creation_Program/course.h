@@ -6,10 +6,13 @@
  * Last Modified: 12/03/2013
  */
 
-#include <vector>
-
 #ifndef COURSE_H
 #define	COURSE_H
+
+#include <memory>
+#include <vector>
+
+class Event;
 
 class Course {
 private:
@@ -18,7 +21,7 @@ private:
     std::vector<int> *nodes; //An array of nodes that are contained in the course.
     std::vector<int> *nodes_available; //An array of nodes that are available to select from, read in from the 'nodes.txt' file.
     
-    void set_letter(); //Member function that will set the letter of the course.
+    void set_letter(Event *event); //Member function that will set the letter of the course.
     void set_number_of_nodes(); //Member function that will set the number of nodes of the course.
     bool read_nodes_available(); //Member function that reads in the nodes from the 'nodes.txt' file and adds them to the nodes available array.
     void add_node(); //Member function that adds a new node to the course.
@@ -29,7 +32,7 @@ public:
     char get_letter(); //Member function to return a course's letter.
     int get_number_of_nodes(); //Member function to return a course's number of nodes.
     int get_node(int index); //Member function to return a node from the course's vector of nodes.
-    Course();
+    Course(Event *event);
     ~Course();
 };
 

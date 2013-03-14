@@ -6,14 +6,21 @@
  * Last Modified: 12/03/2013
  */
 
-#include <vector>
-#include "competitor.h"
-#include "course.h"
-
 #ifndef EVENT_H
 #define	EVENT_H
+
+#include <memory>
+#include "competitor.h"
+#include "course.h"
+#include <vector>
+#include <cstdlib>
+#include <iostream>
+
 #define MAX_EVENT_NAME_LENGTH 79
 #define MAX_DATE_LENGTH 19
+
+class Competitor;
+class Course;
 
 class Event {
 private:
@@ -30,7 +37,8 @@ private:
 public:
     Event();
     ~Event();
-    void add_competitor(int number); //Member function that will handle adding a competitor to the event.
+    std::vector<Course*>* getCourses(); //Member function that returns the vector of courses.
+    void add_competitor(); //Member function that will handle adding a competitor to the event.
     void add_course(); //Member function that will handle adding a course to the event.
     void export_event(); //Member function that will handle exporting the name, date and start_time of the event to a '.txt' file.
     void export_competitors(); //Member function that will handle the exporting of the array of competitors to a '.txt' file.

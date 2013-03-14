@@ -30,8 +30,17 @@ int Course::get_node(int index) {
     return this->nodes->at(index);
 }
 
+/* Member function that checks if the letter given be the user matches any of the course letters. */
+bool checkCourseExists(char letter, Event *event) {
+    for (int counter = 0; counter < event->getCourses()->size(); counter++) {
+        if (letter == event->getCourses()->at(counter)->get_letter()) return true;
+    }
+    
+    return false;
+}
+
 /* Member function that will set the letter of the course. */
-void Course::set_letter() {
+void Course::set_letter(Event *event) {
     bool valid_letter = false;
     bool letter_chosen = false;
     char letter;
@@ -43,9 +52,9 @@ void Course::set_letter() {
             letter = cin.get();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-            if (isalpha(letter)) valid_letter = true;
+            if (isalpha(letter) && !checkCourseExists(letter, event)) valid_letter = true;
             else {
-                cout << "Please enter in a valid course letter a-z or A-Z." << endl << endl;
+                cout << "Please enter in a valid course letter that does not already exist in this event, a-z or A-Z." << endl << endl;
                 valid_letter = false;
             }
         } while (valid_letter == false);
@@ -142,12 +151,12 @@ bool Course::check_node_exists(int number) {
 }
 
 /* Constructor for Course class. */
-Course::Course() {
+Course::Course(Event *event) {
     this->nodes = new vector<int>();
     this->nodes_available = new vector<int>();
 
     if (read_nodes_available()) {
-        set_letter();
+        set_letter(event);
         set_number_of_nodes();
 
         for (int counter = 0; counter < number_of_nodes - 1; counter++) {

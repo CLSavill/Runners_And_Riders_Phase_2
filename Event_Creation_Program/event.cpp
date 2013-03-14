@@ -16,6 +16,11 @@
 
 using namespace std;
 
+/* Member function that returns the vector of courses. */
+vector<Course*>* Event::getCourses() {
+    return courses;
+}
+
 /* Member function to get the user to input the events name. */
 void Event::set_name() {
     bool name_chosen = false;
@@ -119,18 +124,21 @@ void Event::set_start_time() {
 /* Member function that will handle adding a competitor to the event.
  * @param number The current competitor number.
  */
-void Event::add_competitor(int number) {
-    Competitor *competitor = new Competitor(number);
-    competitors->push_back(competitor);
-    cout << "New competitor added to event." << endl << endl;
-    cout << "Competitor number: " << competitors->back()->get_number();
-    cout << "Competitor name: " << competitors->back()->get_name() << endl;
-    cout << "Course: " << competitors->back()->get_course() << endl;
+void Event::add_competitor() {
+    if (courses->empty()) cout << "No courses exist for competitor course selection. Please create a course first." << endl << endl;
+    else {
+        Competitor *competitor = new Competitor((competitors->size() + 1), this);
+        competitors->push_back(competitor);
+        cout << "New competitor added to event." << endl << endl;
+        cout << "Competitor number: " << competitors->back()->get_number();
+        cout << "Competitor name: " << competitors->back()->get_name() << endl;
+        cout << "Course: " << competitors->back()->get_course() << endl;
+    }
 }
 
 /* Member function that will handle adding a course to the event. */
 void Event::add_course() {
-    Course *course = new Course();
+    Course *course = new Course(this);
     courses->push_back(course);
     cout << "New course added to event." << endl << endl;
     cout << "Course letter: " << courses->back()->get_letter() << endl;
@@ -158,38 +166,44 @@ void Event::export_event() {
 
 /* Member function that will handle the exporting of the array of competitors to a '.txt' file. */
 void Event::export_competitors() {
-    ofstream competitors_file;
-    competitors_file.open("entrants.txt", ios::out);
+    if (competitors->empty()) cout << "No competitors to export. Exporting cancelled." << endl << endl;
+    else {
+        ofstream competitors_file;
+        competitors_file.open("entrants.txt", ios::out);
 
-    if (competitors_file.is_open()) {
-        for (int counter = 0; counter < this->competitors->size(); counter++) {
-            competitors_file << this->competitors->at(counter)->get_number() << " " << this->competitors->at(counter)->get_course()
-                    << " " << this->competitors->at(counter)->get_name() << "\n";
-        }
+        if (competitors_file.is_open()) {
+            for (int counter = 0; counter < this->competitors->size(); counter++) {
+                competitors_file << this->competitors->at(counter)->get_number() << " " << this->competitors->at(counter)->get_course()
+                        << " " << this->competitors->at(counter)->get_name() << "\n";
+            }
 
-        competitors_file.close();
-        cout << "Competitors successfully exported to 'entrants.txt'." << endl << endl;
-    } else cout << "File 'entrants.txt' could not be written." << endl;
+            competitors_file.close();
+            cout << "Competitors successfully exported to 'entrants.txt'." << endl << endl;
+        } else cout << "File 'entrants.txt' could not be written." << endl;
+    }
 }
 
 /* Member function that will handle the exporting of the array of courses to a '.txt' file. */
 void Event::export_courses() {
-    ofstream courses_file;
-    courses_file.open("courses.txt", ios::out);
+    if (courses->empty()) cout << "No courses to export. Exporting cancelled." << endl << endl;
+    else {
+        ofstream courses_file;
+        courses_file.open("courses.txt", ios::out);
 
-    if (courses_file.is_open()) {
-        for (int counter = 0; counter < this->courses->size(); counter++) {
-            courses_file << this->courses->at(counter)->get_letter() << " " << this->courses->at(counter)->get_number_of_nodes();
+        if (courses_file.is_open()) {
+            for (int counter = 0; counter < this->courses->size(); counter++) {
+                courses_file << this->courses->at(counter)->get_letter() << " " << this->courses->at(counter)->get_number_of_nodes();
 
-            for (int counter2 = 0; counter2 < this->courses->at(counter)->get_number_of_nodes(); counter2++) {
-                courses_file << " " << this->courses->at(counter)->get_node(counter2);
+                for (int counter2 = 0; counter2 < this->courses->at(counter)->get_number_of_nodes(); counter2++) {
+                    courses_file << " " << this->courses->at(counter)->get_node(counter2);
+                }
+                courses_file << "\n";
             }
-            courses_file << "\n";
-        }
 
-        courses_file.close();
-        cout << "Courses successfully exported to 'courses.txt'." << endl << endl;
-    } else cout << "File 'courses.txt' could not be written." << endl;
+            courses_file.close();
+            cout << "Courses successfully exported to 'courses.txt'." << endl << endl;
+        } else cout << "File 'courses.txt' could not be written." << endl;
+    }
 }
 
 /* Constructor for Event class. */
