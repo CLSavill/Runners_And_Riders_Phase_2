@@ -3,7 +3,7 @@
  * File Name: competitor.cpp
  * Description: cpp file that contains function definitions for the start-up of the event creation program.
  * First Created: 11/03/2013
- * Last Modified: 12/03/2013
+ * Last Modified: 14/03/2013
  */
 
 #include "creator.h"

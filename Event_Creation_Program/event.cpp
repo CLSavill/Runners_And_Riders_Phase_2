@@ -3,7 +3,7 @@
  * File Name: event.cpp
  * Description: cpp file that contains member function definitions for the event class.
  * First Created: 11/03/2013
- * Last Modified: 12/03/2013
+ * Last Modified: 14/03/2013
  */
 
 #include "event.h"
@@ -16,7 +16,7 @@
 
 using namespace std;
 
-/* Member function that returns the vector of courses. */
+/* Member function that returns a pointer to the vector of courses. */
 vector<Course*>* Event::getCourses() {
     return courses;
 }
@@ -79,10 +79,10 @@ void Event::set_start_time() {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << endl;
 
-            if (isdigit(input[0]) && isdigit(input[1])) {
-                hours = atoi(input);
+            if (isdigit(input[0]) && isdigit(input[1])) { //Ensures the input has 2 digits.
+                hours = atoi(input); //Converts the digits into an int and stores it in hours.
 
-                if (hours <= 23 && hours >= 00) {
+                if (hours <= 23 && hours >= 00) { //Makes sure that the hours are in 24-hour format.
                     cout << "Valid hours entered." << endl << endl;
                     valid_hours = true;
                 }
@@ -99,7 +99,7 @@ void Event::set_start_time() {
             if (isdigit(input[0]) && isdigit(input[1])) {
                 minutes = atoi(input);
 
-                if (minutes <= 59 && minutes >= 00) {
+                if (minutes <= 59 && minutes >= 00) { //Makes sure minutes are valid.
                     cout << "Valid minutes entered." << endl << endl;
                     valid_minutes = true;
                 }
@@ -110,14 +110,14 @@ void Event::set_start_time() {
         start_time_chosen = get_acceptance();
     } while (start_time_chosen == false);
 
-    ostringstream string_retreiver;
-    string_retreiver << hours;
-    string_hours = string_retreiver.str();
-    string_retreiver.str("");
-    string_retreiver << minutes;
-    string_minutes = string_retreiver.str();
+    ostringstream string_retriever; //Converts ints into strings.
+    string_retriever << hours;
+    string_hours = string_retriever.str();
+    string_retriever.str(""); //Clears the string stream.
+    string_retriever << minutes;
+    string_minutes = string_retriever.str();
 
-    start_time = string_hours + ":" + string_minutes;
+    start_time = string_hours + ":" + string_minutes; //Concatenates the final time into HH:MM format.
     this->start_time = start_time;
 }
 

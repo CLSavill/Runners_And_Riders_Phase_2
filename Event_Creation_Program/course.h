@@ -3,7 +3,7 @@
  * File Name: course.h
  * Description: Header file for the Course class.
  * First Created: 11/03/2013
- * Last Modified: 12/03/2013
+ * Last Modified: 14/03/2013
  */
 
 #ifndef COURSE_H

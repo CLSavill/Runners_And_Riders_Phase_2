@@ -3,7 +3,7 @@
  * File Name: competitor.h
  * Description: Header file for the Competitor class.
  * First Created: 11/03/2013
- * Last Modified: 12/03/2013
+ * Last Modified: 14/03/2013
  */
 
 #ifndef COMPETITOR_H

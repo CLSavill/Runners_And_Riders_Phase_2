@@ -3,7 +3,7 @@
  * File Name: competitor.cpp
  * Description: cpp file that contains member function definitions for the competitor class.
  * First Created: 11/03/2013
- * Last Modified: 12/03/2013
+ * Last Modified: 14/03/2013
  */
 
 #include "competitor.h"
@@ -66,17 +66,17 @@ void Competitor::set_course(Event *event) {
         do {
             cout << endl << endl << "List of courses available for the competitor to enter on: " << event->getCourses()->front()->get_letter();
 
-            if (event->getCourses()->size() > 1) {
+            if (event->getCourses()->size() > 1) { //Only prints out other courses if the size of the vector > 1.
                 for (int counter = 1; counter < event->getCourses()->size(); counter++)
                     cout << ", " << event->getCourses()->at(counter)->get_letter();
             }
 
             cout << endl << endl << "Please enter in the letter of the course that the competitor is entering: ";
-            cin.clear();
-            letter = cin.get();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.clear(); //Resets the input stream flags.
+            letter = cin.get(); //Gets a single character.
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Clears the input stream.
 
-            if (isalpha(letter) && checkCourseExists(letter, event)) valid_letter = true;
+            if (isalpha(letter) && checkCourseExists(letter, event)) valid_letter = true; //Makes sure character is a letter and that it corresponds to a course that exists.
             else {
                 cout << "Please enter in a valid course letter." << endl << endl;
                 valid_letter = false;

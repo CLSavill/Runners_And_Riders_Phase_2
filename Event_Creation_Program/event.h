@@ -3,7 +3,7 @@
  * File Name: event.h
  * Description: Header file for the Event class.
  * First Created: 11/03/2013
- * Last Modified: 12/03/2013
+ * Last Modified: 14/03/2013
  */
 
 #ifndef EVENT_H
@@ -37,7 +37,7 @@ private:
 public:
     Event();
     ~Event();
-    std::vector<Course*>* getCourses(); //Member function that returns the vector of courses.
+    std::vector<Course*>* getCourses(); //Member function that returns a pointer to the vector of courses.
     void add_competitor(); //Member function that will handle adding a competitor to the event.
     void add_course(); //Member function that will handle adding a course to the event.
     void export_event(); //Member function that will handle exporting the name, date and start_time of the event to a '.txt' file.

@@ -3,7 +3,7 @@
  * File Name: course.cpp
  * Description: cpp file that contains member function definitions for the course class.
  * First Created: 11/03/2013
- * Last Modified: 12/03/2013
+ * Last Modified: 14/03/2013
  */
 
 #include "course.h"
@@ -33,10 +33,10 @@ int Course::get_node(int index) {
 /* Member function that checks if the letter given be the user matches any of the course letters. */
 bool checkCourseExists(char letter, Event *event) {
     for (int counter = 0; counter < event->getCourses()->size(); counter++) {
-        if (letter == event->getCourses()->at(counter)->get_letter()) return true;
+        if (letter == event->getCourses()->at(counter)->get_letter()) return true; //Checks if letter matches any of the course letters.
     }
     
-    return false;
+    return false; //Return false if no match found.
 }
 
 /* Member function that will set the letter of the course. */
@@ -52,7 +52,7 @@ void Course::set_letter(Event *event) {
             letter = cin.get();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-            if (isalpha(letter) && !checkCourseExists(letter, event)) valid_letter = true;
+            if (isalpha(letter) && !checkCourseExists(letter, event)) valid_letter = true; //Checks that character entered is a letter and that it does not match any course letters.
             else {
                 cout << "Please enter in a valid course letter that does not already exist in this event, a-z or A-Z." << endl << endl;
                 valid_letter = false;
@@ -93,9 +93,9 @@ bool Course::read_nodes_available() {
     nodes_file.open("nodes.txt", ios::in);
 
     if (nodes_file.is_open()) {
-        while (getline(nodes_file, input)) {
-            stringstream int_retreiver(input);
-            int_retreiver >> node_number;
+        while (getline(nodes_file, input)) { //Keep reading until EOF reached.
+            stringstream int_retriever(input); //Retrieves int from the string stream.
+            int_retriever >> node_number; //Stores the int in node_number.
             this->nodes_available->push_back(node_number);
         }
 
@@ -117,9 +117,9 @@ void Course::add_node() {
         do {
             cout << "Please enter in the node number you wish to add to the course: ";
             getline(cin, input);
-            stringstream int_retreiver(input);
-            int_retreiver >> number;
-        } while (duplicated_last_node(number) || !check_node_exists(number));
+            stringstream int_retriever(input);
+            int_retriever >> number;
+        } while (duplicated_last_node(number) || !check_node_exists(number)); //Makes sure that the number entered doesn't match the last number entered and that it does exist.
 
         cout << endl << endl << "Are you happy with the node number: '" << number << "'?" << endl;
         number_chosen = get_acceptance();
@@ -130,14 +130,14 @@ void Course::add_node() {
 
 /* Member function to check if the new node being selected matches the last node added. */
 bool Course::duplicated_last_node(int number) {
-    if (!nodes->empty()) {
+    if (!nodes->empty()) { //Only checks if there are nodes present.
         if (number == nodes->back()) {
             cout << "Node matches last node. Please choose a different node number to add." << endl;
             return true;
         }
     }
 
-    return false;
+    return false; //Returns false if the number entered and the last number entered don't match.
 }
 
 /* Member function that checks that the node being added exists in the array of node available. */
@@ -147,7 +147,7 @@ bool Course::check_node_exists(int number) {
     }
 
     cout << "Node does not exist, please choose a different node number to add." << endl;
-    return false;
+    return false; //Returns false if the number entered does not exist in the vector of nodes available.
 }
 
 /* Constructor for Course class. */
