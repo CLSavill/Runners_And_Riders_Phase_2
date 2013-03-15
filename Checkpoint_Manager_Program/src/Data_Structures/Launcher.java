@@ -5,15 +5,18 @@
  * First Created: 15/03/2013
  * Last Modified: 15/03/2013
  */
-
 package Data_Structures;
 
 public class Launcher {
-    
+
     /* Main method that just calls the loadCycle method. */
     public static void main(String[] args) {
         Event event = new Event();
-        
-        if (event.loadCycle()) loadGUI();
+
+        if (event.loadCycle()) {
+            loadGUI();
+        } else {
+            System.out.println("Exiting Program...\n");
+        }
     }
 }
