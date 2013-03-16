@@ -58,7 +58,7 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         competitorPanel = new JPanel(new BorderLayout());
         competitorPanel.setBorder(new EmptyBorder(10, 50, 20, 25));
         selectionFrame.add(competitorPanel, BorderLayout.EAST); //Adds panel to frame and places it in EASTcontainer.
-        bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel = new JPanel();
         selectionFrame.add(bottomPanel, BorderLayout.SOUTH); //Adds panel to frame and places it in SOUTH container.
         //////////////////////////////////////////////////////////////
 
@@ -99,7 +99,7 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         //Setup bottom panel components:
         next = new JButton("Next");
         next.setPreferredSize(new Dimension(100, 50));
-        bottomPanel.add(next, BorderLayout.CENTER);
+        bottomPanel.add(next);
         next.addActionListener(this);
         //////////////////////////////////////////////////////////////
         
