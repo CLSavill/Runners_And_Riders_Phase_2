@@ -1,10 +1,3 @@
-/*
- * @author Chris Savill, chs17@aber.ac.uk * 
- * File Name: EventLoader.java
- * Description: File that contains EventLoader class which stores methods to handle the reading of files. 
- * First Created: 15/03/2013
- * Last Modified: 15/03/2013
- */
 package File_Handling;
 
 import Data_Structures.Competitor;
@@ -23,9 +16,16 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Chris Savill, chs17@aber.ac.uk * 
+ * File Name: EventLoader.java
+ * Description: EventLoader class which stores methods to handle the reading of files. 
+ * First Created: 15/03/2013
+ * Last Modified: 16/03/2013
+ */
 public class EventLoader {
 
-    /* Method to retrieve file name from user. */
+    /** Method to retrieve file name from user. */
     private String getFileName(String objectsToBeLoaded) {
         boolean fileNameChosen = false;
         boolean validAcceptance = false;
@@ -64,7 +64,7 @@ public class EventLoader {
         return fileName;
     }
 
-    /* Method to read in all the details for the nodes pertaining to an event. */
+    /** Method to read in all the details for the nodes pertaining to an event. */
     public boolean readNodes(Event event) throws IOException {
         String fileName = getFileName("nodes");
         String input;
@@ -105,7 +105,7 @@ public class EventLoader {
         return false;
     }
 
-    /* Method to read in all the details for the courses pertaining to an event. */
+    /** Method to read in all the details for the courses pertaining to an event. */
     public boolean readCourses(Event event) throws IOException {
         String fileName = getFileName("courses");
         String input;
@@ -157,7 +157,7 @@ public class EventLoader {
         return false;
     }
 
-    /* Method to read in all the details for the competitors pertaining to an event. */
+    /** Method to read in all the details for the competitors pertaining to an event. */
     public boolean readCompetitors(Event event) throws IOException {
         String fileName = getFileName("competitors");
         String input;
@@ -214,7 +214,7 @@ public class EventLoader {
         return false;
     }
 
-    /* Method to read in all the details for the checkpoint times pertaining to an event. */
+    /** Method to read in all the details for the checkpoint times pertaining to an event. */
     public boolean readTimes(Event event) throws IOException, ParseException {
         String fileName = getFileName("times");
         String input;
