@@ -1,3 +1,8 @@
+/* File Name: EventLoader.java
+ * Description: EventLoader class which stores methods to handle the reading of files. 
+ * First Created: 15/03/2013
+ * Last Modified: 16/03/2013
+ */
 package File_Handling;
 
 import Data_Structures.Competitor;
@@ -17,15 +22,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Chris Savill, chs17@aber.ac.uk * 
- * File Name: EventLoader.java
- * Description: EventLoader class which stores methods to handle the reading of files. 
- * First Created: 15/03/2013
- * Last Modified: 16/03/2013
+ * @author Chris Savill, chs17@aber.ac.uk
  */
 public class EventLoader {
 
-    /** Method to retrieve file name from user. */
+    /**
+     * Method to retrieve file name from user.
+     *
+     * @param objectsToBeLoaded a string to give context.
+     */
     private String getFileName(String objectsToBeLoaded) {
         boolean fileNameChosen = false;
         boolean validAcceptance = false;
@@ -64,7 +69,11 @@ public class EventLoader {
         return fileName;
     }
 
-    /** Method to read in all the details for the nodes pertaining to an event. */
+    /**
+     * Method to read in all the details for the nodes pertaining to an event.
+     *
+     * @param event The event instance.
+     */
     public boolean readNodes(Event event) throws IOException {
         String fileName = getFileName("nodes");
         String input;
@@ -84,6 +93,10 @@ public class EventLoader {
 
                     Node node = new Node(nodeNumber, nodeType); //Creates new node with parameters read in.
                     event.getNodes().add(node); //Adds new node to array list of nodes.
+                    
+                    if (node.getType().equals("CP") || node.getType().equals("MC")) {
+                        event.getCheckpoints().add(node); //Adds new node to array list of checkpoints if the node is of type "CP or "MC". 
+                    }
                 } else {
                     System.out.print("Invalid line format. Cancelling loading of nodes.\n\n");
                     return false;
@@ -105,7 +118,11 @@ public class EventLoader {
         return false;
     }
 
-    /** Method to read in all the details for the courses pertaining to an event. */
+    /**
+     * Method to read in all the details for the courses pertaining to an event.
+     *
+     * @param event The event instance.
+     */
     public boolean readCourses(Event event) throws IOException {
         String fileName = getFileName("courses");
         String input;
@@ -157,7 +174,12 @@ public class EventLoader {
         return false;
     }
 
-    /** Method to read in all the details for the competitors pertaining to an event. */
+    /**
+     * Method to read in all the details for the competitors pertaining to an
+     * event.
+     *
+     * @param event The event instance.
+     */
     public boolean readCompetitors(Event event) throws IOException {
         String fileName = getFileName("competitors");
         String input;
@@ -214,7 +236,12 @@ public class EventLoader {
         return false;
     }
 
-    /** Method to read in all the details for the checkpoint times pertaining to an event. */
+    /**
+     * Method to read in all the details for the checkpoint times pertaining to
+     * an event.
+     *
+     * @param event The event instance.
+     */
     public boolean readTimes(Event event) throws IOException, ParseException {
         String fileName = getFileName("times");
         String input;
@@ -223,6 +250,8 @@ public class EventLoader {
         int nodeNumber;
         String[] subStrings;
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        
+        event.getRecords().clear(); //Empties priority queue.
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -243,7 +272,7 @@ public class EventLoader {
                 }
             }
 
-            if (!event.getCompetitors().isEmpty()) {
+            if (!event.getRecords().isEmpty()) {
                 System.out.print("Loading in of times successful.\n\n");
                 return true;
             } else {

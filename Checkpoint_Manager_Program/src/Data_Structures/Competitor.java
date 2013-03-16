@@ -1,19 +1,22 @@
-package Data_Structures;
-
-/**
- * @author Chris Savill, chs17@aber.ac.uk * 
- * File Name: Competitor.java
+/* File Name: Competitor.java
  * Description: Competitor class which stores all members and functions pertaining to a competitor. 
  * First Created: 15/03/2013
  * Last Modified: 15/03/2013
+ */
+package Data_Structures;
+
+/**
+ * @author Chris Savill, chs17@aber.ac.uk
  */
 public class Competitor {
 
     private String name;
     private int number;
     private char course;
-    
-    /** Constructor to initialise competitor.
+
+    /**
+     * Constructor to initialise competitor.
+     *
      * @param number The competitor's number.
      * @param course The competitor's course.
      * @param name The competitor's name.
@@ -23,18 +26,24 @@ public class Competitor {
         this.course = course;
         this.name = name;
     }
-    
-    /** Method to return the competitor's number. */
+
+    /**
+     * Method to return the competitor's number.
+     */
     public int getNumber() {
         return number;
     }
-    
-    /** Method to return the course the competitor is entered on. */
+
+    /**
+     * Method to return the course the competitor is entered on.
+     */
     public char getCourse() {
         return course;
     }
-    
-    /** Method to return the competitor's name. */
+
+    /**
+     * Method to return the competitor's name.
+     */
     public String getName() {
         return name;
     }

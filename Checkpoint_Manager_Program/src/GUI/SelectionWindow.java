@@ -1,3 +1,7 @@
+/* File Name: SelectionWindow.java
+ * Description: SelectionWindow GUI class using swing. First Created: 16/03/2013
+ * Last Modified: 16/03/2013
+ */
 package GUI;
 
 import Data_Structures.Competitor;
@@ -24,21 +28,24 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- * @author Chris Savill, chs17@aber.ac.uk * File Name: SelectionWindow.java
- * Description: SelectionWindow GUI class using swing. First Created: 16/03/2013
- * Last Modified: 16/03/2013
+ * @author Chris Savill, chs17@aber.ac.uk
  */
 public class SelectionWindow extends JFrame implements ActionListener, ListSelectionListener {
-
+    
     private Event event;
+    private int checkpoint;
+    private String type;
+    private int competitor;
+    private boolean checkpointSelected = false;
+    private boolean competitorSelected = false;
     private JFrame selectionFrame;
-    private JPanel nodePanel, competitorPanel, bottomPanel;
-    private JLabel nodeLabel, competitorLabel;
-    private DefaultListModel nodeListModel, competitorListModel;
-    private JList nodeList, competitorList;
-    private JScrollPane nodeListScrollBar, competitorListScrollBar;
+    private JPanel checkpointPanel, competitorPanel, bottomPanel;
+    private JLabel checkpointLabel, competitorLabel;
+    private DefaultListModel checkpointListModel, competitorListModel;
+    private JList checkpointList, competitorList;
+    private JScrollPane checkpointListScrollBar, competitorListScrollBar;
     private JButton next;
-
+    
     public SelectionWindow(Event event) {
         this.event = event;
 
@@ -52,43 +59,43 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         //////////////////////////////////////////////////////////////
 
         //Setup panels:
-        nodePanel = new JPanel(new BorderLayout()); //Creates new JPanel.
-        nodePanel.setBorder(new EmptyBorder(10, 50, 20, 25));  //Sets an invisible border to simulate a padding effect
-        selectionFrame.add(nodePanel, BorderLayout.WEST); //Adds panel to frame and places it in WEST container.
+        checkpointPanel = new JPanel(new BorderLayout()); //Creates new JPanel.
+        checkpointPanel.setBorder(new EmptyBorder(10, 25, 10, 25));  //Sets an invisible border to simulate a padding effect
+        selectionFrame.add(checkpointPanel, BorderLayout.WEST); //Adds panel to frame and places it in WEST container.
         competitorPanel = new JPanel(new BorderLayout());
-        competitorPanel.setBorder(new EmptyBorder(10, 50, 20, 25));
+        competitorPanel.setBorder(new EmptyBorder(10, 25, 10, 25));
         selectionFrame.add(competitorPanel, BorderLayout.EAST); //Adds panel to frame and places it in EASTcontainer.
         bottomPanel = new JPanel();
         selectionFrame.add(bottomPanel, BorderLayout.SOUTH); //Adds panel to frame and places it in SOUTH container.
         //////////////////////////////////////////////////////////////
 
-        //Setup node panel components:
-        nodeLabel = new JLabel("Select Checkpoint Below: ");
-        nodePanel.add(nodeLabel, BorderLayout.NORTH);
-
-        nodeListModel = new DefaultListModel();
-        nodeList = new JList(nodeListModel);
-        nodeList.setBorder(new LineBorder(Color.BLACK));
-        nodePanel.add(nodeList, BorderLayout.CENTER);
-        nodeList.addListSelectionListener(this);
-
-        nodeListScrollBar = new JScrollPane(nodeList);
-        nodeListScrollBar.setPreferredSize(new Dimension(50, 100));
-        nodeListScrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); //Adds vertical scrollbar to JList
-        nodeListScrollBar.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED); //Adds horizontal scrollbar to JList
-        nodePanel.add(nodeListScrollBar);
+        //Setup checkpoint panel components:
+        checkpointLabel = new JLabel("Select Checkpoint Below: ");
+        checkpointPanel.add(checkpointLabel, BorderLayout.NORTH);
+        
+        checkpointListModel = new DefaultListModel();
+        checkpointList = new JList(checkpointListModel);
+        checkpointList.setBorder(new LineBorder(Color.BLACK));
+        checkpointPanel.add(checkpointList, BorderLayout.CENTER);
+        checkpointList.addListSelectionListener(this);
+        
+        checkpointListScrollBar = new JScrollPane(checkpointList);
+        checkpointListScrollBar.setPreferredSize(new Dimension(50, 100));
+        checkpointListScrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); //Adds vertical scrollbar to JList
+        checkpointListScrollBar.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED); //Adds horizontal scrollbar to JList
+        checkpointPanel.add(checkpointListScrollBar);
         //////////////////////////////////////////////////////////////
 
         //Setup competitor panel components:
         competitorLabel = new JLabel("Select Competitor Below: ");
         competitorPanel.add(competitorLabel, BorderLayout.NORTH);
-
+        
         competitorListModel = new DefaultListModel();
         competitorList = new JList(competitorListModel);
         competitorList.setBorder(new LineBorder(Color.BLACK));
         competitorPanel.add(competitorList, BorderLayout.CENTER);
         competitorList.addListSelectionListener(this);
-
+        
         competitorListScrollBar = new JScrollPane(competitorList);
         competitorListScrollBar.setPreferredSize(new Dimension(400, 300));
         competitorListScrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); //Adds vertical scrollbar to JList
@@ -102,7 +109,7 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         bottomPanel.add(next);
         next.addActionListener(this);
         //////////////////////////////////////////////////////////////
-        
+
         //Finialise frame setup:
         addCheckpoints();
         addCompetitors();
@@ -111,21 +118,14 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         //////////////////////////////////////////////////////////////
     }
 
-    @Override
-    public void actionPerformed(ActionEvent actionCommand) {
-        if (actionCommand.equals("Next")) {
-            //TimeWindow timeWindow = new TimeWindow(event);
-        }
-    }
-
     /**
-     * Method that adds the node checkpoints to the node JList
+     * Method that adds the checkpoint checkpoints to the checkpoint JList
      */
     public void addCheckpoints() {
-        nodeListModel.removeAllElements();
-
-        for (Node node : event.getNodes()) {
-            nodeListModel.addElement(node.getNumber() + ": " + node.getType());
+        checkpointListModel.removeAllElements();
+        
+        for (Node currentCheckpoint : event.getCheckpoints()) {
+                checkpointListModel.addElement(currentCheckpoint.getNumber() + ": " + currentCheckpoint.getType());
         }
     }
 
@@ -134,15 +134,41 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
      */
     public void addCompetitors() {
         competitorListModel.removeAllElements();
-
-        for (Competitor competitor : event.getCompetitors()) {
-            competitorListModel.addElement("Competitor: " + competitor.getNumber()
-                    + "   Course: " + competitor.getCourse() + "   Name: " + competitor.getName());
+        
+        for (Competitor currentCompetitor : event.getCompetitors()) {
+            competitorListModel.addElement("Competitor: " + currentCompetitor.getNumber()
+                    + "   Course: " + currentCompetitor.getCourse() + "   Name: " + currentCompetitor.getName());
         }
     }
-
+    
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void actionPerformed(ActionEvent evt) {
+        String actionCommand = evt.getActionCommand();
+        
+        if (actionCommand.equals("Next")) {
+            if (checkpointSelected == true && competitorSelected == true) {
+                selectionFrame.setVisible(false);
+                TimeWindow timeWindow = new TimeWindow(event, checkpoint, type, competitor, selectionFrame);
+            } else {
+                JOptionPane.showMessageDialog(selectionFrame, "Please select both a checkpoint and competitor.");
+            }
+        }
+    }
+    
+    @Override
+    public void valueChanged(ListSelectionEvent evt) {
+        
+        if (!evt.getValueIsAdjusting()) {
+            JList list = (JList) evt.getSource();
+            
+            if (list.equals(checkpointList)) {
+                checkpoint = event.getCheckpoints().get(list.getSelectedIndex()).getNumber();
+                type = event.getCheckpoints().get(list.getSelectedIndex()).getType();
+                checkpointSelected = true;
+            } else if (list.equals(competitorList)) {
+                competitor = event.getCompetitors().get(list.getSelectedIndex()).getNumber();
+                competitorSelected = true;
+            }
+        }
     }
 }
