@@ -48,13 +48,13 @@ public class Event {
                 if (fileReader.readCompetitors(this)) {
                     return true;
                 } else {
-                    System.out.println("Failed to load competitors. Program Exiting.\n");
+                    System.out.print("Failed to load competitors. Program Exiting.\n");
                 }
             } else {
-                System.out.println("Failed to load courses. Program Exiting.\n");
+                System.out.print("Failed to load courses. Program Exiting.\n");
             }
         } else {
-            System.out.println("Failed to load nodes. Program Exiting.\n");
+            System.out.print("Failed to load nodes. Program Exiting.\n");
         }
 
         return false;
@@ -90,5 +90,33 @@ public class Event {
         competitors = new ArrayList<Competitor>();
         nodes = new ArrayList<Node>();
         courses = new ArrayList<Course>();
+    }
+    
+    public void printData() {
+        System.out.print("Nodes: \n");
+        
+        for (int counter = 0; counter < nodes.size(); counter++) {
+            System.out.print(nodes.get(counter).getNumber() + " " + nodes.get(counter).getType() + "\n");
+        }
+        
+        System.out.print("\nCourses: ");
+        
+        for (int counter = 0; counter < courses.size(); counter++) {
+            System.out.print("\n" + courses.get(counter).getLetter() + " " +
+                    courses.get(counter).getNumberOfNodes());
+            
+            for (int counter2 = 0; counter2 < courses.get(counter).getNodes().length; counter2++) {
+                System.out.print(" " + courses.get(counter).getNodes()[counter2]);
+            }
+        }
+        
+        System.out.print("\n\nCompetitors: ");
+        
+        for (int counter = 0; counter < competitors.size(); counter++) {
+            System.out.print("\n" + competitors.get(counter).getNumber() + " " +
+                    competitors.get(counter).getCourse() + " " + competitors.get(counter).getName());
+        }
+        
+        System.out.print("\n\nData printing finished.");
     }
 }

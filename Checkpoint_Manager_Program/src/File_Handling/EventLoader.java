@@ -28,22 +28,31 @@ public class EventLoader {
     /* Method to retrieve file name from user. */
     private String getFileName(String objectsToBeLoaded) {
         boolean fileNameChosen = false;
+        boolean validAcceptance = false;
         String fileName;
         String acceptance;
         Scanner input = new Scanner(System.in);
 
         do {
-            System.out.println("Enter in the filename required to load in the " + objectsToBeLoaded + ": ");
+            System.out.print("Enter in the filename required to load in the " + objectsToBeLoaded + ": ");
             fileName = input.nextLine();
 
             do {
-                System.out.println("Are you sure the filename is: " + fileName + "? \ny/n: ");
+                System.out.print("Are you sure the filename is: " + fileName + "? \ny/n: ");
                 acceptance = input.nextLine();
 
-                if (acceptance.charAt(0) != 'y' && acceptance.charAt(0) != 'n') {
-                    System.out.println("Please enter in a valid option, either 'y' or 'n'.\n\n");
+                if (acceptance.isEmpty()) {
+                    System.out.print("Please enter in a valid option, either 'y' or 'n'.\n\n");
+                    validAcceptance = false;
+                } else {
+                    if (acceptance.charAt(0) != 'y' && acceptance.charAt(0) != 'n') {
+                        System.out.print("Please enter in a valid option, either 'y' or 'n'.\n\n");
+                        validAcceptance = false;
+                    } else {
+                        validAcceptance = true;
+                    }
                 }
-            } while (acceptance.charAt(0) != 'y' && acceptance.charAt(0) != 'n');
+            } while (validAcceptance == false);
 
             if (acceptance.charAt(0) == 'y') {
                 fileNameChosen = true;
@@ -62,36 +71,37 @@ public class EventLoader {
         int nodeNumber;
         String nodeType;
         String[] subStrings;
+        String pattern = "(\\d+\\s+([A-Z]{2})$)"; //Regular expression for nodes file.
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
 
             while ((input = reader.readLine()) != null) {
-                if (input.matches("[\\d+][\\s+][A-Z{2}]")) { //Checks to make sure the line is in the right format.
-                    subStrings = input.split("[\\s+]"); //Gets rid of whitespace and separates the two sides into two substrings.
+                if (input.matches(pattern)) { //Checks to make sure the line is in the right format.
+                    subStrings = input.split("\\s+"); //Gets rid of whitespace and separates the two sides into two substrings.
                     nodeNumber = Integer.parseInt(subStrings[0]); //Retrieves the node number by parsing the string into an int.
                     nodeType = subStrings[1]; //Retrieves the node type.
 
                     Node node = new Node(nodeNumber, nodeType); //Creates new node with parameters read in.
                     event.getNodes().add(node); //Adds new node to array list of nodes.
                 } else {
-                    System.out.println("Invalid line format. Cancelling loading of nodes.\n\n");
+                    System.out.print("Invalid line format. Cancelling loading of nodes.\n\n");
                     return false;
                 }
             }
 
             if (!event.getNodes().isEmpty()) {
-                System.out.println("Loading in of nodes successful.\n\n");
+                System.out.print("Loading in of nodes successful.\n\n");
                 return true;
             } else {
-                System.out.println("Loading in of nodes unsuccessful. No nodes in file.\n\n");
+                System.out.print("Loading in of nodes unsuccessful. No nodes in file.\n\n");
                 return false;
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Could not open file that contains nodes.\n\n");
+        System.out.print("Could not open file that contains nodes.\n\n");
         return false;
     }
 
@@ -103,22 +113,23 @@ public class EventLoader {
         int numberOfNodes;
         int[] nodes;
         String[] subStrings;
+        String pattern = "(([A-Za-z]+)((\\s+\\d+)+)$)"; //Regular expression for courses file.
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
 
             while ((input = reader.readLine()) != null) {
-                if (input.matches("[a-zA-Z][+[[\\s+][\\d+]]]")) { //Checks to make sure the line is in the right format.
-                    subStrings = input.split("[\\s+]"); //Gets rid of whitespace and separates the strings into substrings.
+                if (input.matches(pattern)) { //Checks to make sure the line is in the right format.
+                    subStrings = input.split("\\s+"); //Gets rid of whitespace and separates the strings into substrings.
                     courseLetter = subStrings[0].charAt(0); //Retrieves the course letter.
                     numberOfNodes = Integer.parseInt(subStrings[1]);
                     nodes = new int[numberOfNodes];
 
-                    for (int counter = 1; counter < numberOfNodes; counter++) {
-                        if (event.checkNodeExists(Integer.parseInt(subStrings[counter]))) {
-                            nodes[counter] = Integer.parseInt(subStrings[counter]);
+                    for (int counter = 0; counter < numberOfNodes; counter++) {
+                        if (event.checkNodeExists(Integer.parseInt(subStrings[counter + 2]))) {
+                            nodes[counter] = Integer.parseInt(subStrings[counter + 2]);
                         } else {
-                            System.out.println("Invalid node in course file found. Cancelling loading of courses\n\n");
+                            System.out.print("Invalid node in course file found. Cancelling loading of courses\n\n");
                             return false;
                         }
                     }
@@ -126,23 +137,23 @@ public class EventLoader {
                     Course course = new Course(courseLetter, numberOfNodes, nodes); //Creates new course with parameters read in.
                     event.getCourses().add(course); //Adds new course to array list of courses.
                 } else {
-                    System.out.println("Invalid line format. Cancelling loading of courses\n\n");
+                    System.out.print("Invalid line format. Cancelling loading of courses\n\n");
                     return false;
                 }
             }
 
             if (!event.getCourses().isEmpty()) {
-                System.out.println("Loading in of courses successful.\n\n");
+                System.out.print("Loading in of courses successful.\n\n");
                 return true;
             } else {
-                System.out.println("Loading in of courses unsuccessful. No courses in file.\n\n");
+                System.out.print("Loading in of courses unsuccessful. No courses in file.\n\n");
                 return false;
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Could not open file that contains courses.\n\n");
+        System.out.print("Could not open file that contains courses.\n\n");
         return false;
     }
 
@@ -154,40 +165,44 @@ public class EventLoader {
         char courseLetter;
         String[] subStrings;
         String competitorName;
+        String pattern = "(\\d+\\s+[A-Za-z]((\\s+[A-Za-z]{1}[a-z]+)+)$)"; //Regular expression for competitors file.
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
 
             while ((input = reader.readLine()) != null) {
-                if (input.matches("[\\d+][+[[\\s+][A-Z][a-z+]]]")) { //Checks to make sure the line is in the right format.
-                    subStrings = input.split("[\\s+]"); //Gets rid of whitespace and separates the strings into substrings.
-                    competitorNumber = Integer.parseInt(subStrings[0]); //Retrieves the competitor number by parsing the string into an int.
-                    courseLetter = subStrings[1].charAt(0); //Retrieves the course the competitor is entering in on.             
+                if (input.matches(pattern)) { //Checks to make sure the line is in the right format.
+                    subStrings = input.split("\\s+"); //Gets rid of whitespace and separates the strings into substrings.
+                    competitorNumber = Integer.parseInt(subStrings[0]); //Retrieves the competitor number by parsing the string into an int.             
 
-                    if (event.checkCourseExists(courseLetter)) {
-                        competitorName = subStrings[1];
+                    if (event.checkCourseExists(subStrings[1].charAt(0))) {
+                        courseLetter = subStrings[1].charAt(0); //Retrieves the course the competitor is entering in on.
                     } else {
-                        System.out.println("Invalid course in competitor file found. Cancelling loading of competitors.\n\n");
+                        System.out.print("Invalid course in competitor file found. Cancelling loading of competitors.\n\n");
                         return false;
                     }
 
-                    for (int counter = 2; counter < subStrings.length - 2; counter++) {
-                        competitorName += " " + subStrings[counter]; //Concatanates name substrings together.
+                    competitorName = subStrings[2];
+
+                    if (subStrings.length > 3) {
+                        for (int counter = 3; counter < subStrings.length; counter++) {
+                            competitorName += " " + subStrings[counter]; //Concatanates name substrings together.
+                        }
                     }
 
                     Competitor competitor = new Competitor(competitorNumber, courseLetter, competitorName); //Creates new competitor with parameters read in.
                     event.getCompetitors().add(competitor); //Adds new competitor to array list of competitors.                
                 } else {
-                    System.out.println("Invalid line format. Cancelling loading of competitors.\n\n");
+                    System.out.print("Invalid line format. Cancelling loading of competitors.\n\n");
                     return false;
                 }
             }
 
             if (!event.getCompetitors().isEmpty()) {
-                System.out.println("Loading in of competitors successful.\n\n");
+                System.out.print("Loading in of competitors successful.\n\n");
                 return true;
             } else {
-                System.out.println("Loading in of competitors unsuccessful. No competitors in file.\n\n");
+                System.out.print("Loading in of competitors unsuccessful. No competitors in file.\n\n");
                 return false;
             }
         } catch (FileNotFoundException ex) {
@@ -195,7 +210,7 @@ public class EventLoader {
                     .getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Could not open file that contains competitors.\n\n");
+        System.out.print("Could not open file that contains competitors.\n\n");
         return false;
     }
 
@@ -223,16 +238,16 @@ public class EventLoader {
                     Record record = new Record(competitorStatus, nodeNumber, competitorNumber, time, event.getNodes()); //Creates new record with parameters read in.
                     event.getRecords().add(record); //Adds new record to array list of competitors.                
                 } else {
-                    System.out.println("Invalid line format. Cancelling loading of competitors.\n\n");
+                    System.out.print("Invalid line format. Cancelling loading of times.\n\n");
                     return false;
                 }
             }
 
             if (!event.getCompetitors().isEmpty()) {
-                System.out.println("Loading in of competitors successful.\n\n");
+                System.out.print("Loading in of times successful.\n\n");
                 return true;
             } else {
-                System.out.println("Loading in of competitors unsuccessful. No competitors in file.\n\n");
+                System.out.print("Loading in of times unsuccessful. No times in file.\n\n");
                 return false;
             }
         } catch (FileNotFoundException ex) {
@@ -240,7 +255,7 @@ public class EventLoader {
                     .getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Could not open file that contains competitors.\n\n");
+        System.out.print("Could not open file that contains times.\n\n");
         return false;
     }
 }

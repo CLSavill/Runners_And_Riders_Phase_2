@@ -7,16 +7,19 @@
  */
 package Data_Structures;
 
+import java.io.IOException;
+
 public class Launcher {
 
     /* Main method that just calls the loadCycle method. */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Event event = new Event();
 
         if (event.loadCycle()) {
-            loadGUI();
+            event.printData();
+            //loadGUI();
         } else {
-            System.out.println("Exiting Program...\n");
+            System.out.print("Exiting Program...\n");
         }
     }
 }
