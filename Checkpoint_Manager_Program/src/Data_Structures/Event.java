@@ -5,10 +5,10 @@
  */
 package Data_Structures;
 
-import File_Handling.EventLoader;
+import File_Handling.FileHandler;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Chris Savill, chs17@aber.ac.uk
@@ -21,6 +21,7 @@ public class Event {
     private ArrayList<Course> courses; //Array list of courses in an event.
     private ArrayList<Record> records; //Array list of records logged.
     private int lastLineRead;
+    private Date lastRecordedTime;
 
     /**
      * Method to return array list of competitors.
@@ -56,17 +57,19 @@ public class Event {
     public ArrayList<Record> getRecords() {
         return records;
     }
-    
+
     /**
      * Method to get the last line read number.
+     *
      * @return The line read from the times file.
      */
     public int getLastLineRead() {
         return lastLineRead;
     }
-    
+
     /**
      * Method to set the last line read number.
+     *
      * @param lineNumber The line read from the times file.
      */
     public void setLastLineRead(int lineNumber) {
@@ -74,11 +77,20 @@ public class Event {
     }
 
     /**
+     * Method to set the last time recorded.
+     *
+     * @param time The last time recorded.
+     */
+    public void setLastRecordedTime(Date time) {
+        this.lastRecordedTime = time;
+    }
+
+    /**
      * Method to call a series of methods to load in the data required by the
      * program.
      */
     public boolean loadCycle() throws IOException {
-        EventLoader fileReader = new EventLoader();
+        FileHandler fileReader = new FileHandler();
 
         if (fileReader.readNodes(this)) {
             if (fileReader.readCourses(this)) {
@@ -160,6 +172,54 @@ public class Event {
 
         return null;
     }
+
+    public boolean checkNewRecord(int checkpoint, int status, int competitorNumber, Date time) {
+        Competitor competitor = retrieveCompetitor(competitorNumber);
+
+        if (time.before(lastRecordedTime)) {
+            return false;
+        } else {
+            if (competitor.getStatus() == 'I' || competitor.getStatus() == 'E') {
+                return false; //Should not be updated as competitor already excluded.
+            } else if (status == 2 || status == 3) {
+                if (competitor.getStatus() != 'A') {
+                    return false; //Competitor cannot be departing or be exclude from a medical checkpoint they haven't arrived at.
+                } else {
+                    return true;
+                }
+            } else if (status == 0) {
+                if (competitor.getStatus() != 'A') {
+                    return true;
+                } else {
+                    return false; //Competitor cannot be at a time checkpoint when should be at a medical checkpoint being examined.
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public char determineFinalStatus(int checkpoint, int status, int competitorNumber) {
+        Competitor competitor = retrieveCompetitor(competitorNumber);
+
+        if (checkpoint == competitor.getCheckpoints()[competitor.getCheckpointIndex() + 1]) {
+            return 'I';
+        } else {
+            if (status == 0) {
+                return 'T';
+            } else if (status == 1) {
+                return 'A';
+            } else if (status == 2) {
+                return 'D';
+            } else if (status == 3) {
+                return 'E';
+            }
+        }
+        
+        System.out.print("\n\nInvalid final status, returning 'I'.\n");
+        return 'I';
+    }
+
     /**
      * Constructor to initialise the event.
      */
@@ -168,6 +228,7 @@ public class Event {
         nodes = new ArrayList<Node>();
         checkpoints = new ArrayList<Node>();
         courses = new ArrayList<Course>();
+        records = new ArrayList<Record>();
         lastLineRead = 0;
     }
 }

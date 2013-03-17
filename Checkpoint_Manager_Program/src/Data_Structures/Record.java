@@ -16,17 +16,15 @@ public class Record {
     private Event event;
     private char competitorStatus;
     private int checkpoint;
-    private String nodeType;
     private int competitorNumber;
     private Date time;
 
     /**
      * Constructor to initialise record data when read in from file.
      */
-    public Record(char status, int nodeNumber, int competitorNumber, Date time, ArrayList<Node> nodes) {
+    public Record(char status, int nodeNumber, int competitorNumber, Date time) {
         this.competitorStatus = status;
         this.checkpoint = nodeNumber;
-        this.nodeType = setNodeType(nodes);
         this.competitorNumber = competitorNumber;
         this.time = time;
     }
@@ -34,21 +32,9 @@ public class Record {
     /**
      * Constructor to initialise record data when recorded through GUI.
      */
-    public Record(int checkpoint, int competitorNumber, Date time, Event event) {
-        this.competitorStatus = calculateStatus(checkpoint, competitorNumber, event);
+    public Record(int checkpoint, char status, int competitorNumber, Date time) {
+        this.competitorStatus = status;
         this.checkpoint = checkpoint;
-        this.nodeType = "CP";
-        this.competitorNumber = competitorNumber;
-        this.time = time;
-    }
-    
-    /**
-     * Constructor to initialise record data when recorded through GUI.
-     */
-    public Record(int checkpoint, char status, int competitorNumber, Date time, Event event) {
-        this.competitorStatus = calculateStatus(checkpoint, competitorNumber, event);
-        this.checkpoint = checkpoint;
-        this.nodeType = "CP";
         this.competitorNumber = competitorNumber;
         this.time = time;
     }
@@ -69,13 +55,6 @@ public class Record {
     }
 
     /**
-     * Method to return the type of the node being recorded.
-     */
-    public String getNodeType() {
-        return nodeType;
-    }
-
-    /**
      * Method to return the competitor number being recorded.
      */
     public int getCompetitorNumber() {
@@ -87,23 +66,6 @@ public class Record {
      */
     public Date getTime() {
         return time;
-    }
-
-    /**
-     * Method to set the type of the node being recorded.
-     *
-     * @param nodes The array list of nodes to be compared with.
-     */
-    private String setNodeType(ArrayList<Node> nodes) {
-        String type = null;
-
-        for (int counter = 0; counter < nodes.size(); counter++) {
-            if (checkpoint == nodes.get(counter).getNumber()) {
-                type = nodes.get(counter).getType();
-            }
-        }
-
-        return type;
     }
 
     private char calculateStatus(int checkpoint, String type, int competitorNumber, Event event) {

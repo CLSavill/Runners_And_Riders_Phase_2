@@ -5,7 +5,7 @@ package Data_Structures;
  * Last Modified: 15/03/2013
  */
 
-import GUI.SelectionWindow;
+import GUI.TypeWindow;
 import java.io.IOException;
 
 /**

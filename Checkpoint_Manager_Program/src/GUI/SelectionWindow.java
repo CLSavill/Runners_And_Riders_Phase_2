@@ -47,7 +47,8 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
     private JScrollPane checkpointListScrollBar, competitorListScrollBar;
     private JButton next;
 
-    public SelectionWindow(Event event, String type) {
+    public SelectionWindow(Event event, String type, JFrame typeFrame) {
+        typeFrame.dispose();
         this.event = event;
         this.type = type;
         
@@ -166,7 +167,6 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
 
             if (list.equals(checkpointList)) {
                 checkpoint = event.getCheckpoints().get(list.getSelectedIndex()).getNumber();
-                type = event.getCheckpoints().get(list.getSelectedIndex()).getType();
                 checkpointSelected = true;
             } else if (list.equals(competitorList)) {
                 competitor = event.getCompetitors().get(list.getSelectedIndex()).getNumber();

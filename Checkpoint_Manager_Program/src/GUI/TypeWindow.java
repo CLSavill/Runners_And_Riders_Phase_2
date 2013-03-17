@@ -5,10 +5,8 @@
  */
 package GUI;
 
-import Data_Structures.Competitor;
 import Data_Structures.Event;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 /**
  * @author Chris Savill, chs17@aber.ac.uk
@@ -44,6 +41,7 @@ public class TypeWindow extends JFrame implements ActionListener {
         //Setup frame:
         typeFrame = new JFrame("Checkpoint Type Selection");
         JOptionPane.showMessageDialog(typeFrame, "Data files loaded successfully.");
+        typeFrame.setPreferredSize(new Dimension(300, 200));
         typeFrame.setLocation(400, 200);
         typeFrame.setLayout(new BorderLayout());
         typeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Sets the default close operation
@@ -52,7 +50,7 @@ public class TypeWindow extends JFrame implements ActionListener {
 
         //Setup panels:
         typePanel = new JPanel(new BorderLayout()); //Creates new JPanel.
-        typePanel.setBorder(new EmptyBorder(10, 25, 10, 25));  //Sets an invisible border to simulate a padding effect
+        typePanel.setBorder(new EmptyBorder(25, 25, 25, 25));  //Sets an invisible border to simulate a padding effect
         typeFrame.add(typePanel, BorderLayout.NORTH); //Adds panel to frame and places it in NORTH container.
         bottomPanel = new JPanel();
         typeFrame.add(bottomPanel, BorderLayout.SOUTH); //Adds panel to frame and places it in SOUTH container.
@@ -66,10 +64,12 @@ public class TypeWindow extends JFrame implements ActionListener {
         time.setActionCommand("time");
         time.addActionListener(this);
         time.setSelected(true); //Defaults this button to be selected. 
+        typePanel.add(time, BorderLayout.CENTER);
         medical = new JRadioButton("Medical Checkpoint");
         medical.setActionCommand("medical");
         medical.addActionListener(this);
         medical.setSelected(false);
+        typePanel.add(medical, BorderLayout.SOUTH);
 
         typeGroup = new ButtonGroup(); //Creates a group for the radio buttons to prevent both from being selected.
         typeGroup.add(time);

@@ -7,7 +7,7 @@ package GUI;
 
 import Data_Structures.Event;
 import Data_Structures.Record;
-import File_Handling.EventLoader;
+import File_Handling.FileHandler;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -33,10 +34,11 @@ import javax.swing.border.EmptyBorder;
 public class TimeWindow extends JFrame implements ActionListener {
 
     private Event event;
-    private EventLoader loader;
+    private FileHandler fileHandler;
     private int checkpoint;
     private String type;
     private int competitor;
+    private int status;
     private JFrame timeFrame, selectionFrame;
     private JPanel timePanel, bottomPanel;
     private JLabel timeLabel;
@@ -48,14 +50,23 @@ public class TimeWindow extends JFrame implements ActionListener {
 
     public TimeWindow(Event event, int checkpoint, String type, int competitor, JFrame selectionFrame) {
         selectionFrame.dispose();
+
         this.event = event;
         this.checkpoint = checkpoint;
         this.type = type;
         this.competitor = competitor;
         this.selectionFrame = selectionFrame;
+        fileHandler = new FileHandler();
 
         //Setup frame:
-        timeFrame = new JFrame("Checkpoint Time");
+        timeFrame = new JFrame("Time Of Record");
+        
+        if (type.equals("MC")) {
+            status = getMedicalOptions();
+        } else {
+            status = 0; //Comeptitor status not a medical related status.
+        }
+        
         timeFrame.setLocation(400, 200);
         timeFrame.setLayout(new BorderLayout());
         timeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Sets the default close operation
@@ -104,15 +115,46 @@ public class TimeWindow extends JFrame implements ActionListener {
             this.dispose(); //Releases resources.
 
             try {
-                loader.readTimes(event);
+                if (!fileHandler.readTimes(event)) {
+                    JOptionPane.showMessageDialog(timeFrame, "Failed to load time records from file.");
+                    timeFrame.dispose();
+                    this.dispose();
+                }
             } catch (IOException | ParseException ex) {
                 Logger.getLogger(TimeWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            // DON'T FORGET ABOUT HANDLING EXCLUSIONS FOR MEDICAL REASONS!
-            Record record = new Record(checkpoint, type, competitor, (Date) spinner.getValue(), event);
+
+            if (event.checkNewRecord(checkpoint, status, competitor, (Date) spinner.getValue())) {
+                char finalStatus = event.determineFinalStatus(checkpoint, status, competitor);  
+
+                Record record = new Record(checkpoint, finalStatus, competitor, (Date) spinner.getValue());
+                event.getRecords().add(record);
+                fileHandler.appendTimeRecord(record);
+                JOptionPane.showMessageDialog(timeFrame, "Time record succesfully added.");
+            } else {
+                JOptionPane.showMessageDialog(timeFrame, "Non-valid record. Record will not added.");
+            }
+
 
             selectionFrame.setVisible(true);
         }
+    }
+
+    public int getMedicalOptions() {
+        String[] options = new String[]{"Arriving", "Departing", "Excluded"};
+        
+        int selection = JOptionPane.showOptionDialog(timeFrame, "Is the competitor being marked as 'Arriving',"
+                + " 'Departing' or as 'Excluded' on medical grounds?", "Medical Marking", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        if (selection == 0) {
+            return 1; //Competitor status to be set to arriving at medical checkpoint.
+        } else if (selection == 1) {
+            return 2; //Competitor status to be set to departing medical checkpoint.
+        } else if (selection == 2) {
+            return 3; //Competitor status to be set to excluded based on medical grounds.
+        }
+
+        return 0;
     }
 }

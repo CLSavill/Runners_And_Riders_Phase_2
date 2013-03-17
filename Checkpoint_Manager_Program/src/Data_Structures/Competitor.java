@@ -17,7 +17,7 @@ public class Competitor {
     private char course;
     private char status;
     private int[] checkpoints;
-    private int checkpointIndex; //Real index is the value - 1 as a non started would have a value of 0 but 0 is the first index.
+    private int checkpointIndex;
 
     /**
      * Constructor to initialise competitor.
@@ -30,8 +30,9 @@ public class Competitor {
         this.number = number;
         this.course = course;
         this.name = name;
-        this.checkpoints = getCheckpoints(event);
+        this.checkpoints = setCheckpoints(event);
         this.checkpointIndex = 0;
+        this.status = 'N'; //Not started yet.
     }
 
     /**
@@ -79,7 +80,20 @@ public class Competitor {
         return checkpointIndex;
     }
 
-    private int[] getCheckpoints(Event event) {
+    /**
+     * Method to return the int array of checkpoints.
+     * @return The int array of checkpoints.
+     */
+    public int[] getCheckpoints() {
+        return checkpoints;
+    }
+    
+    /**
+     * Method to get the nodes which are recordable checkpoints (non-junction nodes).
+     * @param event The event instance.
+     * @return The int array of checkpoints.
+     */
+    private int[] setCheckpoints(Event event) {
         ArrayList<Integer> checkpointsList = new ArrayList<Integer>();
 
         for (Node node : event.getNodes()) {
