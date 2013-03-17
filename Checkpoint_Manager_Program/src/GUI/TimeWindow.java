@@ -1,7 +1,7 @@
 /* File Name: TimeWindow.java
  * Description: TimeWindow GUI class using swing.  
  * First Created: 16/03/2013
- * Last Modified: 16/03/2013
+ * Last Modified: 17/03/2013
  */
 package GUI;
 
@@ -47,6 +47,7 @@ public class TimeWindow extends JFrame implements ActionListener {
     private JSpinner.DateEditor dateEditor;
 
     public TimeWindow(Event event, int checkpoint, String type, int competitor, JFrame selectionFrame) {
+        selectionFrame.dispose();
         this.event = event;
         this.checkpoint = checkpoint;
         this.type = type;
@@ -107,8 +108,9 @@ public class TimeWindow extends JFrame implements ActionListener {
             } catch (IOException | ParseException ex) {
                 Logger.getLogger(TimeWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            Record record = new Record(checkpoint, type, competitor, time);
+            
+            // DON'T FORGET ABOUT HANDLING EXCLUSIONS FOR MEDICAL REASONS!
+            Record record = new Record(checkpoint, type, competitor, (Date) spinner.getValue(), event);
 
             selectionFrame.setVisible(true);
         }

@@ -20,7 +20,7 @@ public class Launcher {
         Event event = new Event();
 
         if (event.loadCycle()) {
-            SelectionWindow nodeWindow = new SelectionWindow(event);
+            TypeWindow typeWindow = new TypeWindow(event);
         } else {
             System.out.print("Exiting Program...\n");
         }

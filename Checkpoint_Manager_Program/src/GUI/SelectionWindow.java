@@ -1,6 +1,7 @@
 /* File Name: SelectionWindow.java
- * Description: SelectionWindow GUI class using swing. First Created: 16/03/2013
- * Last Modified: 16/03/2013
+ * Description: SelectionWindow GUI class using swing.
+ * First Created: 16/03/2013
+ * Last Modified: 17/03/2013
  */
 package GUI;
 
@@ -31,7 +32,7 @@ import javax.swing.event.ListSelectionListener;
  * @author Chris Savill, chs17@aber.ac.uk
  */
 public class SelectionWindow extends JFrame implements ActionListener, ListSelectionListener {
-    
+
     private Event event;
     private int checkpoint;
     private String type;
@@ -45,13 +46,13 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
     private JList checkpointList, competitorList;
     private JScrollPane checkpointListScrollBar, competitorListScrollBar;
     private JButton next;
-    
-    public SelectionWindow(Event event) {
-        this.event = event;
 
+    public SelectionWindow(Event event, String type) {
+        this.event = event;
+        this.type = type;
+        
         //Setup frame:
-        selectionFrame = new JFrame("Checkpoint Selection");
-        JOptionPane.showMessageDialog(selectionFrame, "Data files loaded successfully.");
+        selectionFrame = new JFrame("Checkpoint and Competitor Selection");
         selectionFrame.setLocation(400, 200);
         selectionFrame.setLayout(new BorderLayout());
         selectionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Sets the default close operation
@@ -72,13 +73,13 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         //Setup checkpoint panel components:
         checkpointLabel = new JLabel("Select Checkpoint Below: ");
         checkpointPanel.add(checkpointLabel, BorderLayout.NORTH);
-        
+
         checkpointListModel = new DefaultListModel();
         checkpointList = new JList(checkpointListModel);
         checkpointList.setBorder(new LineBorder(Color.BLACK));
         checkpointPanel.add(checkpointList, BorderLayout.CENTER);
         checkpointList.addListSelectionListener(this);
-        
+
         checkpointListScrollBar = new JScrollPane(checkpointList);
         checkpointListScrollBar.setPreferredSize(new Dimension(50, 100));
         checkpointListScrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); //Adds vertical scrollbar to JList
@@ -89,13 +90,13 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         //Setup competitor panel components:
         competitorLabel = new JLabel("Select Competitor Below: ");
         competitorPanel.add(competitorLabel, BorderLayout.NORTH);
-        
+
         competitorListModel = new DefaultListModel();
         competitorList = new JList(competitorListModel);
         competitorList.setBorder(new LineBorder(Color.BLACK));
         competitorPanel.add(competitorList, BorderLayout.CENTER);
         competitorList.addListSelectionListener(this);
-        
+
         competitorListScrollBar = new JScrollPane(competitorList);
         competitorListScrollBar.setPreferredSize(new Dimension(400, 300));
         competitorListScrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); //Adds vertical scrollbar to JList
@@ -117,15 +118,16 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         selectionFrame.setVisible(true); //Makes the frame visible
         //////////////////////////////////////////////////////////////
     }
-
     /**
      * Method that adds the checkpoint checkpoints to the checkpoint JList
      */
     public void addCheckpoints() {
         checkpointListModel.removeAllElements();
-        
+
         for (Node currentCheckpoint : event.getCheckpoints()) {
+            if (currentCheckpoint.getType().equals(type)) {
                 checkpointListModel.addElement(currentCheckpoint.getNumber() + ": " + currentCheckpoint.getType());
+            }
         }
     }
 
@@ -134,33 +136,34 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
      */
     public void addCompetitors() {
         competitorListModel.removeAllElements();
-        
+
         for (Competitor currentCompetitor : event.getCompetitors()) {
             competitorListModel.addElement("Competitor: " + currentCompetitor.getNumber()
                     + "   Course: " + currentCompetitor.getCourse() + "   Name: " + currentCompetitor.getName());
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent evt) {
         String actionCommand = evt.getActionCommand();
-        
+
         if (actionCommand.equals("Next")) {
             if (checkpointSelected == true && competitorSelected == true) {
                 selectionFrame.setVisible(false);
                 TimeWindow timeWindow = new TimeWindow(event, checkpoint, type, competitor, selectionFrame);
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(selectionFrame, "Please select both a checkpoint and competitor.");
             }
         }
     }
-    
+
     @Override
     public void valueChanged(ListSelectionEvent evt) {
-        
+
         if (!evt.getValueIsAdjusting()) {
             JList list = (JList) evt.getSource();
-            
+
             if (list.equals(checkpointList)) {
                 checkpoint = event.getCheckpoints().get(list.getSelectedIndex()).getNumber();
                 type = event.getCheckpoints().get(list.getSelectedIndex()).getType();

@@ -8,7 +8,7 @@ package Data_Structures;
 import File_Handling.EventLoader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
 
 /**
  * @author Chris Savill, chs17@aber.ac.uk
@@ -19,7 +19,8 @@ public class Event {
     private ArrayList<Node> nodes; //Array list of nodes in an event.
     private ArrayList<Node> checkpoints; //Array list of nodes that are of type "CP" or "MC".
     private ArrayList<Course> courses; //Array list of courses in an event.
-    private PriorityQueue<Record> records; //Priority queue of records logged prioritised by earliest time first.
+    private ArrayList<Record> records; //Array list of records logged.
+    private int lastLineRead;
 
     /**
      * Method to return array list of competitors.
@@ -34,7 +35,7 @@ public class Event {
     public ArrayList<Node> getNodes() {
         return nodes;
     }
-    
+
     /**
      * Method to return array list of checkpoints.
      */
@@ -50,10 +51,26 @@ public class Event {
     }
 
     /**
-     * Method to return priority queue of records.
+     * Method to return array list of records.
      */
-    public PriorityQueue<Record> getRecords() {
+    public ArrayList<Record> getRecords() {
         return records;
+    }
+    
+    /**
+     * Method to get the last line read number.
+     * @return The line read from the times file.
+     */
+    public int getLastLineRead() {
+        return lastLineRead;
+    }
+    
+    /**
+     * Method to set the last line read number.
+     * @param lineNumber The line read from the times file.
+     */
+    public void setLastLineRead(int lineNumber) {
+        this.lastLineRead = lineNumber;
     }
 
     /**
@@ -113,6 +130,37 @@ public class Event {
     }
 
     /**
+     * Method to find a competitor and return it.
+     *
+     * @param competitorNumber The number of the competitor being looked for.
+     * @return The competitor matched.
+     */
+    public Competitor retrieveCompetitor(int competitorNumber) {
+        for (Competitor competitor : competitors) {
+            if (competitor.getNumber() == competitorNumber) {
+                return competitor;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Method to find a course and return it.
+     *
+     * @param courseLetter The course being looked for.
+     * @return The course matched.
+     */
+    public Course retrieveCourse(char courseLetter) {
+        for (Course course : courses) {
+            if (course.getLetter() == courseLetter) {
+                return course;
+            }
+        }
+
+        return null;
+    }
+    /**
      * Constructor to initialise the event.
      */
     public Event() {
@@ -120,5 +168,6 @@ public class Event {
         nodes = new ArrayList<Node>();
         checkpoints = new ArrayList<Node>();
         courses = new ArrayList<Course>();
+        lastLineRead = 0;
     }
 }

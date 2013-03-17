@@ -11,8 +11,10 @@ import Data_Structures.Event;
 import Data_Structures.Node;
 import Data_Structures.Record;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,21 +95,24 @@ public class EventLoader {
 
                     Node node = new Node(nodeNumber, nodeType); //Creates new node with parameters read in.
                     event.getNodes().add(node); //Adds new node to array list of nodes.
-                    
+
                     if (node.getType().equals("CP") || node.getType().equals("MC")) {
                         event.getCheckpoints().add(node); //Adds new node to array list of checkpoints if the node is of type "CP or "MC". 
                     }
                 } else {
                     System.out.print("Invalid line format. Cancelling loading of nodes.\n\n");
+                    reader.close();
                     return false;
                 }
             }
 
             if (!event.getNodes().isEmpty()) {
                 System.out.print("Loading in of nodes successful.\n\n");
+                reader.close();
                 return true;
             } else {
                 System.out.print("Loading in of nodes unsuccessful. No nodes in file.\n\n");
+                reader.close();
                 return false;
             }
         } catch (FileNotFoundException ex) {
@@ -147,6 +152,7 @@ public class EventLoader {
                             nodes[counter] = Integer.parseInt(subStrings[counter + 2]);
                         } else {
                             System.out.print("Invalid node in course file found. Cancelling loading of courses\n\n");
+                            reader.close();
                             return false;
                         }
                     }
@@ -155,15 +161,18 @@ public class EventLoader {
                     event.getCourses().add(course); //Adds new course to array list of courses.
                 } else {
                     System.out.print("Invalid line format. Cancelling loading of courses\n\n");
+                    reader.close();
                     return false;
                 }
             }
 
             if (!event.getCourses().isEmpty()) {
                 System.out.print("Loading in of courses successful.\n\n");
+                reader.close();
                 return true;
             } else {
                 System.out.print("Loading in of courses unsuccessful. No courses in file.\n\n");
+                reader.close();
                 return false;
             }
         } catch (FileNotFoundException ex) {
@@ -201,6 +210,7 @@ public class EventLoader {
                         courseLetter = subStrings[1].charAt(0); //Retrieves the course the competitor is entering in on.
                     } else {
                         System.out.print("Invalid course in competitor file found. Cancelling loading of competitors.\n\n");
+                        reader.close();
                         return false;
                     }
 
@@ -212,19 +222,22 @@ public class EventLoader {
                         }
                     }
 
-                    Competitor competitor = new Competitor(competitorNumber, courseLetter, competitorName); //Creates new competitor with parameters read in.
+                    Competitor competitor = new Competitor(competitorNumber, courseLetter, competitorName, event); //Creates new competitor with parameters read in.
                     event.getCompetitors().add(competitor); //Adds new competitor to array list of competitors.                
                 } else {
                     System.out.print("Invalid line format. Cancelling loading of competitors.\n\n");
+                    reader.close();
                     return false;
                 }
             }
 
             if (!event.getCompetitors().isEmpty()) {
                 System.out.print("Loading in of competitors successful.\n\n");
+                reader.close();
                 return true;
             } else {
                 System.out.print("Loading in of competitors unsuccessful. No competitors in file.\n\n");
+                reader.close();
                 return false;
             }
         } catch (FileNotFoundException ex) {
@@ -243,42 +256,44 @@ public class EventLoader {
      * @param event The event instance.
      */
     public boolean readTimes(Event event) throws IOException, ParseException {
-        String fileName = getFileName("times");
         String input;
+        int currentLineNumber = 0;
+        int lastLineNumber = event.getLastLineRead();
         char competitorStatus;
         int competitorNumber;
         int nodeNumber;
         String[] subStrings;
+        String pattern = "([A-Z{1}]((\\s+\\d+){2})\\s+[0-2{1}][0-9{1}]:[0-5{1}][0-9{1}]$)"; //Regular expression for times file.
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-        
-        event.getRecords().clear(); //Empties priority queue.
+
+        event.getRecords().clear(); //Empties array list.
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedReader reader = new BufferedReader(new FileReader("cp_times.txt"));
 
             while ((input = reader.readLine()) != null) {
-                if (input.matches("[A-Z][\\s+][0-9+][\\s+][\\d{2}:\\d{2}]")) { //Checks to make sure the line is in the right format.
-                    subStrings = input.split("[\\s+]"); //Gets rid of whitespace and separates the strings into substrings.
-                    competitorStatus = subStrings[0].charAt(0); //Retrieves competitor status.
-                    nodeNumber = Integer.parseInt(subStrings[1]); //Retrieves the node number by parsing the string into an int.
-                    competitorNumber = Integer.parseInt(subStrings[2]); //Retrieves the competitor number by parsing the string into an int.
-                    Date time = formatter.parse(subStrings[3]); //Retrieves the time being recorded and formats it into 24hour HH:MM.             
-
-                    Record record = new Record(competitorStatus, nodeNumber, competitorNumber, time, event.getNodes()); //Creates new record with parameters read in.
-                    event.getRecords().add(record); //Adds new record to array list of competitors.                
-                } else {
-                    System.out.print("Invalid line format. Cancelling loading of times.\n\n");
-                    return false;
+                currentLineNumber++;
+                if (currentLineNumber > lastLineNumber) {
+                    if (input.matches(pattern)) { //Checks to make sure the line is in the right format.
+                        subStrings = input.split("[\\s+]"); //Gets rid of whitespace and separates the strings into substrings.
+                        competitorStatus = subStrings[0].charAt(0); //Retrieves competitor status.
+                        nodeNumber = Integer.parseInt(subStrings[1]); //Retrieves the node number by parsing the string into an int.
+                        competitorNumber = Integer.parseInt(subStrings[2]); //Retrieves the competitor number by parsing the string into an int.
+                        Date time = formatter.parse(subStrings[3]); //Retrieves the time being recorded and formats it into 24hour HH:MM.             
+                        
+                        Record record = new Record(competitorStatus, nodeNumber, competitorNumber, time, event.getNodes()); //Creates new record with parameters read in.
+                        event.getRecords().add(record); //Adds new record to array list of records.
+                        event.retrieveCompetitor(competitorNumber).setStatus(competitorStatus); //Updates competitor's status.
+                        event.retrieveCompetitor(competitorNumber).incrementCheckpointIndex(); //Increments the competitor's checkpoint intdex by 1.
+                    } else {
+                        System.out.print("Invalid line format. Cancelling loading of times.\n\n");
+                        reader.close();
+                        return false;
+                    }
                 }
             }
-
-            if (!event.getRecords().isEmpty()) {
-                System.out.print("Loading in of times successful.\n\n");
-                return true;
-            } else {
-                System.out.print("Loading in of times unsuccessful. No times in file.\n\n");
-                return false;
-            }
+            
+            event.setLastLineRead(currentLineNumber);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventLoader.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -286,5 +301,20 @@ public class EventLoader {
 
         System.out.print("Could not open file that contains times.\n\n");
         return false;
+    }
+    
+    public boolean appendTimeRecord(Record record) {
+        
+        try {
+            FileWriter writer = new FileWriter("cp_times.txt", true); //True sets append mode.          
+            writer.write(record.getCompetitorStatus() + " " + record.getNodeNumber()
+                    + " " + record.getCompetitorNumber() + " " + record.getTime().toString());
+            writer.close();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(EventLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;        
     }
 }

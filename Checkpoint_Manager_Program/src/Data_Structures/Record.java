@@ -34,10 +34,21 @@ public class Record {
     /**
      * Constructor to initialise record data when recorded through GUI.
      */
-    public Record(int checkpoint, String type, int competitorNumber, Date time, Event event) {
-        this.status = calculateStatus(checkpoint, type, competitorNumber, event);
+    public Record(int checkpoint, int competitorNumber, Date time, Event event) {
+        this.competitorStatus = calculateStatus(checkpoint, competitorNumber, event);
         this.checkpoint = checkpoint;
-        this.nodeType = type;
+        this.nodeType = "CP";
+        this.competitorNumber = competitorNumber;
+        this.time = time;
+    }
+    
+    /**
+     * Constructor to initialise record data when recorded through GUI.
+     */
+    public Record(int checkpoint, char status, int competitorNumber, Date time, Event event) {
+        this.competitorStatus = calculateStatus(checkpoint, competitorNumber, event);
+        this.checkpoint = checkpoint;
+        this.nodeType = "CP";
         this.competitorNumber = competitorNumber;
         this.time = time;
     }
@@ -94,8 +105,36 @@ public class Record {
 
         return type;
     }
-    
-    private String calculateStatus(int checkpoint, String type, int competitorNumber, Event event) {
-        
+
+    private char calculateStatus(int checkpoint, String type, int competitorNumber, Event event) {
+        if (checkOnCourse(competitorNumber, checkpoint, event)) {
+            return 'T';
+        } else {
+            return 'I';
+        }
+    }
+
+    private boolean checkOnCourse(int competitorNumber, int checkpoint, Event event) {
+        Competitor competitor = event.retrieveCompetitor(competitorNumber);
+
+        for (int counter = 0; counter < event.retrieveCourse(competitor.getCourse()).getNodes().length; counter++) {
+            if (checkpoint != event.retrieveCourse(competitor.getCourse()).getNodes()[counter]) {
+                return false;
+            }
+        }
+
+        return true; //Competitor is on the correct course.
+    }
+
+    private boolean checkIfAtMedical(int competitorNumber, int checkpoint, Event event) {
+        Competitor competitor = event.retrieveCompetitor(competitorNumber);
+
+        for (int counter = 0; counter < event.retrieveCourse(competitor.getCourse()).getNodes().length; counter++) {
+            if (checkpoint != event.retrieveCourse(competitor.getCourse()).getNodes()[counter]) {
+                return false;
+            }
+        }
+
+        return true; //Competitor is on the correct course.
     }
 }
