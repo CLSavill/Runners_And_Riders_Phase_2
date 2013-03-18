@@ -163,7 +163,6 @@ public class Event {
                 return competitor;
             }
         }
-
         return null;
     }
 
@@ -179,7 +178,6 @@ public class Event {
                 return course;
             }
         }
-
         return null;
     }
 
@@ -240,11 +238,6 @@ public class Event {
 
     public char determineFinalStatus(int checkpoint, int status, int competitorNumber) {
         Competitor competitor = retrieveCompetitor(competitorNumber);
-
-        System.out.println("Checkpoints for comeptitor: ");
-        for (int counter = 0; counter < competitor.getCheckpoints().length; counter++) {
-            System.out.print(competitor.getCheckpoints()[counter] + " ");
-        }
 
         if (competitor.getStatus() == 'N') {
             if (checkpoint != competitor.getCheckpoints()[competitor.getCheckpointIndex()]) {

@@ -15,6 +15,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -269,6 +273,9 @@ public class FileHandler {
         event.getRecords().clear(); //Empties array list.
 
         try {
+            FileChannel channel = new RandomAccessFile("cp_times.txt", "rw").getChannel(); //Creates a channel for the file.
+            FileLock lock = channel.lock(); //Blocks/Halts thread until lock aquired.
+
             BufferedReader reader = new BufferedReader(new FileReader("cp_times.txt"));
 
             while ((input = reader.readLine()) != null) {
@@ -295,32 +302,41 @@ public class FileHandler {
                     } else {
                         System.out.print("Invalid line format. Cancelling loading of times.\n\n");
                         reader.close();
+                        lock.release();
+                        channel.close();
                         return false;
                     }
                 }
             }
 
-            reader.close();
             event.setTimesFilesExistsTrue(); //Lets the event instance know that an event does exist.
+            reader.close(); //Closes reader.
+            lock.release(); //Releases file lock.
+            channel.close(); //Closes channel ensuring lock release and release of resources.
             return true;
         } catch (FileNotFoundException ex) {
             System.out.print("Could not open file that contains times.\n\n");
-            return false;
         }
+        return false;
     }
 
     public boolean appendTimeRecord(Record record) {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+
         try {
+            FileChannel channel = new RandomAccessFile("cp_times.txt", "rw").getChannel(); //Creates a channel for the file.
+            FileLock lock = channel.lock();
+
             FileWriter writer = new FileWriter("cp_times.txt", true); //True sets append mode.          
             writer.write(record.getCompetitorStatus() + " " + record.getNodeNumber()
                     + " " + record.getCompetitorNumber() + " " + formatter.format(record.getTime()) + "\n");
             writer.close();
+            lock.release();
+            channel.close();
             return true;
         } catch (IOException ex) {
-            Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.print("\nCould not open file for writing.\n\n");
         }
-
         return false;
     }
 }
