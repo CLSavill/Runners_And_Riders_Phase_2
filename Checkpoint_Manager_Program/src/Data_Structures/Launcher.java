@@ -1,12 +1,13 @@
-package Data_Structures;
 /* File Name: Launcher.java
  * Description: Launcher class which handles the initial launching of the Checkpoint Manager Program.
  * First Created: 15/03/2013
- * Last Modified: 15/03/2013
+ * Last Modified: 18/03/2013
  */
+package Data_Structures;
 
 import GUI.TypeWindow;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  * @author Chris Savill, chs17@aber.ac.uk
@@ -20,6 +21,7 @@ public class Launcher {
         Event event = new Event();
 
         if (event.loadCycle()) {
+            JOptionPane.showMessageDialog(null, "Data files loaded successfully.");
             TypeWindow typeWindow = new TypeWindow(event);
         } else {
             System.out.print("Exiting Program...\n");

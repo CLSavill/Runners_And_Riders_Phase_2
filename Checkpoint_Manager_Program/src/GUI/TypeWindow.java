@@ -1,7 +1,7 @@
 /* File Name: TypeWindow.java
  * Description: TypeWindow GUI class using swing.
  * First Created: 17/03/2013
- * Last Modified: 17/03/2013
+ * Last Modified: 18/03/2013
  */
 package GUI;
 
@@ -15,7 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
@@ -39,8 +38,7 @@ public class TypeWindow extends JFrame implements ActionListener {
         medicalSelected = false;
 
         //Setup frame:
-        typeFrame = new JFrame("Checkpoint Type Selection");
-        JOptionPane.showMessageDialog(typeFrame, "Data files loaded successfully.");
+        typeFrame = new JFrame("Checkpoint Type Selection"); 
         typeFrame.setPreferredSize(new Dimension(300, 200));
         typeFrame.setLocation(400, 200);
         typeFrame.setLayout(new BorderLayout());
@@ -97,13 +95,14 @@ public class TypeWindow extends JFrame implements ActionListener {
             case "Next":
                 if (medicalSelected == true) {
                     typeFrame.setVisible(false);
-                    SelectionWindow selectionWindow = new SelectionWindow(event, "MC", typeFrame);
-                    this.dispose();
+                    SelectionWindow selectionWindow = new SelectionWindow(event, "MC", typeFrame);                 
                 } else {
                     typeFrame.setVisible(false);
                     SelectionWindow selectionWindow = new SelectionWindow(event, "CP", typeFrame);
-                    this.dispose();
                 }
+                
+                typeFrame.dispose();
+                this.dispose();
                 break;
             case "time":
                 medicalSelected = false;

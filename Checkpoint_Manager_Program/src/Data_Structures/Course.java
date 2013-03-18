@@ -1,7 +1,7 @@
 /* File Name: Couse.java
  * Description: Course class which stores all members and functions pertaining to a course. 
  * First Created: 15/03/2013
- * Last Modified: 15/03/2013
+ * Last Modified: 17/03/2013
  */
 package Data_Structures;
 

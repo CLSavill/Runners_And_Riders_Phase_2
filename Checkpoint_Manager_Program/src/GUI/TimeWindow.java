@@ -39,7 +39,7 @@ public class TimeWindow extends JFrame implements ActionListener {
     private String type;
     private int competitor;
     private int status;
-    private JFrame timeFrame, selectionFrame;
+    private JFrame timeFrame, typeFrame;
     private JPanel timePanel, bottomPanel;
     private JLabel timeLabel;
     private JButton submit;
@@ -48,14 +48,14 @@ public class TimeWindow extends JFrame implements ActionListener {
     private JSpinner spinner;
     private JSpinner.DateEditor dateEditor;
 
-    public TimeWindow(Event event, int checkpoint, String type, int competitor, JFrame selectionFrame) {
+    public TimeWindow(Event event, int checkpoint, String type, int competitor, JFrame selectionFrame, JFrame typeFrame) {
         selectionFrame.dispose();
 
+        this.typeFrame = typeFrame;
         this.event = event;
         this.checkpoint = checkpoint;
         this.type = type;
         this.competitor = competitor;
-        this.selectionFrame = selectionFrame;
         fileHandler = new FileHandler();
 
         //Setup frame:
@@ -111,14 +111,9 @@ public class TimeWindow extends JFrame implements ActionListener {
         String actionCommand = evt.getActionCommand();
 
         if (actionCommand.equals("Submit Checkpoint Record")) {
-            timeFrame.dispose(); //Closes frame and releases resourses.
-            this.dispose(); //Releases resources.
-
             try {
                 if (!fileHandler.readTimes(event)) {
                     JOptionPane.showMessageDialog(timeFrame, "Failed to load time records from file.");
-                    timeFrame.dispose();
-                    this.dispose();
                 }
             } catch (IOException | ParseException ex) {
                 Logger.getLogger(TimeWindow.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,17 +121,20 @@ public class TimeWindow extends JFrame implements ActionListener {
 
             if (event.checkNewRecord(checkpoint, status, competitor, (Date) spinner.getValue())) {
                 char finalStatus = event.determineFinalStatus(checkpoint, status, competitor);  
-
+                
                 Record record = new Record(checkpoint, finalStatus, competitor, (Date) spinner.getValue());
                 event.getRecords().add(record);
+                
                 fileHandler.appendTimeRecord(record);
                 JOptionPane.showMessageDialog(timeFrame, "Time record succesfully added.");
             } else {
                 JOptionPane.showMessageDialog(timeFrame, "Non-valid record. Record will not added.");
             }
+            
+            timeFrame.dispose(); //Closes frame and releases resourses.
+            this.dispose(); //Releases resources.
+            TypeWindow typeFrame = new TypeWindow(event);
 
-
-            selectionFrame.setVisible(true);
         }
     }
 

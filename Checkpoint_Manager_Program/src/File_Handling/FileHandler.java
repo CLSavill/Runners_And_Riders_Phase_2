@@ -1,7 +1,7 @@
 /* File Name: FileHandler.java
  * Description: FileHandler class which stores methods to handle the reading of files. 
  * First Created: 15/03/2013
- * Last Modified: 16/03/2013
+ * Last Modified: 18/03/2013
  */
 package File_Handling;
 
@@ -281,13 +281,14 @@ public class FileHandler {
                         competitorNumber = Integer.parseInt(subStrings[2]); //Retrieves the competitor number by parsing the string into an int.
                         time = formatter.parse(subStrings[3]); //Retrieves the time being recorded and formats it into 24hour HH:MM.             
 
+                        Competitor competitor = event.retrieveCompetitor(competitorNumber);
+                        if (competitor.getStatus() == 'T') {
+                            competitor.incrementCheckpointIndex(); //Increments the competitor's checkpoint intdex by 1.
+                        }
+
                         Record record = new Record(competitorStatus, nodeNumber, competitorNumber, time); //Creates new record with parameters read in.
                         event.getRecords().add(record); //Adds new record to array list of records.
-                        event.retrieveCompetitor(competitorNumber).setStatus(competitorStatus); //Updates competitor's status.
-
-                        if (event.retrieveCompetitor(competitorNumber).getStatus() != 'N') {
-                            event.retrieveCompetitor(competitorNumber).incrementCheckpointIndex(); //Increments the competitor's checkpoint intdex by 1.
-                        }
+                        competitor.setStatus(competitorStatus); //Updates competitor's status.
 
                         event.setLastLineRead(currentLineNumber);
                         event.setLastRecordedTime(time);
@@ -300,22 +301,20 @@ public class FileHandler {
             }
 
             reader.close();
+            event.setTimesFilesExistsTrue(); //Lets the event instance know that an event does exist.
             return true;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileHandler.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            System.out.print("Could not open file that contains times.\n\n");
+            return false;
         }
-
-        System.out.print("Could not open file that contains times.\n\n");
-        return false;
     }
 
     public boolean appendTimeRecord(Record record) {
-
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         try {
             FileWriter writer = new FileWriter("cp_times.txt", true); //True sets append mode.          
             writer.write(record.getCompetitorStatus() + " " + record.getNodeNumber()
-                    + " " + record.getCompetitorNumber() + " " + record.getTime().toString());
+                    + " " + record.getCompetitorNumber() + " " + formatter.format(record.getTime()) + "\n");
             writer.close();
             return true;
         } catch (IOException ex) {

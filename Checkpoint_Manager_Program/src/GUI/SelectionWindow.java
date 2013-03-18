@@ -39,7 +39,7 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
     private int competitor;
     private boolean checkpointSelected = false;
     private boolean competitorSelected = false;
-    private JFrame selectionFrame;
+    private JFrame selectionFrame, typeFrame;
     private JPanel checkpointPanel, competitorPanel, bottomPanel;
     private JLabel checkpointLabel, competitorLabel;
     private DefaultListModel checkpointListModel, competitorListModel;
@@ -49,6 +49,7 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
 
     public SelectionWindow(Event event, String type, JFrame typeFrame) {
         typeFrame.dispose();
+        this.typeFrame = typeFrame;
         this.event = event;
         this.type = type;
         
@@ -151,7 +152,8 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         if (actionCommand.equals("Next")) {
             if (checkpointSelected == true && competitorSelected == true) {
                 selectionFrame.setVisible(false);
-                TimeWindow timeWindow = new TimeWindow(event, checkpoint, type, competitor, selectionFrame);
+                TimeWindow timeWindow = new TimeWindow(event, checkpoint, type, competitor, selectionFrame, typeFrame);
+                selectionFrame.dispose();
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(selectionFrame, "Please select both a checkpoint and competitor.");
@@ -166,7 +168,7 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
             JList list = (JList) evt.getSource();
 
             if (list.equals(checkpointList)) {
-                checkpoint = event.getCheckpoints().get(list.getSelectedIndex()).getNumber();
+                checkpoint = event.retrieveCheckpointNumber(type, list.getSelectedIndex(), list.getModel().getSize());
                 checkpointSelected = true;
             } else if (list.equals(competitorList)) {
                 competitor = event.getCompetitors().get(list.getSelectedIndex()).getNumber();

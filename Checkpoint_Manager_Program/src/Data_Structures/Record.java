@@ -1,11 +1,10 @@
 /* File Name: Record.java
  * Description: Record class which stores all members and functions pertaining to checking a competitor in at a checkpoint. 
  * First Created: 15/03/2013
- * Last Modified: 15/03/2013
+ * Last Modified: 17/03/2013
  */
 package Data_Structures;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -66,37 +65,5 @@ public class Record {
      */
     public Date getTime() {
         return time;
-    }
-
-    private char calculateStatus(int checkpoint, String type, int competitorNumber, Event event) {
-        if (checkOnCourse(competitorNumber, checkpoint, event)) {
-            return 'T';
-        } else {
-            return 'I';
-        }
-    }
-
-    private boolean checkOnCourse(int competitorNumber, int checkpoint, Event event) {
-        Competitor competitor = event.retrieveCompetitor(competitorNumber);
-
-        for (int counter = 0; counter < event.retrieveCourse(competitor.getCourse()).getNodes().length; counter++) {
-            if (checkpoint != event.retrieveCourse(competitor.getCourse()).getNodes()[counter]) {
-                return false;
-            }
-        }
-
-        return true; //Competitor is on the correct course.
-    }
-
-    private boolean checkIfAtMedical(int competitorNumber, int checkpoint, Event event) {
-        Competitor competitor = event.retrieveCompetitor(competitorNumber);
-
-        for (int counter = 0; counter < event.retrieveCourse(competitor.getCourse()).getNodes().length; counter++) {
-            if (checkpoint != event.retrieveCourse(competitor.getCourse()).getNodes()[counter]) {
-                return false;
-            }
-        }
-
-        return true; //Competitor is on the correct course.
     }
 }

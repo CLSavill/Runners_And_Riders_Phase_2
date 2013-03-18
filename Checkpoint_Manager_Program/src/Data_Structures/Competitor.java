@@ -1,7 +1,7 @@
 /* File Name: Competitor.java
  * Description: Competitor class which stores all members and functions pertaining to a competitor. 
  * First Created: 15/03/2013
- * Last Modified: 15/03/2013
+ * Last Modified: 18/03/2013
  */
 package Data_Structures;
 
@@ -72,7 +72,8 @@ public class Competitor {
     }
 
     /**
-     * Method to return the index of the last checkpoint the competitor arrived at.
+     * Method to return the index of the last checkpoint the competitor arrived
+     * at.
      *
      * @return The index of the last checkpoint the competitor arrived at.
      */
@@ -82,29 +83,34 @@ public class Competitor {
 
     /**
      * Method to return the int array of checkpoints.
+     *
      * @return The int array of checkpoints.
      */
     public int[] getCheckpoints() {
         return checkpoints;
     }
-    
+
     /**
-     * Method to get the nodes which are recordable checkpoints (non-junction nodes).
+     * Method to get the nodes which are recordable checkpoints (non-junction
+     * nodes).
+     *
      * @param event The event instance.
      * @return The int array of checkpoints.
      */
     private int[] setCheckpoints(Event event) {
         ArrayList<Integer> checkpointsList = new ArrayList<Integer>();
+        Course courseReference = event.retrieveCourse(course);
 
-        for (Node node : event.getNodes()) {
-            for (int counter = 0; counter < event.retrieveCourse(course).getNumberOfNodes(); counter++) {
-                if (node.getType().equals("JN") && node.getNumber() == event.retrieveCourse(course).getNodes()[counter]) {
-                    checkpointsList.add(node.getNumber());
+        for (int counter = 0; counter < courseReference.getNumberOfNodes(); counter++) {
+            for (int counter2 = 0; counter2 < event.getNodes().size(); counter2++) {
+                if ((!event.getNodes().get(counter2).getType().equals("JN"))
+                        && (event.getNodes().get(counter2).getNumber() == courseReference.getNodes()[counter])) {
+                    checkpointsList.add(event.getNodes().get(counter2).getNumber());
+                    break;
                 }
             }
-
         }
-        
+
         int[] intList = new int[checkpointsList.size()];
         
         for (int counter = 0; counter < checkpointsList.size(); counter++) {
@@ -124,18 +130,9 @@ public class Competitor {
     }
 
     /**
-     * Method to set the last checkpoint the competitor arrived at.
-     *
-     * @param checkpoint The last checkpoint the competitor arrived at.
-     */
-    public void setCheckpointIndex(int checkpoint) {
-        this.checkpointIndex = checkpoint;
-    }
-    
-    /**
      * Method to increment the checkpoint index by 1.
      */
     public void incrementCheckpointIndex() {
-       checkpointIndex++;
+        checkpointIndex++;
     }
 }

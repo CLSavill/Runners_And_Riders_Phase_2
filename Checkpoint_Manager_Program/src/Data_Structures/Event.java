@@ -1,7 +1,7 @@
 /* File Name: Manager.java
  * Description: Event class which stores all members and functions pertaining to an event. 
  * First Created: 15/03/2013
- * Last Modified: 16/03/2013
+ * Last Modified: 18/03/2013
  */
 package Data_Structures;
 
@@ -22,6 +22,7 @@ public class Event {
     private ArrayList<Record> records; //Array list of records logged.
     private int lastLineRead;
     private Date lastRecordedTime;
+    private boolean timeFileExists;
 
     /**
      * Method to return array list of competitors.
@@ -142,6 +143,15 @@ public class Event {
     }
 
     /**
+     * Method to let the know event instance know that a time file does now
+     * exist.
+     *
+     */
+    public void setTimesFilesExistsTrue() {
+        timeFileExists = true;
+    }
+
+    /**
      * Method to find a competitor and return it.
      *
      * @param competitorNumber The number of the competitor being looked for.
@@ -173,27 +183,56 @@ public class Event {
         return null;
     }
 
+    /**
+     * Method to retrieve the checkpoint number.
+     *
+     * @param type The type of the checkpoint.
+     * @param listIndex The index of the list element.
+     * @param numberOfElements The size of the list.
+     * @return The checkpoint number being looked for.
+     */
+    public int retrieveCheckpointNumber(String type, int listIndex, int numberOfElements) {
+        int[] checkpointArray = new int[numberOfElements];
+        int arrayIndex = 0;
+
+        for (int counter = 0; counter < checkpoints.size(); counter++) {
+            if (checkpoints.get(counter).getType().equals(type)) {
+                checkpointArray[arrayIndex++] = checkpoints.get(counter).getNumber();
+            }
+        }
+
+        return checkpointArray[listIndex];
+    }
+
     public boolean checkNewRecord(int checkpoint, int status, int competitorNumber, Date time) {
         Competitor competitor = retrieveCompetitor(competitorNumber);
 
-        if (time.before(lastRecordedTime)) {
-            return false;
-        } else {
-            if (competitor.getStatus() == 'I' || competitor.getStatus() == 'E') {
-                return false; //Should not be updated as competitor already excluded.
-            } else if (status == 2 || status == 3) {
-                if (competitor.getStatus() != 'A') {
-                    return false; //Competitor cannot be departing or be exclude from a medical checkpoint they haven't arrived at.
-                } else {
-                    return true;
-                }
-            } else if (status == 0) {
-                if (competitor.getStatus() != 'A') {
-                    return true;
-                } else {
-                    return false; //Competitor cannot be at a time checkpoint when should be at a medical checkpoint being examined.
-                }
+        if (timeFileExists != false) {
+            if (time.before(lastRecordedTime)) {
+                System.out.println("\nInvalid time.");
+                return false;
             }
+        }
+
+        if (competitor.getStatus() == 'I' || competitor.getStatus() == 'E') {
+            System.out.println("\nCompetitor already excluded.");
+            return false; //Should not be updated as competitor already excluded.
+        } else if (status == 2 || status == 3) {
+            if (competitor.getStatus() != 'A') {
+                System.out.println("\nCompetitor hasn't arrived at a medical checkpoint yet.");
+                return false; //Competitor cannot be departing or be exclude from a medical checkpoint they haven't arrived at.
+            } else {
+                return true;
+            }
+        } else if (status == 0) {
+            if (competitor.getStatus() != 'A') {
+                return true;
+            } else {
+                System.out.println("\nCompetitor is still being examined at a medical checkpoint.");
+                return false; //Competitor cannot be at a time checkpoint when should be at a medical checkpoint being examined.
+            }
+        } else if (status == 1) {
+            return true;
         }
 
         return false;
@@ -202,7 +241,26 @@ public class Event {
     public char determineFinalStatus(int checkpoint, int status, int competitorNumber) {
         Competitor competitor = retrieveCompetitor(competitorNumber);
 
-        if (checkpoint == competitor.getCheckpoints()[competitor.getCheckpointIndex() + 1]) {
+        System.out.println("Checkpoints for comeptitor: ");
+        for (int counter = 0; counter < competitor.getCheckpoints().length; counter++) {
+            System.out.print(competitor.getCheckpoints()[counter] + " ");
+        }
+
+        if (competitor.getStatus() == 'N') {
+            if (checkpoint != competitor.getCheckpoints()[competitor.getCheckpointIndex()]) {
+                return 'I';
+            } else if (status == 0) {
+                return 'T';
+            } else if (status == 1) {
+                return 'A';
+            }
+        } else if (competitor.getStatus() == 'A') {
+            if (status == 2) {
+                return 'D';
+            } else if (status == 3) {
+                return 'E';
+            }
+        } else if (checkpoint != competitor.getCheckpoints()[competitor.getCheckpointIndex() + 1]) {
             return 'I';
         } else {
             if (status == 0) {
@@ -215,7 +273,7 @@ public class Event {
                 return 'E';
             }
         }
-        
+
         System.out.print("\n\nInvalid final status, returning 'I'.\n");
         return 'I';
     }
@@ -230,5 +288,6 @@ public class Event {
         courses = new ArrayList<Course>();
         records = new ArrayList<Record>();
         lastLineRead = 0;
+        timeFileExists = false;
     }
 }
