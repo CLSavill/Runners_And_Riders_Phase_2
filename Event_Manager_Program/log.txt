@@ -1,0 +1,5 @@
+Action: Read in a time records file, Date: Tue Mar 19 17:07:56 2013
+Action: Viewed results of competitors that completed their course successfully, Date: Tue Mar 19 17:07:56 2013
+Action: Queried competitor, Date: Tue Mar 19 17:08:25 2013
+Action: Viewed results of competitors that completed their course successfully, Date: Tue Mar 19 17:08:30 2013
+Action: Quit Program, Date: Tue Mar 19 17:08:32 2013

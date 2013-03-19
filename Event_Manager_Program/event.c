@@ -145,7 +145,7 @@ void print_finished(event_ptr event) {
 void print_results(event_ptr event) {
     competitor *competitor;
     competitor = event->competitor_head;
-    time time;
+    time_struct time;
     int counter = 0;
 
     printf("\n Printing results...\n\n");
@@ -179,7 +179,7 @@ void print_excluded(event_ptr event) {
     char* status[] = {"NS", "TC - ", "TN - ", "A - ", "D - ", "CC", "EI", "EM"};
     competitor *competitor;
     competitor = event->competitor_head;
-    time time;
+    time_struct time;
     int counter = 0;
 
     printf("\n Printing excluded...\n\n");

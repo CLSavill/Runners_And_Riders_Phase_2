@@ -10,10 +10,12 @@ int menu(event_ptr event);
 /*-----------------------------------------------------------------------*/
 
 /* loader.c Function Prototypes */
+struct flock *file_lock(short type, short whence);
 int loader(event_ptr event);
 int load_cycle(event_ptr event, int (*load_function_ptr) (event_ptr, char*));
-void read_times_file(event_ptr event);
-int chronological_check(time current_time, int hours, int minutes);
+void time_loader(event_ptr event);
+int read_times_file(event_ptr event, char* file_name);
+int chronological_check(time_struct current_time, int hours, int minutes);
 /*-----------------------------------------------------------------------*/
 
 /* event.c Function Prototypes */
@@ -49,8 +51,8 @@ int competitors_file_load(event_ptr event, char* file_name);
 competitor* get_competitor(event_ptr event, int number);
 void query_location(event_ptr event);
 void print_location(event_ptr event, competitor* competitor);
-time get_result_time(time end_time, time start_time, int medical_minutes);
-int get_medical_time(time departure_time, time arrival_time);
+time_struct get_result_time(time_struct end_time, time_struct start_time, int medical_minutes);
+int get_medical_time(time_struct departure_time, time_struct arrival_time);
 
 /*-----------------------------------------------------------------------*/
 
@@ -60,4 +62,8 @@ void update_statuses(event_ptr event);
 int estimate_location(event_ptr event, competitor* competitor);
 track* track_estimation(event_ptr event, competitor* competitor, node* nodeA, node* nodeB, int node_index, int next_node_number, int event_time, int est_arrival_time);
 void evaluate_status(event_ptr event, competitor* competitor, int status, int checkpoint, int hours, int minutes);
+/*-----------------------------------------------------------------------*/
+
+/* logger.c Function Prototypes */
+void write_log(const char *log);
 /*-----------------------------------------------------------------------*/

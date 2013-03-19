@@ -53,36 +53,37 @@ int menu(event_ptr event) {
         switch (option) {
             case 1:
                 query_location(event);
-                log("Queried competitor\n");
+                write_log("Queried competitor");
                 break;
             case 2:
                 print_not_started(event);
-                log("Viewed list of competitors not started.\n");
+                write_log("Viewed list of competitors not started");
                 break;
             case 3:
                 print_out_on_course(event);
-                log("Viewed list of competitors out on course.\n");
+                write_log("Viewed list of competitors out on course");
                 break;
             case 4:
                 print_finished(event);
-                log("Viewed list of competitors that have finished.\n");
+                write_log("Viewed list of competitors that have finished");
                 break;
             case 5:
-                read_times_file(event);
-                log("Read in a time records file.\n");
+                time_loader(event);
+                write_log("Read in a time records file");
+                break;
             case 6:
                 print_results(event);
-                log("Viewed results of competitors that completed their course successfully.\n");
+                write_log("Viewed results of competitors that completed their course successfully");
                 break;
             case 7:
                 print_excluded(event);
-                log("Viewed results of competitors that were excluded.\n");
+                write_log("Viewed results of competitors that were excluded");
                 break;
             case 8:
-                log("Quit Program.\n");
+                write_log("Quit Program");
                 break;
             default:
-                printf("\nPlease enter in a valid option.");
+                printf("\nPlease enter in a valid option");
         }
     } while (option != 8);
 

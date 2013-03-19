@@ -11,6 +11,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <time.h>
 
 /* Define integer constants */
 #define MAX_PATH_LENGTH 51      /* Max length of file path. */
@@ -46,10 +47,10 @@ enum status {
 /*-----------------------------------------------------------------------*/
 
 /* Structure used to encapsulate attributes of a 24-hour clock. */
-typedef struct time {
+typedef struct time_struct {
     int hours; /* int used to store the hours of the clock. */
     int minutes; /* int used to store the minutes of the clock. */
-} time;
+} time_struct;
 /*-----------------------------------------------------------------------*/
 
 /* Structure used to encapsulate attributes for a node. */
@@ -77,12 +78,12 @@ typedef struct competitor {
     char name[MAX_NAME_LENGTH]; /* char array used to store the entrants name. */
     char course; /* char used to store the course the entrant has entered. */
     struct course *course_ptr;
-    time start_time; /* time struct used to store the time at which the competitor started on their course. */
-    time end_time; /* time struct used to store the time at which the competitor finished their course. */
-    time last_time_recored;
+    time_struct start_time; /* time struct used to store the time at which the competitor started on their course. */
+    time_struct end_time; /* time struct used to store the time at which the competitor finished their course. */
+    time_struct last_time_recored;
     int last_checkpoint_index;
-    time medical_arrival_time; /* time struct used to store the time at which the competitor arrived at a medical checkpoint. */
-    time medical_departure_time; /* time struct used to store the time at which the competitor departed the medical checkpoint. */
+    time_struct medical_arrival_time; /* time struct used to store the time at which the competitor arrived at a medical checkpoint. */
+    time_struct medical_departure_time; /* time struct used to store the time at which the competitor departed the medical checkpoint. */
     int medical_minutes;
     enum status status; /* int used to store the current location of the competitor (#defined constant). */
     int location;
@@ -102,8 +103,8 @@ typedef struct course {
 typedef struct event {
     char name[MAX_EVENT_LENGTH]; /* char array used to store the name of the event. */
     char date[MAX_DATE_LENGTH]; /* char array used to store the date of the event. */
-    struct time start_time; /* time struct used to store the start time of the event. */
-    struct time current_time;
+    struct time_struct start_time; /* time struct used to store the start time of the event. */
+    struct time_struct current_time;
     int number_of_nodes;
     struct node *node_head;
     int number_of_tracks;
@@ -113,18 +114,6 @@ typedef struct event {
     int number_of_competitors;
     struct competitor *competitor_head;
 } event;
-/*-----------------------------------------------------------------------*/
-
-/* Structure used for file locking. */
-struct flock* file_lock(short type, short whence) {
-    static struct flock ret;
-    ret.l_type = type;
-    ret.l_start = 0;
-    ret.l_whence = whence;
-    ret.l_len = 0;
-    ret.l_pid = getpid();
-    return &ret;
-}
 /*-----------------------------------------------------------------------*/
 
 /* Type Definitions */

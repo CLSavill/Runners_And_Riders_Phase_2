@@ -7,6 +7,18 @@
 #include "structs.h"
 #include "prototypes.h"
 
+/* Function to deal with file locking. */
+struct flock *file_lock(short type, short whence) {
+    static struct flock ret;
+    ret.l_type = type;
+    ret.l_start = 0;
+    ret.l_whence = whence;
+    ret.l_len = 0;
+    ret.l_pid = getpid();
+    return &ret;
+}
+/*-----------------------------------------------------------------------*/
+
 /* Function to cycle through the process of calling all the loading functions. */
 int loader(event_ptr event) {
     int load_status;
@@ -61,10 +73,19 @@ int load_cycle(event_ptr event, int (*load_function_ptr) (event_ptr, char*)) {
 }
 /*-----------------------------------------------------------------------*/
 
+void time_loader(event_ptr event) {
+    int load_status = FAILURE;
+
+    do {
+        printf("\nPlease enter in the file path and name of the time record file: ");
+        load_status = load_cycle(event, &read_times_file);
+    } while (load_status != SUCCESS);
+    printf("Time record loading finished.\n");
+}
+
 /* Function to read in a file of times. */
-void read_times_file(event_ptr event) {
+int read_times_file(event_ptr event, char* file_name) {
     FILE *times_file; /* File pointer */
-    char file_name[MAX_PATH_LENGTH];
     int load_status;
     char status;
     int checkpoint;
@@ -73,25 +94,17 @@ void read_times_file(event_ptr event) {
     int minutes;
     competitor *competitor;
 
-    do {
-        printf("\n\nPlease enter in the file path and name of the time file to be loaded: ");
-        scanf("%s", file_name);
-
-        if ((times_file = fopen(file_name, "r")) == NULL) { /* Open file with read permissions only and check file opened. */
-            printf("Please enter in a valid file path and name.\n");
-        }
-    } while (times_file == NULL);
-
     int fileDescriptor = open(file_name, O_RDWR);
     if (fileDescriptor == -1) {
         printf("File descriptor error");
     }
 
-    struct flock* fileLock = file_lock(F_WRLCK, SEEK_SET);
+    struct flock* fileLock = file_lock(F_WRLCK, SEEK_SET); /* Locks file */
 
     if (fcntl(fileDescriptor, F_SETLK, fileLock) == -1) {
         if (errno == EACCES || errno == EAGAIN) {
-            printf("\nCould not write log as log file was locked.\n");
+            printf("\nCould not load time record file as file was locked.\n");
+            return; /* Exits function */
         }
     } else {
         times_file = fdopen(fileDescriptor, "r");
@@ -114,24 +127,27 @@ void read_times_file(event_ptr event) {
         } while (load_status != EOF && load_status == 5 && load_status != FAILURE);
 
         if (load_status == EOF) {
-            fcntl(fileDescriptor, F_SETLKW, file_lock(F_UNLCK, SEEK_SET));
+            fcntl(fileDescriptor, F_SETLKW, file_lock(F_UNLCK, SEEK_SET)); /* Releases file lock */
             fclose(times_file);
             printf("\nLoading of times files complete.\n");
+            return SUCCESS;
         } else if (load_status == FAILURE) {
             printf("\nFile has not arrived in chronological order, permission to read in file denied.\n");
             fcntl(fileDescriptor, F_SETLKW, file_lock(F_UNLCK, SEEK_SET));
             fclose(times_file);
+            return FAILURE;
         } else if (load_status != 5) {
             printf("Error reading in time file, possible pattern mismatch.\n");
             fcntl(fileDescriptor, F_SETLKW, file_lock(F_UNLCK, SEEK_SET));
             fclose(times_file);
+            return FAILURE;
         }
     }
 }
 /*-----------------------------------------------------------------------*/
 
 /* Function to check if the new time passed in is later than the current event time. */
-int chronological_check(time current_time, int hours, int minutes) {
+int chronological_check(time_struct current_time, int hours, int minutes) {
     if (hours < current_time.hours) { /* Check if time file has arrived in chronological order */
         return FAILURE;
     } else if (hours == current_time.hours) {

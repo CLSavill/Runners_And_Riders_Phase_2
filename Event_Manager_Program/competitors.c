@@ -155,8 +155,8 @@ void print_location(event_ptr event, competitor* competitor) {
 /*-----------------------------------------------------------------------*/
 
 /* Function to return a time for a competitor. */
-time get_result_time(time end_time, time start_time, int medical_minutes) {
-    time time;
+time_struct get_result_time(time_struct end_time, time_struct start_time, int medical_minutes) {
+    time_struct time;
 
     time.hours = end_time.hours - start_time.hours;
     time.minutes = end_time.minutes - start_time.minutes - medical_minutes;
@@ -173,7 +173,7 @@ time get_result_time(time end_time, time start_time, int medical_minutes) {
 /*-----------------------------------------------------------------------*/
 
 /* Function to return the time spent at a medical checkpoint in minutes. */
-int get_medical_time(time departure_time, time arrival_time) {
+int get_medical_time(time_struct departure_time, time_struct arrival_time) {
     int minutes;
 
     minutes = (departure_time.hours * 60) - (arrival_time.hours * 60);
