@@ -279,7 +279,7 @@ public class FileHandler {
             FileChannel channel = new RandomAccessFile(fileName, "rw").getChannel(); //Creates a channel for the file.
             FileLock lock = channel.lock();
 
-            FileWriter writer = new FileWriter("cp_times.txt", true); //True sets append mode.          
+            FileWriter writer = new FileWriter(fileName, true); //True sets append mode.          
             writer.write(record.getCompetitorStatus() + " " + record.getNodeNumber()
                     + " " + record.getCompetitorNumber() + " " + formatter.format(record.getTime()) + "\n");
             writer.close();
