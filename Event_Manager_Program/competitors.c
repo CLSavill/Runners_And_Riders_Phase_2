@@ -154,68 +154,6 @@ void print_location(event_ptr event, competitor* competitor) {
 }
 /*-----------------------------------------------------------------------*/
 
-/* Function to get a manual input for the updating of a competitor's arrival at a time checkpoint. */
-void update_competitor(event_ptr event) {
-    int hours;
-    int minutes;
-    competitor *competitor;
-    int number;
-    int checkpoint;
-    char status;
-
-    printf("\nPlease enter in the competitor number you wish to update: ");
-    scanf("%d", &number);
-
-    while ((competitor = get_competitor(event, number)) == NULL) { /* Check to make sure a valid competitor is entered. */
-        printf("\nPlease enter in a valid competitor number: ");
-        scanf("%d", &number);
-    }
-
-    getchar();
-    printf("\nPlease enter in the new status of the competitor (T, I, A, D, E): ");
-    scanf("%c", &status);
-
-    while (status != 'T' && status != 'I' && status != 'A' && status != 'D' && status != 'E') { /* Check to make sure a valid status is entered. */
-        printf("\nPlease enter in a valid status (T, I, A, D, E): ");
-        scanf("%c", &status);
-    }
-
-    if (status == D) {
-        checkpoint = competitor->location;
-    } else {
-        printf("\nPlease enter in the new checkpoint of the competitor: ");
-        scanf("%d", &checkpoint);
-
-        while (checkpoint > event->number_of_nodes || checkpoint < 1) { /* Check to make sure a valid status is entered. */
-            printf("\nPlease enter in a valid checkpoint between 1 and %d: ", event->number_of_nodes);
-            scanf("%d", &checkpoint);
-        }
-    }
-
-    printf("\nPlease enter in the hour at which the competitor arrived (between 00 and 23) for a 24-hour clock: ");
-    scanf("%02d", &hours);
-
-    while (hours > 23 || hours < 00) { /* Check to make sure a valid number of hours is entered. */
-        printf("\nPlease enter in a valid hour between 00 and 23 for a 24-hour clock: ");
-        scanf("%02d", &hours);
-    }
-
-    printf("\nPlease enter in the minutes at which the competitor arrived: ");
-    scanf("%02d", &minutes);
-
-    while (minutes > 60 || minutes < 00) { /* Check to make sure a valid number of minutes is entered. */
-        printf("\nPlease enter in a valid number of minutes between (00 and 60): ");
-        scanf("%02d", &minutes);
-    }
-
-    if ((chronological_check(event->current_time, hours, minutes)) == SUCCESS) {
-        evaluate_status(event, competitor, status, checkpoint, hours, minutes);
-    } else {
-        printf("\n\nSorry but the manual update you are attempting is not in chronological order, updating process aborted.\n");
-    }
-}
-/*-----------------------------------------------------------------------*/
-
 /* Function to return a time for a competitor. */
 time get_result_time(time end_time, time start_time, int medical_minutes) {
     time time;

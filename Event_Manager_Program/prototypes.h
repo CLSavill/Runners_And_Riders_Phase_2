@@ -49,7 +49,6 @@ int competitors_file_load(event_ptr event, char* file_name);
 competitor* get_competitor(event_ptr event, int number);
 void query_location(event_ptr event);
 void print_location(event_ptr event, competitor* competitor);
-void update_competitor(event_ptr event);
 time get_result_time(time end_time, time start_time, int medical_minutes);
 int get_medical_time(time departure_time, time arrival_time);
 

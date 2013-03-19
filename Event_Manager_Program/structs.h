@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+#include <stdio.h>
 
 /* Define integer constants */
 #define MAX_PATH_LENGTH 51      /* Max length of file path. */
@@ -109,6 +113,18 @@ typedef struct event {
     int number_of_competitors;
     struct competitor *competitor_head;
 } event;
+/*-----------------------------------------------------------------------*/
+
+/* Structure used for file locking. */
+struct flock* file_lock(short type, short whence) {
+    static struct flock ret;
+    ret.l_type = type;
+    ret.l_start = 0;
+    ret.l_whence = whence;
+    ret.l_len = 0;
+    ret.l_pid = getpid();
+    return &ret;
+}
 /*-----------------------------------------------------------------------*/
 
 /* Type Definitions */

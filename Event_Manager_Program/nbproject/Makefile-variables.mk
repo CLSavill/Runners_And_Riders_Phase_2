@@ -7,21 +7,21 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Debug configuration
-CND_PLATFORM_Debug=OracleSolarisStudio-Solaris-Sparc
-CND_ARTIFACT_DIR_Debug=dist/Debug/OracleSolarisStudio-Solaris-Sparc
-CND_ARTIFACT_NAME_Debug=cs23710_extended_mission
-CND_ARTIFACT_PATH_Debug=dist/Debug/OracleSolarisStudio-Solaris-Sparc/cs23710_extended_mission
-CND_PACKAGE_DIR_Debug=dist/Debug/OracleSolarisStudio-Solaris-Sparc/package
-CND_PACKAGE_NAME_Debug=cs23710extendedmission.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/OracleSolarisStudio-Solaris-Sparc/package/cs23710extendedmission.tar
+CND_PLATFORM_Debug=GNU-Linux-x86
+CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
+CND_ARTIFACT_NAME_Debug=event_manager_program
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/event_manager_program
+CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
+CND_PACKAGE_NAME_Debug=eventmanagerprogram.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/eventmanagerprogram.tar
 # Release configuration
-CND_PLATFORM_Release=OracleSolarisStudio-Solaris-Sparc
-CND_ARTIFACT_DIR_Release=dist/Release/OracleSolarisStudio-Solaris-Sparc
-CND_ARTIFACT_NAME_Release=cs23710_extended_mission
-CND_ARTIFACT_PATH_Release=dist/Release/OracleSolarisStudio-Solaris-Sparc/cs23710_extended_mission
-CND_PACKAGE_DIR_Release=dist/Release/OracleSolarisStudio-Solaris-Sparc/package
-CND_PACKAGE_NAME_Release=cs23710extendedmission.tar
-CND_PACKAGE_PATH_Release=dist/Release/OracleSolarisStudio-Solaris-Sparc/package/cs23710extendedmission.tar
+CND_PLATFORM_Release=GNU-Linux-x86
+CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
+CND_ARTIFACT_NAME_Release=event_manager_program
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/event_manager_program
+CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
+CND_PACKAGE_NAME_Release=eventmanagerprogram.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/eventmanagerprogram.tar
 #
 # include compiler specific variables
 #

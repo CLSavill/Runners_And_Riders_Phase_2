@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=CS23710_Extended_Mission
+PROJECTNAME=Event_Manager_Program
 
 # Active Configuration
 DEFAULTCONF=Debug

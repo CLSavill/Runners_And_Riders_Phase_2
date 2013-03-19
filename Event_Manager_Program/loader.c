@@ -63,7 +63,7 @@ int load_cycle(event_ptr event, int (*load_function_ptr) (event_ptr, char*)) {
 
 /* Function to read in a file of times. */
 void read_times_file(event_ptr event) {
-    FILE *times_file; /* File pointer. */
+    FILE *times_file; /* File pointer */
     char file_name[MAX_PATH_LENGTH];
     int load_status;
     char status;
@@ -82,32 +82,50 @@ void read_times_file(event_ptr event) {
         }
     } while (times_file == NULL);
 
-    do {
-        load_status = fscanf(times_file, " %c %d %d %d:%d", &status, &checkpoint, &competitor_number, &hours, &minutes);
+    int fileDescriptor = open(file_name, O_RDWR);
+    if (fileDescriptor == -1) {
+        printf("File descriptor error");
+    }
+
+    struct flock* fileLock = file_lock(F_WRLCK, SEEK_SET);
+
+    if (fcntl(fileDescriptor, F_SETLK, fileLock) == -1) {
+        if (errno == EACCES || errno == EAGAIN) {
+            printf("\nCould not write log as log file was locked.\n");
+        }
+    } else {
+        times_file = fdopen(fileDescriptor, "r");
+
+        do {
+            load_status = fscanf(times_file, " %c %d %d %d:%d", &status, &checkpoint, &competitor_number, &hours, &minutes);
+
+            if (load_status == EOF) {
+                printf("\nEnd of file reached.");
+            } else if (load_status == 5) {
+                if ((chronological_check(event->current_time, hours, minutes)) == SUCCESS) {
+                    competitor = get_competitor(event, competitor_number);
+                    evaluate_status(event, competitor, status, checkpoint, hours, minutes);
+                } else {
+                    load_status = FAILURE;
+                }
+            } else {
+                printf("Error reading in time file, possible pattern mismatch.\n");
+            }
+        } while (load_status != EOF && load_status == 5 && load_status != FAILURE);
 
         if (load_status == EOF) {
-            printf("\nEnd of file reached.");
-        } else if (load_status == 5) {
-            if ((chronological_check(event->current_time, hours, minutes)) == SUCCESS) {
-                competitor = get_competitor(event, competitor_number);
-                evaluate_status(event, competitor, status, checkpoint, hours, minutes);
-            } else {
-                load_status = FAILURE;
-            }
-        } else {
+            fcntl(fileDescriptor, F_SETLKW, file_lock(F_UNLCK, SEEK_SET));
+            fclose(times_file);
+            printf("\nLoading of times files complete.\n");
+        } else if (load_status == FAILURE) {
+            printf("\nFile has not arrived in chronological order, permission to read in file denied.\n");
+            fcntl(fileDescriptor, F_SETLKW, file_lock(F_UNLCK, SEEK_SET));
+            fclose(times_file);
+        } else if (load_status != 5) {
             printf("Error reading in time file, possible pattern mismatch.\n");
+            fcntl(fileDescriptor, F_SETLKW, file_lock(F_UNLCK, SEEK_SET));
+            fclose(times_file);
         }
-    } while (load_status != EOF && load_status == 5 && load_status != FAILURE);
-
-    if (load_status == EOF) {
-        fclose(times_file);
-        printf("\nLoading of times files complete.\n");
-    } else if (load_status == FAILURE) {
-        printf("\nFile has not arrived in chronological order, permission to read in file denied.\n");
-        fclose(times_file);
-    } else if (load_status != 5) {
-        printf("Error reading in time file, possible pattern mismatch.\n");
-        fclose(times_file);
     }
 }
 /*-----------------------------------------------------------------------*/

@@ -1,0 +1,13 @@
+\lstdefinestyle{customc++} {
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  language=C++,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{OliveGreen},
+  commentstyle=\itshape\color{black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left
+}

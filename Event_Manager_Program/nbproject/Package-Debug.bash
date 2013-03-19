@@ -6,15 +6,15 @@
 
 # Macros
 TOP=`pwd`
-CND_PLATFORM=OracleSolarisStudio-Solaris-Sparc
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cs23710_extended_mission
-OUTPUT_BASENAME=cs23710_extended_mission
-PACKAGE_TOP_DIR=cs23710extendedmission/
+OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/event_manager_program
+OUTPUT_BASENAME=event_manager_program
+PACKAGE_TOP_DIR=eventmanagerprogram/
 
 # Functions
 function checkReturnCode
@@ -59,15 +59,15 @@ mkdir -p ${NBTMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory "${NBTMPDIR}/cs23710extendedmission/bin"
+makeDirectory "${NBTMPDIR}/eventmanagerprogram/bin"
 copyFileToTmpDir "${OUTPUT_PATH}" "${NBTMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/cs23710extendedmission.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/eventmanagerprogram.tar
 cd ${NBTMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/cs23710extendedmission.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/eventmanagerprogram.tar *
 checkReturnCode
 
 # Cleanup

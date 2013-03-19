@@ -14,14 +14,14 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=cc
-CCC=CC
-CXX=CC
-FC=f95
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Solaris-Sparc
+CND_PLATFORM=GNU-Linux-x86
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -63,43 +63,51 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cs23710_extended_mission
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/event_manager_program
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cs23710_extended_mission: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/event_manager_program: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cs23710_extended_mission ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/event_manager_program ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/loader.o: loader.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/loader.o loader.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/loader.o loader.c
 
 ${OBJECTDIR}/updater.o: updater.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/updater.o updater.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/updater.o updater.c
 
 ${OBJECTDIR}/courses.o: courses.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/courses.o courses.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/courses.o courses.c
 
 ${OBJECTDIR}/competitors.o: competitors.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/competitors.o competitors.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/competitors.o competitors.c
 
 ${OBJECTDIR}/nodes.o: nodes.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/nodes.o nodes.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/nodes.o nodes.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/main.o main.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
 
 ${OBJECTDIR}/event.o: event.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/event.o event.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/event.o event.c
 
 ${OBJECTDIR}/tracks.o: tracks.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -g -o ${OBJECTDIR}/tracks.o tracks.c
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/tracks.o tracks.c
 
 # Subprojects
 .build-subprojects:
@@ -107,7 +115,7 @@ ${OBJECTDIR}/tracks.o: tracks.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cs23710_extended_mission
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/event_manager_program
 
 # Subprojects
 .clean-subprojects:
