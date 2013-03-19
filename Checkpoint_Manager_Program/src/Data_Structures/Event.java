@@ -23,6 +23,7 @@ public class Event {
     private int lastLineRead;
     private Date lastRecordedTime;
     private boolean timeFileExists;
+    private String[] fileNames;
 
     /**
      * Method to return array list of competitors.
@@ -69,6 +70,14 @@ public class Event {
     }
 
     /**
+     * Method to return the array of file names.
+     * @return The string array of file names.
+     */
+    public String[] getFileNames() {
+        return fileNames;
+    }
+    
+    /**
      * Method to set the last line read number.
      *
      * @param lineNumber The line read from the times file.
@@ -89,13 +98,18 @@ public class Event {
     /**
      * Method to call a series of methods to load in the data required by the
      * program.
+     * 
+     * @param args The list of filenames to load the required data into the system.
+     * @return Successful/Unsuccessful.
      */
-    public boolean loadCycle() throws IOException {
+    public boolean loadCycle(String[] fileNames) throws IOException {
+        this.fileNames = fileNames;
+        
         FileHandler fileReader = new FileHandler();
 
-        if (fileReader.readNodes(this)) {
-            if (fileReader.readCourses(this)) {
-                if (fileReader.readCompetitors(this)) {
+        if (fileReader.readNodes(fileNames[0], this)) {
+            if (fileReader.readCourses(fileNames[1], this)) {
+                if (fileReader.readCompetitors(fileNames[2], this)) {
                     return true;
                 } else {
                     System.out.print("Failed to load competitors. Program Exiting.\n");
@@ -274,7 +288,7 @@ public class Event {
     /**
      * Constructor to initialise the event.
      */
-    public Event() {
+    public Event(String[] fileNames) {
         competitors = new ArrayList<Competitor>();
         nodes = new ArrayList<Node>();
         checkpoints = new ArrayList<Node>();

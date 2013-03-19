@@ -1,0 +1,37 @@
+import java.io.FileOutputStream;
+import java.nio.channels.*;
+
+import java.io.*;
+
+public class TestLocking {
+
+	public static void main(String args[]) throws Exception {
+		System.out.println("JAVA test locking");
+		
+		FileOutputStream fos = new FileOutputStream("test.txt", true); // append to stream
+		
+	    FileLock fl = fos.getChannel().tryLock();
+	    if(fl != null) {
+	      System.out.println("OK we have the lock.. adding to the file");
+	      
+	      FileWriter fw = new FileWriter(fos.getFD());
+	      fw.write("adding string to file\n");
+
+	      
+	      System.out.println("Press <RETURN> to unlock the file");
+	      
+	      InputStreamReader converter = new InputStreamReader(System.in);
+	      BufferedReader in = new BufferedReader(converter);
+	      String CurLine = in.readLine();
+	      
+	      fl.release();
+	      System.out.println("Released Lock");
+	      fw.close();
+	    } else {
+	    	System.out.println("Already locked by another process... bad luck\n");
+	    }
+		
+		System.out.println("Finished");
+	}
+
+}

@@ -18,11 +18,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,55 +30,11 @@ import java.util.logging.Logger;
 public class FileHandler {
 
     /**
-     * Method to retrieve file name from user.
-     *
-     * @param objectsToBeLoaded a string to give context.
-     */
-    private String getFileName(String objectsToBeLoaded) {
-        boolean fileNameChosen = false;
-        boolean validAcceptance = false;
-        String fileName;
-        String acceptance;
-        Scanner input = new Scanner(System.in);
-
-        do {
-            System.out.print("Enter in the filename required to load in the " + objectsToBeLoaded + ": ");
-            fileName = input.nextLine();
-
-            do {
-                System.out.print("Are you sure the filename is: " + fileName + "? \ny/n: ");
-                acceptance = input.nextLine();
-
-                if (acceptance.isEmpty()) {
-                    System.out.print("Please enter in a valid option, either 'y' or 'n'.\n\n");
-                    validAcceptance = false;
-                } else {
-                    if (acceptance.charAt(0) != 'y' && acceptance.charAt(0) != 'n') {
-                        System.out.print("Please enter in a valid option, either 'y' or 'n'.\n\n");
-                        validAcceptance = false;
-                    } else {
-                        validAcceptance = true;
-                    }
-                }
-            } while (validAcceptance == false);
-
-            if (acceptance.charAt(0) == 'y') {
-                fileNameChosen = true;
-            } else if (acceptance.charAt(0) == 'n') {
-                fileNameChosen = false;
-            }
-        } while (fileNameChosen == false);
-
-        return fileName;
-    }
-
-    /**
      * Method to read in all the details for the nodes pertaining to an event.
      *
      * @param event The event instance.
      */
-    public boolean readNodes(Event event) throws IOException {
-        String fileName = getFileName("nodes");
+    public boolean readNodes(String fileName, Event event) throws IOException {
         String input;
         int nodeNumber;
         String nodeType;
@@ -131,8 +85,7 @@ public class FileHandler {
      *
      * @param event The event instance.
      */
-    public boolean readCourses(Event event) throws IOException {
-        String fileName = getFileName("courses");
+    public boolean readCourses(String fileName, Event event) throws IOException {
         String input;
         char courseLetter;
         int numberOfNodes;
@@ -192,8 +145,7 @@ public class FileHandler {
      *
      * @param event The event instance.
      */
-    public boolean readCompetitors(Event event) throws IOException {
-        String fileName = getFileName("competitors");
+    public boolean readCompetitors(String fileName, Event event) throws IOException {
         String input;
         int competitorNumber;
         char courseLetter;
@@ -258,7 +210,7 @@ public class FileHandler {
      *
      * @param event The event instance.
      */
-    public boolean readTimes(Event event) throws IOException, ParseException {
+    public boolean readTimes(String fileName, Event event) throws IOException, ParseException {
         String input;
         int currentLineNumber = 0;
         int lastLineNumber = event.getLastLineRead();
@@ -273,7 +225,7 @@ public class FileHandler {
         event.getRecords().clear(); //Empties array list.
 
         try {
-            FileChannel channel = new RandomAccessFile("cp_times.txt", "rw").getChannel(); //Creates a channel for the file.
+            FileChannel channel = new RandomAccessFile(fileName, "rw").getChannel(); //Creates a channel for the file.
             FileLock lock = channel.lock(); //Blocks/Halts thread until lock aquired.
 
             BufferedReader reader = new BufferedReader(new FileReader("cp_times.txt"));
@@ -320,11 +272,11 @@ public class FileHandler {
         return false;
     }
 
-    public boolean appendTimeRecord(Record record) {
+    public boolean appendTimeRecord(String fileName, Record record) {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 
         try {
-            FileChannel channel = new RandomAccessFile("cp_times.txt", "rw").getChannel(); //Creates a channel for the file.
+            FileChannel channel = new RandomAccessFile(fileName, "rw").getChannel(); //Creates a channel for the file.
             FileLock lock = channel.lock();
 
             FileWriter writer = new FileWriter("cp_times.txt", true); //True sets append mode.          

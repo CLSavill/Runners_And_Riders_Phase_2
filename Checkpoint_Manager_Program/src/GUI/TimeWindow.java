@@ -112,7 +112,7 @@ public class TimeWindow extends JFrame implements ActionListener {
 
         if (actionCommand.equals("Submit Checkpoint Record")) {
             try {
-                if (!fileHandler.readTimes(event)) {
+                if (!fileHandler.readTimes(event.getFileNames()[3], event)) {
                     JOptionPane.showMessageDialog(timeFrame, "Failed to load time records from file.");
                 }
             } catch (IOException | ParseException ex) {
@@ -125,7 +125,7 @@ public class TimeWindow extends JFrame implements ActionListener {
                 Record record = new Record(checkpoint, finalStatus, competitor, (Date) spinner.getValue());
                 event.getRecords().add(record);
                 
-                fileHandler.appendTimeRecord(record);
+                fileHandler.appendTimeRecord(event.getFileNames()[3], record);
                 JOptionPane.showMessageDialog(timeFrame, "Time record succesfully added.");
             } else {
                 JOptionPane.showMessageDialog(timeFrame, "Non-valid record. Record will not added.");
