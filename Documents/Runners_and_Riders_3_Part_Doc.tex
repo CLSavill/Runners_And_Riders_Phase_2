@@ -1,0 +1,100 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{pdflscape, float, graphicx, color, listings, color}
+\usepackage[top=2.0cm, bottom=2.0cm, left=2.0cm, right=2.0cm]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\title{CS22510 Assignment 1\\
+Runners and Riders\\
+"Out and About"}
+\author{Chris Savill\\\texttt{chs17@aber.ac.uk}}
+
+\lstdefinestyle{customc++} {
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  language=C++,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{OliveGreen},
+  commentstyle=\itshape\color{black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left
+}
+
+\lstdefinestyle{customjava} {
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  language=Java,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{blue},
+  commentstyle=\itshape\color{black},
+  identifierstyle=\color{OliveGreen},
+  stringstyle=\color{orange},
+  numbers=left
+}
+
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Description of three programs}
+
+\subsection{Event Creation Program}
+
+\subsection{Checkpoint Manager Program}
+
+\subsection{Event Manager Program}
+
+\begin{landscape}
+\section{Code for the Event Creation Program}
+\lstinputlisting[style=customc++, label={creator.h}, caption=Header file for non-class specific functions.]{"/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/creator.h"}
+\lstinputlisting[style=customc++, label={creator.cpp}, caption=Main method and menu file.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/main.cpp}
+\lstinputlisting[style=customc++, label={event.h}, caption=Header file Event class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/event.h}
+\lstinputlisting[style=customc++, label={event.cpp}, caption=Cpp file for Event class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/event.cpp}
+\lstinputlisting[style=customc++, label={course.h}, caption=Header file for Course class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/course.h}
+\lstinputlisting[style=customc++, label={course.cpp}, caption=Cpp file for Course class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/course.cpp}
+\lstinputlisting[style=customc++, label={competitor.h}, caption=Header file for Competitor class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/competitor.h}
+\lstinputlisting[style=customc++, label={competitor.cpp}, caption=Cpp file for Competitor class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/competitor.cpp}
+\end{landscape}
+
+\section{Clean build and compilation of Event Creation Program}
+
+\section{Run through of Event Creation Program}
+
+\section{Files created by execution of Event Creation Program}
+
+\begin{landscape}
+\section{Code for Checkpoint Manager Program}
+\lstinputlisting[style=customjava, label={Launcher.java}, caption=Launcher class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Launcher.java}
+\lstinputlisting[style=customjava, label={Event.java}, caption=Event class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Event.java}
+\lstinputlisting[style=customjava, label={Node.java}, caption=Node class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Node.java}
+\lstinputlisting[style=customjava, label={Course.java}, caption=Course class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Course.java}
+\lstinputlisting[style=customjava, label={Competitor.java}, caption=Competitor class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Competitor.java}
+\lstinputlisting[style=customjava, label={Record.java}, caption=Record class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Record.java}
+\lstinputlisting[style=customjava, label={FileHandler.java}, caption=FileHandler class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/File_Handling/FileHandler.java}
+\lstinputlisting[style=customjava, label={TypeWindow.java}, caption=TypeWindow class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/GUI/TypeWindow.java}
+\lstinputlisting[style=customjava, label={SelectionWindow.java}, caption=SelectionWindow class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/GUI/SelectionWindow.java}
+\lstinputlisting[style=customjava, label={TimeWindow.java}, caption=TimeWindow class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/GUI/TimeWindow.java}
+\end{landscape}
+
+\section{Clean build and compilation of Checkpoint Program}
+
+
+\section{Run through of Checkpoint Manager Program}
+
+\section{Files created by execution of Event Creation Program}
+
+\section{Clean build and compilation of Event Manager Program}
+
+\section{Run through of Event Manager Program}
+
+\section{Results list produced at the end of an event}
+
+\section{Log file contents}
+
+\end{document}
