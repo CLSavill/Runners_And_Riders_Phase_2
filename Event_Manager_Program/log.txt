@@ -3,3 +3,13 @@ Action: Viewed results of competitors that completed their course successfully, 
 Action: Queried competitor, Date: Tue Mar 19 17:08:25 2013
 Action: Viewed results of competitors that completed their course successfully, Date: Tue Mar 19 17:08:30 2013
 Action: Quit Program, Date: Tue Mar 19 17:08:32 2013
+Action: Read in a time records file, Date: Tue Mar 19 17:15:06 2013
+Action: Viewed list of competitors out on course, Date: Tue Mar 19 17:15:13 2013
+Action: Read in a time records file, Date: Tue Mar 19 17:15:38 2013
+Action: Read in a time records file, Date: Tue Mar 19 17:15:56 2013
+Action: Viewed list of competitors not started, Date: Tue Mar 19 17:16:03 2013
+Action: Viewed list of competitors out on course, Date: Tue Mar 19 17:16:08 2013
+Action: Viewed list of competitors that have finished, Date: Tue Mar 19 17:16:13 2013
+Action: Viewed results of competitors that completed their course successfully, Date: Tue Mar 19 17:16:17 2013
+Action: Viewed results of competitors that were excluded, Date: Tue Mar 19 17:16:19 2013
+Action: Quit Program, Date: Tue Mar 19 17:16:27 2013

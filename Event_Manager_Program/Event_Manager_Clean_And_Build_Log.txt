@@ -1,0 +1,47 @@
+"/usr/bin/make" -f nbproject/Makefile-Debug.mk QMAKE= SUBPROJECTS= .clean-conf
+make[1]: Entering directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program'
+rm -f -r build/Debug
+rm -f dist/Debug/GNU-Linux-x86/event_manager_program
+make[1]: Leaving directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program'
+
+
+CLEAN SUCCESSFUL (total time: 57ms)
+
+"/usr/bin/make" -f nbproject/Makefile-Debug.mk QMAKE= SUBPROJECTS= .build-conf
+make[1]: Entering directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program'
+"/usr/bin/make"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/event_manager_program
+make[2]: Entering directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program'
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/loader.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/loader.o.d -o build/Debug/GNU-Linux-x86/loader.o loader.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/logger.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/logger.o.d -o build/Debug/GNU-Linux-x86/logger.o logger.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/updater.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/updater.o.d -o build/Debug/GNU-Linux-x86/updater.o updater.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/courses.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/courses.o.d -o build/Debug/GNU-Linux-x86/courses.o courses.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/competitors.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/competitors.o.d -o build/Debug/GNU-Linux-x86/competitors.o competitors.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/nodes.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/nodes.o.d -o build/Debug/GNU-Linux-x86/nodes.o nodes.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/main.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/main.o.d -o build/Debug/GNU-Linux-x86/main.o main.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/event.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/event.o.d -o build/Debug/GNU-Linux-x86/event.o event.c
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/tracks.o.d
+gcc    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/tracks.o.d -o build/Debug/GNU-Linux-x86/tracks.o tracks.c
+mkdir -p dist/Debug/GNU-Linux-x86
+gcc     -o dist/Debug/GNU-Linux-x86/event_manager_program build/Debug/GNU-Linux-x86/loader.o build/Debug/GNU-Linux-x86/logger.o build/Debug/GNU-Linux-x86/updater.o build/Debug/GNU-Linux-x86/courses.o build/Debug/GNU-Linux-x86/competitors.o build/Debug/GNU-Linux-x86/nodes.o build/Debug/GNU-Linux-x86/main.o build/Debug/GNU-Linux-x86/event.o build/Debug/GNU-Linux-x86/tracks.o  
+make[2]: Leaving directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program'
+make[1]: Leaving directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program'
+
+
+BUILD SUCCESSFUL (total time: 857ms)
