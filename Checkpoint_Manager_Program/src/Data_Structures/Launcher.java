@@ -21,10 +21,10 @@ public class Launcher {
      * @param args String array of arguments, should be a list of file names.
      */
     public static void main(String[] args) throws IOException {
-        if (args.length < 5) {
+        if (args.length < 4) {
             JOptionPane.showMessageDialog(null, "Invalid number of file names supplied required for program to run.\n\n"
                     + "File names required for:\nFile containing nodes\nFile containing courses\nFile containing entrants\n"
-                    + "File to retrieve time records and write time records to\nFile to write logs to.\n\n"
+                    + "File to retrieve time records and write time records to.\n\n"
                     + "Now exiting program.");
         } else {
             Event event = new Event(args);

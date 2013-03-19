@@ -20,16 +20,24 @@ public class Record {
 
     /**
      * Constructor to initialise record data when read in from file.
+     *
+     * @param checkpoint The number of the checkpoint.
+     * @param competitorNumber The number of the competitor.
+     * @param time The time of the record.
      */
-    public Record(char status, int nodeNumber, int competitorNumber, Date time) {
+    public Record(char status, int checkpoint, int competitorNumber, Date time) {
         this.competitorStatus = status;
-        this.checkpoint = nodeNumber;
+        this.checkpoint = checkpoint;
         this.competitorNumber = competitorNumber;
         this.time = time;
     }
 
     /**
      * Constructor to initialise record data when recorded through GUI.
+     *
+     * @param checkpoint The number of the checkpoint.
+     * @param competitorNumber The number of the competitor.
+     * @param time The time of the record.
      */
     public Record(int checkpoint, char status, int competitorNumber, Date time) {
         this.competitorStatus = status;
@@ -41,20 +49,26 @@ public class Record {
     /**
      * Method to return the status of the competitor as marked by the
      * checkpoint.
+     *
+     * @return The status of the competitor.
      */
     public char getCompetitorStatus() {
         return competitorStatus;
     }
 
     /**
-     * Method to return the node number being recorded.
+     * Method to return the checkpoint number being recorded.
+     *
+     * @return The checkpoint number.
      */
-    public int getNodeNumber() {
+    public int getCheckpointNumber() {
         return checkpoint;
     }
 
     /**
      * Method to return the competitor number being recorded.
+     *
+     * @return The competitor number.
      */
     public int getCompetitorNumber() {
         return competitorNumber;
@@ -62,6 +76,8 @@ public class Record {
 
     /**
      * Method to return the time being recorded.
+     *
+     * @return The time of the record.
      */
     public Date getTime() {
         return time;

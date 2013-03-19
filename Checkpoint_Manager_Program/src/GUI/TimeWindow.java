@@ -48,6 +48,16 @@ public class TimeWindow extends JFrame implements ActionListener {
     private JSpinner spinner;
     private JSpinner.DateEditor dateEditor;
 
+    /**
+     * Constructor for TimeWindow GUI class that sets up and launches the GUI.
+     *
+     * @param event The event instance.
+     * @param checkpoint The checkpoint number.
+     * @param type The checkpoint type.
+     * @param competitor The competitor number.
+     * @param selectionFrame The JFrame this transitioned from.
+     * @param typeFrame The JFrame that is reopened after this JFrame closes.
+     */
     public TimeWindow(Event event, int checkpoint, String type, int competitor, JFrame selectionFrame, JFrame typeFrame) {
         selectionFrame.dispose();
 
@@ -60,13 +70,13 @@ public class TimeWindow extends JFrame implements ActionListener {
 
         //Setup frame:
         timeFrame = new JFrame("Time Of Record");
-        
+
         if (type.equals("MC")) {
             status = getMedicalOptions();
         } else {
             status = 0; //Comeptitor status not a medical related status.
         }
-        
+
         timeFrame.setLocation(400, 200);
         timeFrame.setLayout(new BorderLayout());
         timeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Sets the default close operation
@@ -106,6 +116,11 @@ public class TimeWindow extends JFrame implements ActionListener {
         //////////////////////////////////////////////////////////////
     }
 
+    /**
+     * Method to handle actions performed.
+     *
+     * @param evt The event triggered.
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         String actionCommand = evt.getActionCommand();
@@ -120,17 +135,17 @@ public class TimeWindow extends JFrame implements ActionListener {
             }
 
             if (event.checkNewRecord(checkpoint, status, competitor, (Date) spinner.getValue())) {
-                char finalStatus = event.determineFinalStatus(checkpoint, status, competitor);  
-                
+                char finalStatus = event.determineFinalStatus(checkpoint, status, competitor);
+
                 Record record = new Record(checkpoint, finalStatus, competitor, (Date) spinner.getValue());
                 event.getRecords().add(record);
-                
+
                 fileHandler.appendTimeRecord(event.getFileNames()[3], record);
                 JOptionPane.showMessageDialog(timeFrame, "Time record succesfully added.");
             } else {
                 JOptionPane.showMessageDialog(timeFrame, "Non-valid record. Record will not added.");
             }
-            
+
             timeFrame.dispose(); //Closes frame and releases resourses.
             this.dispose(); //Releases resources.
             TypeWindow typeFrame = new TypeWindow(event);
@@ -138,9 +153,15 @@ public class TimeWindow extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Method to get the user to select the status of the competitor at the
+     * medical checkpoint.
+     *
+     * @return The status of the competitor at the medical checkpoint.
+     */
     public int getMedicalOptions() {
         String[] options = new String[]{"Arriving", "Departing", "Excluded"};
-        
+
         int selection = JOptionPane.showOptionDialog(timeFrame, "Is the competitor being marked as 'Arriving',"
                 + " 'Departing' or as 'Excluded' on medical grounds?", "Medical Marking", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);

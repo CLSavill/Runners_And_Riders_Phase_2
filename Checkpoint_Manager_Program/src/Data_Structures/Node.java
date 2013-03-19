@@ -13,18 +13,30 @@ public class Node {
     private int number;
     private String type;
 
-    /* Constructor to initialise Node. */
+    /**
+     * Constructor to initialise Node.
+     *
+     * @param number The number of the node.
+     * @param type The type of the node.
+     */
     public Node(int number, String type) {
         this.number = number;
         this.type = type;
     }
 
-    /* Method to return the node's number. */
+    /**
+     * Method to return the node's number.
+     *
+     * @return The node number.
+     */
     public int getNumber() {
         return number;
     }
 
-    /* Method to return the node's type. */
+    /**
+     * Method to return the node's type.
+     * @return The type of the node.
+     */
     public String getType() {
         return type;
     }

@@ -47,6 +47,12 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
     private JScrollPane checkpointListScrollBar, competitorListScrollBar;
     private JButton next;
 
+    /**
+     * Constructor for SelectionWindow GUI class, sets up and runs GUI.
+     * @param event The event instance.
+     * @param type The type of the checkpoint.
+     * @param typeFrame The JFrame this transitioned from.
+     */
     public SelectionWindow(Event event, String type, JFrame typeFrame) {
         typeFrame.dispose();
         this.typeFrame = typeFrame;
@@ -120,6 +126,7 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         selectionFrame.setVisible(true); //Makes the frame visible
         //////////////////////////////////////////////////////////////
     }
+    
     /**
      * Method that adds the checkpoint checkpoints to the checkpoint JList
      */
@@ -145,6 +152,10 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    /**
+     * Method to handle actions performed.
+     * @param evt The event triggered.
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         String actionCommand = evt.getActionCommand();
@@ -161,6 +172,10 @@ public class SelectionWindow extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    /**
+     * Method to handle values changing in a JList.
+     * @param evt The event triggered.
+     */
     @Override
     public void valueChanged(ListSelectionEvent evt) {
 

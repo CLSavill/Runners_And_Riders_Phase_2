@@ -27,6 +27,8 @@ public class Event {
 
     /**
      * Method to return array list of competitors.
+     *
+     * @return The array list of competitors.
      */
     public ArrayList<Competitor> getCompetitors() {
         return competitors;
@@ -34,6 +36,8 @@ public class Event {
 
     /**
      * Method to return array list of nodes.
+     *
+     * @return The array list of nodes.
      */
     public ArrayList<Node> getNodes() {
         return nodes;
@@ -41,6 +45,8 @@ public class Event {
 
     /**
      * Method to return array list of checkpoints.
+     *
+     * @return The array list of checkpoints (non-junction nodes).
      */
     public ArrayList<Node> getCheckpoints() {
         return checkpoints;
@@ -48,6 +54,8 @@ public class Event {
 
     /**
      * Method to return array list of courses.
+     *
+     * @return The array list of courses.
      */
     public ArrayList<Course> getCourses() {
         return courses;
@@ -55,6 +63,8 @@ public class Event {
 
     /**
      * Method to return array list of records.
+     *
+     * @return The array list of records.
      */
     public ArrayList<Record> getRecords() {
         return records;
@@ -71,12 +81,13 @@ public class Event {
 
     /**
      * Method to return the array of file names.
+     *
      * @return The string array of file names.
      */
     public String[] getFileNames() {
         return fileNames;
     }
-    
+
     /**
      * Method to set the last line read number.
      *
@@ -98,13 +109,14 @@ public class Event {
     /**
      * Method to call a series of methods to load in the data required by the
      * program.
-     * 
-     * @param args The list of filenames to load the required data into the system.
+     *
+     * @param args The list of filenames to load the required data into the
+     * system.
      * @return Successful/Unsuccessful.
      */
     public boolean loadCycle(String[] fileNames) throws IOException {
         this.fileNames = fileNames;
-        
+
         FileHandler fileReader = new FileHandler();
 
         if (fileReader.readNodes(fileNames[0], this)) {
@@ -129,6 +141,7 @@ public class Event {
      * of nodes loaded in.
      *
      * @param number The number to be compared with.
+     * @return True if node exists else false.
      */
     public boolean checkNodeExists(int number) {
         for (int counter = 0; counter < nodes.size(); counter++) {
@@ -145,6 +158,7 @@ public class Event {
      * list of courses loaded in.
      *
      * @param letter The letter to be compared with.
+     * @return True if course exists else false.
      */
     public boolean checkCourseExists(char letter) {
         for (int counter = 0; counter < courses.size(); counter++) {
@@ -216,6 +230,15 @@ public class Event {
         return checkpointArray[listIndex];
     }
 
+    /**
+     * Method to check if the new record is valid.
+     * 
+     * @param checkpoint The checkpoint number.
+     * @param status The status.
+     * @param competitorNumber The competitor's number.
+     * @param time The time of the record.
+     * @return True is record is valid, else false.
+     */
     public boolean checkNewRecord(int checkpoint, int status, int competitorNumber, Date time) {
         Competitor competitor = retrieveCompetitor(competitorNumber);
 
@@ -249,7 +272,14 @@ public class Event {
 
         return false;
     }
-
+    
+    /**
+     * Method to determine the final status to be written to the time record file.
+     * @param checkpoint The checkpoint number.
+     * @param status The status.
+     * @param competitorNumber The competitor's number.
+     * @return The final status for the record.
+     */
     public char determineFinalStatus(int checkpoint, int status, int competitorNumber) {
         Competitor competitor = retrieveCompetitor(competitorNumber);
 

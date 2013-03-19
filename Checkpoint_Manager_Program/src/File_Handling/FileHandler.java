@@ -32,7 +32,10 @@ public class FileHandler {
     /**
      * Method to read in all the details for the nodes pertaining to an event.
      *
+     * @param fileName The file name required to access the file needed.
      * @param event The event instance.
+     * @return True if file loaded successfully, else false if it fails at any
+     * point.
      */
     public boolean readNodes(String fileName, Event event) throws IOException {
         String input;
@@ -83,7 +86,10 @@ public class FileHandler {
     /**
      * Method to read in all the details for the courses pertaining to an event.
      *
+     * @param fileName The file name required to access the file needed.
      * @param event The event instance.
+     * @return True if file loaded successfully, else false if it fails at any
+     * point.
      */
     public boolean readCourses(String fileName, Event event) throws IOException {
         String input;
@@ -143,7 +149,10 @@ public class FileHandler {
      * Method to read in all the details for the competitors pertaining to an
      * event.
      *
+     * @param fileName The file name required to access the file needed.
      * @param event The event instance.
+     * @return True if file loaded successfully, else false if it fails at any
+     * point.
      */
     public boolean readCompetitors(String fileName, Event event) throws IOException {
         String input;
@@ -208,7 +217,10 @@ public class FileHandler {
      * Method to read in all the details for the checkpoint times pertaining to
      * an event.
      *
+     * @param fileName The file name required to access the file needed.
      * @param event The event instance.
+     * @return True if file loaded successfully, else false if it fails at any
+     * point.
      */
     public boolean readTimes(String fileName, Event event) throws IOException, ParseException {
         String input;
@@ -272,6 +284,14 @@ public class FileHandler {
         return false;
     }
 
+    /**
+     * Method to write a record on a line in the time records file.
+     *
+     * @param fileName The file name required to access the file needed.
+     * @param record The record to be written.
+     * @return True if file written to successfully, else false if it fails at
+     * any point.
+     */
     public boolean appendTimeRecord(String fileName, Record record) {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 
@@ -280,7 +300,7 @@ public class FileHandler {
             FileLock lock = channel.lock();
 
             FileWriter writer = new FileWriter(fileName, true); //True sets append mode.          
-            writer.write(record.getCompetitorStatus() + " " + record.getNodeNumber()
+            writer.write(record.getCompetitorStatus() + " " + record.getCheckpointNumber()
                     + " " + record.getCompetitorNumber() + " " + formatter.format(record.getTime()) + "\n");
             writer.close();
             lock.release();

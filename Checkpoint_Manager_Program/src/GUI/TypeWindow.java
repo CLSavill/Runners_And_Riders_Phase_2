@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
  * @author Chris Savill, chs17@aber.ac.uk
  */
 public class TypeWindow extends JFrame implements ActionListener {
-    
+
     private Event event;
     private boolean medicalSelected;
     private JFrame typeFrame;
@@ -32,13 +32,18 @@ public class TypeWindow extends JFrame implements ActionListener {
     private JRadioButton time, medical;
     private ButtonGroup typeGroup;
     private JButton next;
-    
+
+    /**
+     * Constructor for TypeWindow GUI class that sets up and launches GUI.
+     *
+     * @param event The event instance.
+     */
     public TypeWindow(Event event) {
         this.event = event;
         medicalSelected = false;
 
         //Setup frame:
-        typeFrame = new JFrame("Checkpoint Type Selection"); 
+        typeFrame = new JFrame("Checkpoint Type Selection");
         typeFrame.setPreferredSize(new Dimension(300, 200));
         typeFrame.setLocation(400, 200);
         typeFrame.setLayout(new BorderLayout());
@@ -57,7 +62,7 @@ public class TypeWindow extends JFrame implements ActionListener {
         //Setup checkpoint panel components:
         typeLabel = new JLabel("Select Checkpoint Type Below: ");
         typePanel.add(typeLabel, BorderLayout.NORTH);
-        
+
         time = new JRadioButton("Time Checkpoint");
         time.setActionCommand("time");
         time.addActionListener(this);
@@ -86,21 +91,26 @@ public class TypeWindow extends JFrame implements ActionListener {
         typeFrame.setVisible(true); //Makes the frame visible
         //////////////////////////////////////////////////////////////
     }
-    
+
+    /**
+     * Method to handle actions performed.
+     *
+     * @param evt The event triggered.
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         String actionCommand = evt.getActionCommand();
-        
+
         switch (actionCommand) {
             case "Next":
                 if (medicalSelected == true) {
                     typeFrame.setVisible(false);
-                    SelectionWindow selectionWindow = new SelectionWindow(event, "MC", typeFrame);                 
+                    SelectionWindow selectionWindow = new SelectionWindow(event, "MC", typeFrame);
                 } else {
                     typeFrame.setVisible(false);
                     SelectionWindow selectionWindow = new SelectionWindow(event, "CP", typeFrame);
                 }
-                
+
                 typeFrame.dispose();
                 this.dispose();
                 break;
