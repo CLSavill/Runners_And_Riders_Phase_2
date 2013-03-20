@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/loader.o \
-	${OBJECTDIR}/logger.o \
 	${OBJECTDIR}/updater.o \
 	${OBJECTDIR}/courses.o \
 	${OBJECTDIR}/competitors.o \
@@ -74,11 +73,6 @@ ${OBJECTDIR}/loader.o: loader.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/loader.o loader.c
-
-${OBJECTDIR}/logger.o: logger.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/logger.o logger.c
 
 ${OBJECTDIR}/updater.o: updater.c 
 	${MKDIR} -p ${OBJECTDIR}

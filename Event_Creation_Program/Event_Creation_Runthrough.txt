@@ -1,0 +1,261 @@
+Please enter in the name for the event (no more than 79 characters): Horse Trekkers 21st Anniversary
+
+
+Are you happy with the name: 'Horse Trekkers 21st Anniversary'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+
+
+Please enter in the date for the event (no more than 19 characters): 3rd May 2013
+
+
+Are you happy with the date: '3rd May 2013'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+
+
+Please enter in the start time for the event with the 24 hour format 'HH:MM', hours first: 13
+
+Valid hours entered.
+
+
+
+Please now enter in the minutes: 37
+
+Valid minutes entered.
+
+
+
+Are you happy with the start time: '13:37'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Event name: Horse Trekkers 21st Anniversary
+Event date: 3rd May 2013
+Event start time: 13:37
+
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 1
+No courses exist for competitor course selection. Please create a course first.
+
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 2
+Nodes from 'nodes.txt' read in successfully.
+Nodes read in: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
+
+
+
+Please enter in the course letter for the course: A
+
+Are you happy with the course letter: 'A'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+
+
+Please enter in the number of nodes for this course: 5
+
+
+Are you happy with the number of nodes: '5'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Please enter in the node number you wish to add to the course: 1
+
+
+Are you happy with the node number: '1'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Please enter in the node number you wish to add to the course: 3
+
+
+Are you happy with the node number: '3'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Please enter in the node number you wish to add to the course: 12
+
+
+Are you happy with the node number: '12'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Please enter in the node number you wish to add to the course: 20
+Node does not exist, please choose a different node number to add.
+Please enter in the node number you wish to add to the course: 8 
+
+
+Are you happy with the node number: '8'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+New course added to event.
+
+Course letter: A
+Number of course nodes: 5
+Nodes: 1, 3, 12, 8, 1
+
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 1
+Competitor number: 1
+
+
+Please enter in the name for the competitor (no more than 50 characters): Julius Munching
+
+
+Are you happy with the name: 'Julius Munching'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Competitor name: Julius Munching
+
+
+List of courses available for the competitor to enter on: A
+
+Please enter in the letter of the course that the competitor is entering: a
+Please enter in a valid course letter.
+
+
+
+List of courses available for the competitor to enter on: A
+
+Please enter in the letter of the course that the competitor is entering: A
+
+Are you happy with the course letter: 'A'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Competitor course:A
+New competitor added to event.
+
+Competitor number: 1Competitor name: Julius Munching
+Course: A
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 1
+Competitor number: 2
+
+
+Please enter in the name for the competitor (no more than 50 characters): Helen Boon  
+
+
+Are you happy with the name: 'Helen Boon'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Competitor name: Helen Boon
+
+
+List of courses available for the competitor to enter on: A
+
+Please enter in the letter of the course that the competitor is entering: A
+
+Are you happy with the course letter: 'A'?
+If yes press 'y' then 'Enter'
+If no press 'n' then 'Enter'
+y
+Competitor course:A
+New competitor added to event.
+
+Competitor number: 2Competitor name: Helen Boon
+Course: A
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 3
+Event successfully exported to 'name.txt'.
+
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 4
+Competitors successfully exported to 'entrants.txt'.
+
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 5
+Courses successfully exported to 'courses.txt'.
+
+*********************************************************
+*  Runners and Riders Event Creation Program Main Menu  *
+*********************************************************
+*              1. Add Competitor to Event               *
+*              2. Add Course to Event                   *
+*              3. Export Event to File                  *
+*              4. Export Competitors to File            *
+*              5. Export Courses to File                *
+*              6. Exit Event Creation Program           *
+*********************************************************
+
+Please enter in an option from the above an press 'Enter': 6
+Exiting program...
+
+
+RUN SUCCESSFUL (total time: 2m 46s)

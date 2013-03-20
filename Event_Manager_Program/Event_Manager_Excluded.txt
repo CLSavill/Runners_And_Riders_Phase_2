@@ -1,0 +1,26 @@
+====================================================================================
+| Number  |                        Name                        | Status |  At Time |
+====================================================================================
+|   023   | Beau Fudge                                         |   EI   |   09:49  |
+|   028   | Black Jack Fudge                                   |   EI   |   11:46  |
+|   036   | Bubbles Fudge                                      |   EI   |   09:57  |
+|   041   | Chalkie Fudge                                      |   EI   |   11:05  |
+|   044   | Copper Fudge                                       |   EI   |   11:47  |
+|   046   | Diamond Fudge                                      |   EI   |   11:13  |
+|   053   | Goldie Abbey                                       |   EI   |   12:57  |
+|   059   | Izzy Fudge                                         |   EI   |   11:10  |
+|   062   | Lady Abbey                                         |   EI   |   13:01  |
+|   068   | Lemon Fudge                                        |   EI   |   12:54  |
+|   071   | Lucky Abbey                                        |   EI   |   13:56  |
+|   078   | Maddy Abbey                                        |   EI   |   12:55  |
+|   085   | Major Fudge                                        |   EI   |   14:23  |
+|   106   | sienna Fudge                                       |   EI   |   14:53  |
+|   111   | Snowy Abbey                                        |   EI   |   13:36  |
+====================================================================================
+
+Number of Competitors excluded: 15 out of 102
+
+Key: EI = Excluded for taking an Incorrect Route, EM = Excluded for Medical Safety Reasons.
+
+Current Event Time: 16:48.
+

@@ -1,6 +1,6 @@
 /*
  * Author: Chris Savill, chs17@aber.ac.uk
- * File Name: competitor.cpp
+ * File Name: main.cpp
  * Description: cpp file that contains function definitions for the start-up of the event creation program.
  * First Created: 11/03/2013
  * Last Modified: 14/03/2013
