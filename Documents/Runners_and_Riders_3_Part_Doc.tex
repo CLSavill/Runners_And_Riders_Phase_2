@@ -48,7 +48,10 @@ Runners and Riders\\
 \noindent Implemented in C++, this program was the simplest program to implement. Designing the program was quite easy as well due to how well this program suited an object oriented programming language such as C++. As the program was required to create an event with courses and competitors it made sense to make each of these a class with their related data members and member functions encapsulated together within their respective classes.
 
 \vspace{5mm}
-\noindent As the program's main purpose involved getting the user to input the details of the event, the courses, and the competitors, I decided to make the input processes robust by using checks and getting the user to double check their inputs. Although this may make the process long-winded I think the purpose they serve is worth the time. Another feature to improve robustness was to make sure that a user could not create a competitor without at least one course, otherwise competitors could be assigned a course that does not exist. With relation to assumptions, one assumption I made was that the tracks had no role in this program and that the tracks are generated/decided elsewhere once the courses have been created. This made generating the courses simpler as the only real checks needed were that valid nodes were selected and that the start and end nodes matched.
+\noindent As the program's main purpose involved getting the user to input the details of the event, the courses, and the competitors, I decided to make the input processes robust by using checks and getting the user to double check their inputs. Although this may make the process long-winded I think the purpose they serve is worth the time. An example of a check I implemented involves the validating of the hours and minutes of a time entered to make sure the hours are between 0 and 23 inclusive and the minutes are between 0 and 59 inclusive then asking the user if they are happy with the final time.
+
+\vspace{5mm}
+\noindent Another feature to improve robustness was to make sure that a user could not create a competitor without at least one course, otherwise competitors could be assigned a course that does not exist. With relation to assumptions, one assumption I made was that the tracks had no role in this program and that the tracks are generated/decided elsewhere once the courses have been created. This made generating the courses simpler as the only real checks needed were that valid nodes were selected and that the start and end nodes matched.
 
 \subsection{Checkpoint Manager Program}
 \noindent Implemented in Java this mainly GUI driven program took a bit of thinking with regards to the design. The main issue was figuring out how much information the program would require and the processing needed to validate a record. I made the assumption that records would arrive in chronological order to simplify the program and avoiding having to rewrite history. This meant that the program would only have to append to the time record file and only had to read in what it did not contain since it's last read.
@@ -59,8 +62,15 @@ Runners and Riders\\
 \vspace{5mm}
 \noindent After getting the record details from the user I had to think about how to validate the new record and how to decide whether or not to append the new record to the time record file. I noticed that the program would need to keep track of every competitor's status and their current progress during the event. Using that information would allow the program to evaluate whether or not a new record is valid such as the program checking if the a competitor can be at a new checkpoint if the status tracked says that the competitor is currently at a medical checkpoint thus invalidating the new record.
 
+\vspace{5mm} When reading in the start up files at launch I implemented regular expressions for each file to make sure that every line in the files provided the right information. This also helped ensure that the correct data was being inserted into the relevant data structures I implemented. If any of the lines in any of the files fail their respective regular expressions, a message is printed to the user stating there was an invalid line format and the program closes.
+
 \subsection{Event Manager Program}
 \noindent Implemented in C this program did not require much work as I used the same program I implemented but removed the function to manually supply a time for a competitor and added the file locking capability to the accessing of the time record files and the implementation of writing a log file of the user's actions. As the program worked extremely well already I decided not to change any of the functionality just add the 2 new features and remove the 1 no longer needed.
+
+\vspace{5mm}
+\noindent The event manager program I implemented tries to estimate a competitor's location on track as well as knowing their actual last checked-in location. The program was also implemented with the assumption made that files and records would arrive in chronological order. This means that if a record arrives that is not in chronological order, the program will message the user telling them the file is chronologically correct and won't be loaded. This is to prevent any segmentation faults from occurring as a lot of the functionality in the program relies on everything arriving in chronological order. The program also has regular expressions/checks in place to check the input from the files to help detect errors and prevent them from effecting the running of the program. 
+
+\newpage
 
 \section{Code for the Event Creation Program}
 \subsection{Header files}
@@ -78,6 +88,8 @@ Runners and Riders\\
 \section{Clean build and compilation of Event Creation Program}
 \lstinputlisting[breaklines=true, basicstyle=\footnotesize\ttfamily]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/Event_Creation_Clean_And_Build_Log.txt}
 
+\newpage
+
 \section{Run through of Event Creation Program}
 \lstinputlisting[breaklines=true, basicstyle=\footnotesize\ttfamily]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/Event_Creation_Runthrough.txt}
 
@@ -91,14 +103,22 @@ Runners and Riders\\
 \lstinputlisting[breaklines=true, basicstyle=\footnotesize\ttfamily, caption=Event 'entrants.txt' file]
 {/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program/entrants.txt}
 
+\newpage
+
 \section{Code for Checkpoint Manager Program}
+
+\subsection{Data\_Structures package}
 \lstinputlisting[style=customjava, label={Launcher.java}, caption=Launcher class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Launcher.java}
 \lstinputlisting[style=customjava, label={Event.java}, caption=Event class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Event.java}
 \lstinputlisting[style=customjava, label={Node.java}, caption=Node class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Node.java}
 \lstinputlisting[style=customjava, label={Course.java}, caption=Course class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Course.java}
 \lstinputlisting[style=customjava, label={Competitor.java}, caption=Competitor class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Competitor.java}
 \lstinputlisting[style=customjava, label={Record.java}, caption=Record class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/Data_Structures/Record.java}
+
+\subsection{File\_Handling package}
 \lstinputlisting[style=customjava, label={FileHandler.java}, caption=FileHandler class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/File_Handling/FileHandler.java}
+
+\subsection{GUI package}
 \lstinputlisting[style=customjava, label={TypeWindow.java}, caption=TypeWindow class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/GUI/TypeWindow.java}
 \lstinputlisting[style=customjava, label={SelectionWindow.java}, caption=SelectionWindow class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/GUI/SelectionWindow.java}
 \lstinputlisting[style=customjava, label={TimeWindow.java}, caption=TimeWindow class.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/GUI/TimeWindow.java}
@@ -169,11 +189,16 @@ Runners and Riders\\
 
 \begin{figure}[H]
 \includegraphics[scale=0.8]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/CMP12.png}
-\caption{Message stating that the new record attempted to be added was invalid (either the time was before the last record, or the system determined that the status given cannot be correct due to the current status of the competitor.}
+\caption{Message stating that the new record attempted to be added was invalid (either the time was before the last record, or the system determined that the status given cannot FINE
+you disgust mebe correct due to the current status of the competitor.}
 \end{figure}
+
+\newpage
 
 \section{Files created by execution of Checkpoint Manager\\Program}
 \lstinputlisting[breaklines=true, basicstyle=\footnotesize\ttfamily, caption=Copy of cp\_times\_1.txt file from event\_3 that was read into the program plus 2 new records appended.]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/cp_times.txt}
+
+\newpage
 
 \section{Clean build and compilation of Event Manager Program}
 \lstinputlisting[breaklines=true, basicstyle=\footnotesize\ttfamily]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program/Event_Manager_Clean_And_Build_Log.txt}
@@ -181,6 +206,8 @@ Runners and Riders\\
 \begin{landscape}
 \section{Run through of Event Manager Program}
 \lstinputlisting[breaklines=true, basicstyle=\footnotesize\ttfamily]{/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Manager_Program/Event_Manager_Runthrough.txt}
+
+\newpage
 
 \section{Results list produced at the end of an event}
 
