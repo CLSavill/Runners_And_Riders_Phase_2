@@ -1,0 +1,26 @@
+ant -f /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program clean jar
+init:
+deps-clean:
+Updating property file: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build/built-clean.properties
+Deleting directory /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build
+clean:
+init:
+deps-jar:
+Created dir: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build
+Updating property file: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build/built-jar.properties
+Created dir: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build/classes
+Created dir: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build/empty
+Created dir: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build/generated-sources/ap-source-output
+Compiling 10 source files to /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build/classes
+Note: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/src/GUI/SelectionWindow.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+compile:
+Created dir: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/dist
+Copying 1 file to /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/build
+Nothing to copy.
+Building jar: /home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/dist/Checkpoint_Manager_Program.jar
+To run this application from the command line without Ant, try:
+java -jar "/home/clsavill/GitHub/Runners_and_Riders_3_Part/Checkpoint_Manager_Program/dist/Checkpoint_Manager_Program.jar"
+jar:
+BUILD SUCCESSFUL (total time: 2 seconds)
+

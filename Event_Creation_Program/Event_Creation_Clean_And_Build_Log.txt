@@ -1,0 +1,33 @@
+"/usr/bin/make" -f nbproject/Makefile-Debug.mk QMAKE= SUBPROJECTS= .clean-conf
+make[1]: Entering directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program'
+rm -f -r build/Debug
+rm -f dist/Debug/GNU-Linux-x86/event_creation_program
+make[1]: Leaving directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program'
+
+
+CLEAN SUCCESSFUL (total time: 217ms)
+
+"/usr/bin/make" -f nbproject/Makefile-Debug.mk QMAKE= SUBPROJECTS= .build-conf
+make[1]: Entering directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program'
+"/usr/bin/make"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/event_creation_program
+make[2]: Entering directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program'
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/main.o.d
+g++    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/main.o.d -o build/Debug/GNU-Linux-x86/main.o main.cpp
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/course.o.d
+g++    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/course.o.d -o build/Debug/GNU-Linux-x86/course.o course.cpp
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/event.o.d
+g++    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/event.o.d -o build/Debug/GNU-Linux-x86/event.o event.cpp
+mkdir -p build/Debug/GNU-Linux-x86
+rm -f build/Debug/GNU-Linux-x86/competitor.o.d
+g++    -c -g -MMD -MP -MF build/Debug/GNU-Linux-x86/competitor.o.d -o build/Debug/GNU-Linux-x86/competitor.o competitor.cpp
+mkdir -p dist/Debug/GNU-Linux-x86
+g++     -o dist/Debug/GNU-Linux-x86/event_creation_program build/Debug/GNU-Linux-x86/main.o build/Debug/GNU-Linux-x86/course.o build/Debug/GNU-Linux-x86/event.o build/Debug/GNU-Linux-x86/competitor.o  
+make[2]: Leaving directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program'
+make[1]: Leaving directory `/home/clsavill/GitHub/Runners_and_Riders_3_Part/Event_Creation_Program'
+
+
+BUILD SUCCESSFUL (total time: 5s)
+
