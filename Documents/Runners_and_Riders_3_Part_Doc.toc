@@ -2,19 +2,19 @@
 \contentsline {subsection}{\numberline {1.1}Event Creation Program}{3}
 \contentsline {subsection}{\numberline {1.2}Checkpoint Manager Program}{3}
 \contentsline {subsection}{\numberline {1.3}Event Manager Program}{3}
-\contentsline {section}{\numberline {2}Code for the Event Creation Program}{3}
-\contentsline {subsection}{\numberline {2.1}Header files}{3}
-\contentsline {subsection}{\numberline {2.2}Cpp files}{6}
-\contentsline {section}{\numberline {3}Clean build and compilation of Event Creation Program}{17}
-\contentsline {section}{\numberline {4}Run through of Event Creation Program}{18}
-\contentsline {section}{\numberline {5}Files created by execution of Event Creation Program}{22}
-\contentsline {section}{\numberline {6}Code for Checkpoint Manager Program}{22}
-\contentsline {section}{\numberline {7}Clean build and compilation of Checkpoint Program}{50}
-\contentsline {section}{\numberline {8}Run through of Checkpoint Manager Program}{51}
-\contentsline {section}{\numberline {9}Files created by execution of Checkpoint Manager\\Program}{54}
-\contentsline {section}{\numberline {10}Clean build and compilation of Event Manager Program}{56}
-\contentsline {section}{\numberline {11}Run through of Event Manager Program}{58}
-\contentsline {section}{\numberline {12}Results list produced at the end of an event}{73}
-\contentsline {subsection}{\numberline {12.1}Results of successful competitors}{73}
-\contentsline {subsection}{\numberline {12.2}Table of excluded competitors}{76}
-\contentsline {section}{\numberline {13}Log file contents}{77}
+\contentsline {section}{\numberline {2}Code for the Event Creation Program}{4}
+\contentsline {subsection}{\numberline {2.1}Header files}{4}
+\contentsline {subsection}{\numberline {2.2}Cpp files}{7}
+\contentsline {section}{\numberline {3}Clean build and compilation of Event Creation Program}{18}
+\contentsline {section}{\numberline {4}Run through of Event Creation Program}{19}
+\contentsline {section}{\numberline {5}Files created by execution of Event Creation Program}{23}
+\contentsline {section}{\numberline {6}Code for Checkpoint Manager Program}{23}
+\contentsline {section}{\numberline {7}Clean build and compilation of Checkpoint Program}{51}
+\contentsline {section}{\numberline {8}Run through of Checkpoint Manager Program}{52}
+\contentsline {section}{\numberline {9}Files created by execution of Checkpoint Manager\\Program}{55}
+\contentsline {section}{\numberline {10}Clean build and compilation of Event Manager Program}{57}
+\contentsline {section}{\numberline {11}Run through of Event Manager Program}{59}
+\contentsline {section}{\numberline {12}Results list produced at the end of an event}{74}
+\contentsline {subsection}{\numberline {12.1}Results of successful competitors}{74}
+\contentsline {subsection}{\numberline {12.2}Table of excluded competitors}{77}
+\contentsline {section}{\numberline {13}Log file contents}{78}

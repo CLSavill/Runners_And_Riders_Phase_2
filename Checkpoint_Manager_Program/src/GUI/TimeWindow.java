@@ -139,6 +139,8 @@ public class TimeWindow extends JFrame implements ActionListener {
 
                 Record record = new Record(checkpoint, finalStatus, competitor, (Date) spinner.getValue());
                 event.getRecords().add(record);
+                event.setLastLineRead(event.getLastLineRead() + 1);
+                event.setLastRecordedTime((Date) spinner.getValue());
 
                 fileHandler.appendTimeRecord(event.getFileNames()[3], record);
                 JOptionPane.showMessageDialog(timeFrame, "Time record succesfully added.");

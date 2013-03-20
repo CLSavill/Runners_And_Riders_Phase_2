@@ -45,10 +45,22 @@ Runners and Riders\\
 \section{Description of three programs}
 
 \subsection{Event Creation Program}
+\noindent Implemented in C++, this program was the simplest program to implement. Designing the program was quite easy as well due to how well this program suited an object oriented programming language such as C++. As the program was required to create an event with courses and competitors it made sense to make each of these a class with their related data members and member functions encapsulated together within their respective classes.
+
+\vspace{5mm}
+\noindent As the program's main purpose involved getting the user to input the details of the event, the courses, and the competitors, I decided to make the input processes robust by using checks and getting the user to double check their inputs. Although this may make the process long-winded I think the purpose they serve is worth the time. Another feature to improve robustness was to make sure that a user could not create a competitor without at least one course, otherwise competitors could be assigned a course that does not exist. With relation to assumptions, one assumption I made was that the tracks had no role in this program and that the tracks are generated/decided elsewhere once the courses have been created. This made generating the courses simpler as the only real checks needed were that valid nodes were selected and that the start and end nodes matched.
 
 \subsection{Checkpoint Manager Program}
+\noindent Implemented in Java this mainly GUI driven program took a bit of thinking with regards to the design. The main issue was figuring out how much information the program would require and the processing needed to validate a record. I made the assumption that records would arrive in chronological order to simplify the program and avoiding having to rewrite history. This meant that the program would only have to append to the time record file and only had to read in what it did not contain since it's last read.
+
+\vspace{5mm}
+\noindent With relation to making the program robust, I found it hard to cover every scenario that could be encountered so making the assumption that records would be entered in chronological order made things a lot easier. To make the program more robust I focused on the GUI design, keeping it simple and only supplying options to the user which would be easy to validate and reduce chances of error. By getting the type of checkpoint first, the program is able to filter the list of checkpoints in the next window thus getting rid of the user's need to check the type of checkpoint. Also there is a prompt telling the user they need to select both a checkpoint and competitor if only one was selected.
+
+\vspace{5mm}
+\noindent After getting the record details from the user I had to think about how to validate the new record and how to decide whether or not to append the new record to the time record file. I noticed that the program would need to keep track of every competitor's status and their current progress during the event. Using that information would allow the program to evaluate whether or not a new record is valid such as the program checking if the a competitor can be at a new checkpoint if the status tracked says that the competitor is currently at a medical checkpoint thus invalidating the new record.
 
 \subsection{Event Manager Program}
+\noindent Implemented in C this program did not require much work as I used the same program I implemented but removed the function to manually supply a time for a competitor and added the file locking capability to the accessing of the time record files and the implementation of writing a log file of the user's actions. As the program worked extremely well already I decided not to change any of the functionality just add the 2 new features and remove the 1 no longer needed.
 
 \section{Code for the Event Creation Program}
 \subsection{Header files}
