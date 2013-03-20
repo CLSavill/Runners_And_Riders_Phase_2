@@ -246,8 +246,12 @@ public class Event {
             if (time.before(lastRecordedTime)) {
                 System.out.println("\nInvalid time.");
                 return false;
+            } else if (competitor.getCheckpointIndex() == competitor.getCheckpoints().length) {
+                System.out.println("\nCompetitor already finished.");
+                return false;
             }
         }
+        
 
         if (competitor.getStatus() == 'I' || competitor.getStatus() == 'E') {
             System.out.println("\nCompetitor already excluded.");

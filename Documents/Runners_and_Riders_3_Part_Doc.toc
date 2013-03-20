@@ -11,10 +11,10 @@
 \contentsline {section}{\numberline {6}Code for Checkpoint Manager Program}{22}
 \contentsline {section}{\numberline {7}Clean build and compilation of Checkpoint Program}{50}
 \contentsline {section}{\numberline {8}Run through of Checkpoint Manager Program}{51}
-\contentsline {section}{\numberline {9}Files created by execution of Event Creation Program}{54}
-\contentsline {section}{\numberline {10}Clean build and compilation of Event Manager Program}{54}
-\contentsline {section}{\numberline {11}Run through of Event Manager Program}{56}
-\contentsline {section}{\numberline {12}Results list produced at the end of an event}{71}
-\contentsline {subsection}{\numberline {12.1}Results of successful competitors}{71}
-\contentsline {subsection}{\numberline {12.2}Table of excluded competitors}{74}
-\contentsline {section}{\numberline {13}Log file contents}{75}
+\contentsline {section}{\numberline {9}Files created by execution of Checkpoint Manager\\Program}{54}
+\contentsline {section}{\numberline {10}Clean build and compilation of Event Manager Program}{56}
+\contentsline {section}{\numberline {11}Run through of Event Manager Program}{58}
+\contentsline {section}{\numberline {12}Results list produced at the end of an event}{73}
+\contentsline {subsection}{\numberline {12.1}Results of successful competitors}{73}
+\contentsline {subsection}{\numberline {12.2}Table of excluded competitors}{76}
+\contentsline {section}{\numberline {13}Log file contents}{77}
